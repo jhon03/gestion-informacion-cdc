@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Gestión de Formatos de Registro</h1>
+  
+    <div>
+      <button class="btn btn-primary" (click)="addColumn()">Agregar Columna</button>
+    </div>
+  
+    <form>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Columna </label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </form>
+  
+    <div>
+      <button class="btn btn-success" (click)="saveFormat()">Guardar Formato</button>
+    </div>
+  </div>
+  
