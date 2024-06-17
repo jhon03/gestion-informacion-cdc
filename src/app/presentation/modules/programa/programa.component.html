@@ -1,0 +1,53 @@
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">bienvenido a los programas</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+<section class="intro">
+    <div class="gradient-custom-1 h-100">
+      <div class="mask d-flex align-items-center h-100">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12">
+                <button onclick="history.back()" style="background-color: transparent; margin-top: 20px;">
+                    <!-- <img class="img-fluid" src="../../../assets/atras.png" alt="" style="height: 40px; border: none;"> -->
+                </button>
+              <div class="table-responsive bg-white my-5">
+                <table class="table mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">idPrograma</th>
+                      <th scope="col">colaborador Creador</th>
+                      <th scope="col">Colaborador Responsable</th>
+                      <!-- <th scope="col">nombre de usuario</th>
+                      <th scope="col">correo</th>
+                      <th scope="col">cargo</th>
+                      <th scope="col">celular</th>
+                      <th scope="col">fecha de creacion</th>
+                      <th scope="col">rol</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let programa of programas">
+                      <th scope="row" style="color: #666666;">{{programa.id}}</th>
+                      <td>{{programa.colaborador}}</td>
+                      <td>{{programa.nombreColaboradorResponsable}}</td>
+                      <!-- <td>{{colaborador.username}}</td>
+                      <td>{{colaborador.correo}}</td>
+                      <td>{{colaborador.cargo}}</td>
+                      <td>{{colaborador.celular}}</td>
+                      <td>{{colaborador.fechaCreacion | date:'dd/MM/yyyy'}}</td>
+                      <td>{{colaborador.rol.rol}}</td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
