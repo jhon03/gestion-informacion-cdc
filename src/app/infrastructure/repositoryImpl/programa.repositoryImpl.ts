@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ProgramaRepository } from "../../domain/repositories/programa.repository";
 import { Observable } from "rxjs";
-import { Programa } from "../../domain/entities/programa.model";
+import { Programa } from "../../domain/models/programa.models";
 import { ProgramaService } from "../services/programa/programa.service";
 import { ProgramaDto } from "../dto/programa.dto";
 import { responseProgram } from "../helpers/interfaces/responses.interface";

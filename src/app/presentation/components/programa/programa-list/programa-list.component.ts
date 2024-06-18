@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Programa } from '../../../../domain/entities/programa.model';
+import { Programa } from '../../../../domain/models/programa.models';
 
 @Component({
   selector: 'app-programa-list',

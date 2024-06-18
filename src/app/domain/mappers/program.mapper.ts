@@ -1,6 +1,6 @@
 import { ProgramaDto } from "../../infrastructure/dto/programa.dto";
-import { Colaborador } from "../entities/colaborador.model";
-import { Programa } from "../entities/programa.model";
+import { Colaborador } from "../models/colaborador.models";
+import { Programa } from "../models/programa.models";
 
 export class programMapper {
 

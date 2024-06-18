@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Programa } from '../entities/programa.model';
+import { Programa } from '../models/programa.models';
 import { ProgramaDto } from '../../infrastructure/dto/programa.dto';
 import { Injectable, inject } from '@angular/core';
 import { responseProgram } from '../../infrastructure/helpers/interfaces/responses.interface';

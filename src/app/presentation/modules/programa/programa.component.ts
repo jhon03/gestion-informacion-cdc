@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Programa } from '../../../domain/entities/programa.model';
+import { Programa } from '../../../domain/models/programa.models';
 import { ProgramaRepository } from '../../../domain/repositories/programa.repository';
 import { Subscription } from 'rxjs';
 import { ProgramaDto } from '../../../infrastructure/dto/programa.dto';

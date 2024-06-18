@@ -1,7 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Programa } from '../../../domain/entities/programa.model';
+import { Programa } from '../../../domain/models/programa.models';
 import { ProgramaDto } from '../../dto/programa.dto'
 import { programMapper } from '../../../domain/mappers/program.mapper';
 import { responseProgram } from '../../helpers/interfaces/responses.interface';
