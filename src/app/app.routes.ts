@@ -28,6 +28,12 @@ export const routes: Routes = [
 
     },
 
+    {
+        path: 'mdl',
+        loadChildren: () => import('./presentation/modules/module.module').then(m => m.ModuleModule)
+
+    },
+
     { path: 'detalles-programa', component: DetalleProgramaComponent},
 
     { path: '', redirectTo: '/formato-registro', pathMatch: 'full'},

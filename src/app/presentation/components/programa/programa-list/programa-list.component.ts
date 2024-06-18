@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProgramaService } from '../../../../domain/services/programa.service';
 import { Programa } from '../../../../domain/entities/programa.model';
 
 @Component({

@@ -1,9 +1,14 @@
+
 export class Programa {
 
     constructor (
-        public id: string,
-        
-
+        public idPrograma: string,
+        public nombrePrograma: string,
+        public fechaCreacion: string,
+        public estado: string,
+        public formato: string,
+        public colaboradorCreador: string,
+        public ColaboradorResponsable: string,
     ){}
 
 

@@ -5,7 +5,8 @@ import { FormatoRegistroProgramaComponent } from './components/formato-registro-
 const routes: Routes = [
 
 
-  {path: 'formato-registro-programa', 
+  {
+    path: 'formato-registro-programa', 
     component: FormatoRegistroProgramaComponent
   }
 ];
