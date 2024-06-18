@@ -2,7 +2,7 @@ import { ProgramaDto } from "../../infrastructure/dto/programa.dto";
 import { Colaborador } from "../models/colaborador.models";
 import { Programa } from "../models/programa.models";
 
-export class programMapper {
+export class ProgramaMapper {
 
     static programToProgramDto(programa: Programa, colaboradorCreador: Colaborador, ColaboradorResponsable: Colaborador):ProgramaDto{
         

@@ -9,6 +9,6 @@ export interface ProgramaDto {
     fechaCreacion: string,
     idColaboradorResponsable: string,
     nombreColaboradorResponsable: string,
-    formato: string
+    formato: Record<string, any>
     
 }

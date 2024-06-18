@@ -6,7 +6,7 @@ export class Programa {
         public nombrePrograma: string,
         public fechaCreacion: string,
         public estado: string,
-        public formato: string,
+        public formato: Record<string,any>,
         public colaboradorCreador: string,
         public ColaboradorResponsable: string,
     ){}

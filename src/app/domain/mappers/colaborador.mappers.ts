@@ -16,10 +16,10 @@ export class ColaboradorMapper {
         }
     };
 
-    static ColaboradorDtoToColaborador(colaboradorDto: ColaboradorDto): Colaborador {
+    static ColaboradorDtoToColaborador(colaboradorDto: ColaboradorDto, tipoIdentificacion: TipoIdentificacion): Colaborador {
         return {
             idColaborador: colaboradorDto.id,
-            tipoIdentificacion: colaboradorDto.tipoIdentificacion,
+            tipoIdentificacion: tipoIdentificacion.idIdentificacion,
             numeroIdentificacion: colaboradorDto.numeroDocumento,
             nombreColaborador: colaboradorDto.nombre,
             fechaCreacion: colaboradorDto.fechaCreacion,
