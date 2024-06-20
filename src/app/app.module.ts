@@ -24,7 +24,10 @@ import { programaRepositoryImpl } from './infrastructure/repositoryImpl/programa
     AppRoutes,
     MatButtonModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    FormatosDeRegistrosModule,
+    RegistroProgramaModule,
+    ProgramaListComponent
     // Otros módulos que necesites importar
   ],
   providers: [  
