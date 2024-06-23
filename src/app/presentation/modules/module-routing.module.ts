@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ColaboradorComponent } from './colaborador/colaborador.component';
-import { ProgramaComponent } from './programa/programa.component';
+import { ProgramaListComponent } from '../components/programa/programa-list/programa-list.component';
 
 const routes: Routes = [
+
+
   {
-    path: '*',
-    component: ProgramaComponent
+    path: 'programa',
+    loadChildren: () => import('./programa/programa.module').then(m => m.ProgramaModule)
   },
-  {
-    path:'colaborador',
-    component: ProgramaComponent
-  }
+
+
 ];
 
 @NgModule({
