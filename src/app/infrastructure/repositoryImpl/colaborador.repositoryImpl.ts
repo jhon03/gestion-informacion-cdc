@@ -3,9 +3,14 @@ import { ColaboradorRepository } from "../../domain/repositories/colaborador.rep
 import { colaboradorRequest } from "../helpers/interfaces/request.interfaces";
 import { colaboradoresResponse, colaboradorResponse } from "../helpers/interfaces/responses.interface";
 import { ColaboradorService } from "../services/colaborador/colaborador.service";
+import { Injectable } from "@angular/core";
+
+@Injectable({
+    providedIn: 'root'
+}) 
 
 export class ColaboradorRepositoryImpl implements ColaboradorRepository {
-
+ 
     constructor(private colaboradorService: ColaboradorService){}
 
     getColaboradors(): Observable<colaboradoresResponse> {

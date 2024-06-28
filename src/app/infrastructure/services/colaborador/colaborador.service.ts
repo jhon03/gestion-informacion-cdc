@@ -9,7 +9,7 @@ import { colaboradorRequest } from '../../helpers/interfaces/request.interfaces'
 })
 export class ColaboradorService {
 
-  private url : string = 'api/colaboradores'
+  private url : string = 'http://localhost:8080/api/colaboradores'
 
   constructor(private http: HttpClient) { }
 

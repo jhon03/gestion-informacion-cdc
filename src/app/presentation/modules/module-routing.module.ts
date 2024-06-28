@@ -10,6 +10,10 @@ const routes: Routes = [
     path: 'programa',
     loadChildren: () => import('./programa/programa.module').then(m => m.ProgramaModule)
   },
+  {
+    path: 'colaborador',
+    loadChildren: () => import('./colaborador/colaborador.module').then(m => m.ColaboradorModule)
+  },
 
 
 ];

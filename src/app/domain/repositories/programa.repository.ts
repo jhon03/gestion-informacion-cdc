@@ -10,6 +10,7 @@ import { programaRequest } from '../../infrastructure/helpers/interfaces/request
 })
 
 export abstract class ProgramaRepository {
+   
    abstract getPrograms(): Observable<responsePrograms>;
    abstract getProgramsInConfirmation(): Observable<responsePrograms>
    abstract getProgramById(idPrograma: string):Observable<responseProgram>;
