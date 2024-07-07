@@ -10,10 +10,20 @@ import { RegistroProgramaModule } from './presentation/registro-programa/registr
 import { FormatosDeRegistrosModule } from './presentation/formatos-de-registros/formatos-de-registros.module';
 import {MatButtonModule} from '@angular/material/button';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+
 import { programaRepositoryImpl } from './infrastructure/repositoryImpl/programa.repositoryImpl';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
 
-
+import {MatDividerModule} from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { HttpClientModule } from '@angular/common/http';
+import { UsuariosModule } from './presentation/modules/usuarios/usuarios.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -24,14 +34,23 @@ import { programaRepositoryImpl } from './infrastructure/repositoryImpl/programa
     AppRoutes,
     MatButtonModule,
     RouterModule,
-    HttpClientModule,
     FormatosDeRegistrosModule,
     RegistroProgramaModule,
-    ProgramaListComponent
+    ProgramaListComponent,
     // Otros módulos que necesites importar
+    MatGridListModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatDividerModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonToggleModule,
+    HttpClientModule,
+    UsuariosModule
   ],
   providers: [  
-    {provide: ProgramaRepository, useClass: programaRepositoryImpl}
+    {provide: ProgramaRepository, useClass: programaRepositoryImpl}, provideAnimationsAsync()
   ], 
   bootstrap: [AppComponent]
 })

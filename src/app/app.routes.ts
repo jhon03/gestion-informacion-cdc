@@ -34,6 +34,11 @@ export const routes: Routes = [
 
     },
 
+    {
+        path: 'usuarios',
+        loadChildren: () => import('./presentation/modules/usuarios/usuarios.module').then(m => m.UsuariosModule)
+    },
+
     { path: 'detalles-programa', component: DetalleProgramaComponent},
 
     { path: '', redirectTo: '/formato-registro', pathMatch: 'full'},
