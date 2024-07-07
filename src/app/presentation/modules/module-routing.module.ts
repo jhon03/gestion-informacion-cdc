@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ColaboradorComponent } from './colaborador/colaborador.component';
 import { ProgramaComponent } from './programa/programa.component';
 
 const routes: Routes = [
