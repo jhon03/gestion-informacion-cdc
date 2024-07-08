@@ -24,6 +24,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { UsuariosModule } from './presentation/modules/usuarios/usuarios.module';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent
@@ -47,7 +48,8 @@ import { UsuariosModule } from './presentation/modules/usuarios/usuarios.module'
     MatInputModule,
     MatButtonToggleModule,
     HttpClientModule,
-    UsuariosModule
+    UsuariosModule,
+    CommonModule
   ],
   providers: [  
     {provide: ProgramaRepository, useClass: programaRepositoryImpl}, provideAnimationsAsync()

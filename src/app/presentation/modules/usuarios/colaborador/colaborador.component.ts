@@ -7,38 +7,18 @@ import { ColaboradorService } from '../../../../infrastructure/services/colabora
 
 @Component({
   selector: 'app-colaborador',
-  standalone: true,
-  imports: [],
   templateUrl: './colaborador.component.html',
   styleUrl: './colaborador.component.css'
 })
 export class ColaboradorComponent  implements OnInit, OnDestroy{
 
-// colaborador: Colaborador = new Colaborador();
-  private subscriptionCrearCol!: Subscription;
 
-  ngOnInit(): void {
-      
+  ngOnInit(): void {   
   }
-  ngOnDestroy(): void {
-      
-  }
-constructor(private colaboradorService: ColaboradorService, private subscription: Subscription ){
+  ngOnDestroy(): void {   
+  } 
 
+  constructor(private colaboradorService: ColaboradorService ){}
 
-}
-
-/*crearColaborador(){
-this.subscriptionCrearCol = this.colaboradorService.crearColaborador(this.colaborador).subscribe(
-  {
-    next:(date) => {
-      
-
-     
-    }
-  }
-)
- 
-}*/
   
 }
