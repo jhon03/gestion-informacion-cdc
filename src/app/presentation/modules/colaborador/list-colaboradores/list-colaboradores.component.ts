@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ColaboradorService } from '../../../../infrastructure/services/colaborador/colaborador.service';
 import { ColaboradorRepository } from '../../../../domain/repositories/colaborador.repository';
-import { colaboradorResponse, colaboradoresResponse } from '../../../../infrastructure/helpers/interfaces/responses.interface';
+import { colaboradorResponse, colaboradoresResponse } from '../../../../infrastructure/helpers/interfaces/colaborador.interface';
 import { ColaboradorDto } from '../../../../infrastructure/dto/colaborador.dto';
 
 @Component({
