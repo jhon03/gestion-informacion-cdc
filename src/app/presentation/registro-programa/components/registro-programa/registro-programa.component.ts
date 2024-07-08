@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-registro-programa',
@@ -10,6 +9,8 @@ import {NgForm} from '@angular/forms';
   styleUrl: './registro-programa.component.css'
 })
 export class RegistroProgramaComponent implements OnInit {
+
+
 
   program = {
 
@@ -22,6 +23,8 @@ export class RegistroProgramaComponent implements OnInit {
 
 
   constructor(){}
+
+    
   ngOnInit(): void {}
 
 
