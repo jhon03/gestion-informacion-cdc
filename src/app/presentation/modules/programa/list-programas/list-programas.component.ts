@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { responsePrograms } from '../../../../infrastructure/helpers/interfaces/responses.interface';
+import { responsePrograms } from '../../../../infrastructure/helpers/interfaces/programa.interface';
 import { ProgramaRepository } from '../../../../domain/repositories/programa.repository';
 import { ProgramaDto } from '../../../../infrastructure/dto/programa.dto';
 import { Subscription } from 'rxjs';

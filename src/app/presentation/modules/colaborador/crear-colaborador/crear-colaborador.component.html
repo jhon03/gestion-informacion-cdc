@@ -1,12 +1,10 @@
 <h1>
-  Editar / Agregar
-  héroe
-  <small>Superman</small>
+  Registrate
 </h1>
 
 <mat-divider class="mb-2"></mat-divider>
 
-<div class="grid">
+<form class="grid" [formGroup]="colaboradorForm" >
 
   <div class="col-12 sm:col-6">
     <mat-card>
@@ -14,52 +12,60 @@
 
         <div class="grid">
 
-          <mat-form-field class="col-12 sm:col-6">
-            <mat-label>Super héroe</mat-label>
-            <input
-              matInput
-              type="text"
-              required
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-12 sm:col-6">
-            <mat-label>Alter ego</mat-label>
-            <input
-              matInput
-              type="text"
-              required
-            />
-          </mat-form-field>
-
-
-          <mat-form-field class="col-12">
-            <mat-label>Primera aparición</mat-label>
-            <input
-              matInput
-              type="text"
-              required
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-12">
-            <mat-label>Personajes</mat-label>
-            <input
-              matInput
-              type="text"
-              required
-            />
-          </mat-form-field>
-
           <mat-form-field class="col-12">
             <mat-label>Tipo Documento</mat-label>
-            <mat-select required="">
-              <mat-option *ngFor="let publisher of publishers"
-                [value]="publisher.id">
-                {{ publisher.desc }}
+            <mat-select 
+              required
+              formControlName="tipoIdentificacion"
+            >
+              <mat-option *ngFor="let tIdentificacion of tipoIdentificaciones"
+                [value]="tIdentificacion.idIdentificacion">
+                {{ tIdentificacion.nombreIdentificacion }}
               </mat-option>
             </mat-select>
           </mat-form-field>
+
+          <mat-form-field class="col-12 sm:col-6">
+            <mat-label>Numero Documento</mat-label>
+            <input
+              matInput
+              type="text"
+              required
+              formControlName="numeroIdentificacion"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-12 sm:col-6">
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              type="text"
+              required
+              formControlName="nombreColaborador"
+            />
+          </mat-form-field>
+
+
+          <mat-form-field class="col-12">
+            <mat-label>Nombre Usuario</mat-label>
+            <input
+              matInput
+              type="text"
+              required
+              formControlName="nombreUsuario"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <mat-label>Contrasena</mat-label>
+            <input
+              matInput
+              type="text"
+              required
+              formControlName="contrasena"
+            />
+          </mat-form-field>
+
         </div>
 
         <div class="flex justify-content-between">
@@ -73,6 +79,7 @@
           <button
             mat-flat-button
             color="primary"
+            (click)="onSubmit()"
           >
             <mat-icon>save</mat-icon>
             Guardar
@@ -90,7 +97,11 @@
     </mat-card>
 
   </div>
-</div>
+</form>
+
+<!-- <pre>
+  {{ currentColaborador.nombreColaborador| json}}
+</pre> -->
 
 
 

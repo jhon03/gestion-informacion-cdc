@@ -2,8 +2,8 @@ import { Observable } from 'rxjs';
 import { Programa } from '../models/programa.models';
 import { ProgramaDto } from '../../infrastructure/dto/programa.dto';
 import { Injectable, inject } from '@angular/core';
-import { responseProgram, responsePrograms } from '../../infrastructure/helpers/interfaces/responses.interface';
-import { programaRequest } from '../../infrastructure/helpers/interfaces/request.interfaces';
+import { programaRequest, responseProgram, responsePrograms } from '../../infrastructure/helpers/interfaces/programa.interface';
+
 
 @Injectable({
    providedIn: 'root'

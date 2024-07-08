@@ -1,7 +1,6 @@
 import { Observable } from "rxjs";
-import { colaboradorResponse, colaboradoresResponse } from "../../infrastructure/helpers/interfaces/responses.interface";
-import { colaboradorRequest } from "../../infrastructure/helpers/interfaces/request.interfaces";
 import { Injectable } from "@angular/core";
+import { colaboradorRequest, colaboradorResponse, colaboradoresResponse } from "../../infrastructure/helpers/interfaces/colaborador.interface";
 
 @Injectable({
     providedIn: "root"

@@ -4,49 +4,48 @@ import { Observable, map } from 'rxjs';
 import { Programa } from '../../../domain/models/programa.models';
 import { ProgramaDto } from '../../dto/programa.dto'
 import { ProgramaMapper } from '../../../domain/mappers/programa.mapper';
-import { responseProgram, responsePrograms } from '../../helpers/interfaces/responses.interface';
-import { programaRequest } from '../../helpers/interfaces/request.interfaces';
+import { responseProgram, responsePrograms } from '../../helpers/interfaces/programa.interface';
+import { programaRequest } from '../../helpers/interfaces/programa.interface';
+import { environments } from '../../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProgramaService {
 
-  private apiUrl: string = 'http://localhost:8080/api/programa'
-  //private readonly http = inject(HttpClient);
+  private baseUrl: string = `${environments.baseUrl}/api/colaboradores`
 
   constructor(private http: HttpClient) { }
 
   obtenerProgramas(): Observable<responsePrograms>{
-    return this.http.get<responsePrograms>(`${this.apiUrl}/obtenerProgramas`)
+    return this.http.get<responsePrograms>(`${this.baseUrl}/obtenerProgramas`)
   }
 
   obtenerProgramaById(idPrograma: string): Observable<responseProgram>{
-    return this.http.get<responseProgram>(`${this.apiUrl}/${idPrograma}`)
+    return this.http.get<responseProgram>(`${this.baseUrl}/${idPrograma}`)
   }
-
   obtenerProgramasEnEspera(): Observable<responsePrograms>{
-    return this.http.get<responsePrograms>(`${this.apiUrl}/obtenerProgramasConfirmacion`);
+    return this.http.get<responsePrograms>(`${this.baseUrl}/obtenerProgramasConfirmacion`);
   }
 
   activarPrograma(idPrograma: string): Observable<responseProgram>{
-    return this.http.get<responseProgram>(`${this.apiUrl}/activar/${idPrograma}`);
+    return this.http.get<responseProgram>(`${this.baseUrl}/activar/${idPrograma}`);
   }
 
   actualizarPrograma(idPrograma: string, datos: programaRequest): Observable<responseProgram>{
-    return this.http.put<responseProgram>(`${this.apiUrl}/actualizar/${idPrograma}`, datos)
+    return this.http.put<responseProgram>(`${this.baseUrl}/actualizar/${idPrograma}`, datos)
   }
 
   crearPrograma(idColaborador: string, datos: programaRequest): Observable<responseProgram>{
-    return this.http.post<responseProgram>(`${this.apiUrl}/${idColaborador}/crearPrograma`, datos);
+    return this.http.post<responseProgram>(`${this.baseUrl}/${idColaborador}/crearPrograma`, datos);
   }
 
   desactivarPrograma(idPrograma: string): Observable<responseProgram>{
-    return this.http.get<responseProgram>(`${this.apiUrl}/desactivar/${idPrograma}`);
+    return this.http.get<responseProgram>(`${this.baseUrl}/desactivar/${idPrograma}`);
   }
 
   confirmarPrograma(idPrograma: string, idColAsignado: string): Observable<responseProgram>{
-    return this.http.get<responseProgram>(`${this.apiUrl}/confirmar/${idPrograma}/colAsignado/${idColAsignado}`)
+    return this.http.get<responseProgram>(`${this.baseUrl}/confirmar/${idPrograma}/colAsignado/${idColAsignado}`)
   }
 
 }

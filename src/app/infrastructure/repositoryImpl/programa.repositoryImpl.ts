@@ -4,8 +4,8 @@ import { Observable } from "rxjs";
 import { Programa } from "../../domain/models/programa.models";
 import { ProgramaService } from "../services/programa/programa.service";
 import { ProgramaDto } from "../dto/programa.dto";
-import { responseProgram, responsePrograms } from "../helpers/interfaces/responses.interface";
-import { programaRequest } from "../helpers/interfaces/request.interfaces";
+import { programaRequest, responseProgram, responsePrograms } from "../helpers/interfaces/programa.interface";
+
 
 @Injectable({
     providedIn: 'root'

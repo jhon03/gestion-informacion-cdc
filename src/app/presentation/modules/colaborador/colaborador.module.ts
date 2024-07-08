@@ -19,8 +19,7 @@ import { LayoutComponent } from './layout/layout.component';
     CommonModule,
     ColaboradorRoutingModule,
     ReactiveFormsModule,
-    MaterialModule
-    
+    MaterialModule 
   ]
 })
 export class ColaboradorModule { }

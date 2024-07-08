@@ -1,9 +1,8 @@
 import { Observable } from "rxjs";
 import { ColaboradorRepository } from "../../domain/repositories/colaborador.repository";
-import { colaboradorRequest } from "../helpers/interfaces/request.interfaces";
-import { colaboradoresResponse, colaboradorResponse } from "../helpers/interfaces/responses.interface";
 import { ColaboradorService } from "../services/colaborador/colaborador.service";
 import { Injectable } from "@angular/core";
+import { colaboradorRequest, colaboradorResponse, colaboradoresResponse } from "../helpers/interfaces/colaborador.interface";
 
 @Injectable({
     providedIn: 'root'
