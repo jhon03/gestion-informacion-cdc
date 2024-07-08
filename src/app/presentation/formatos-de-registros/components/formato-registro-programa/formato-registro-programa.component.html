@@ -1,23 +1,41 @@
 <div class="container">
-    <h1>Gestión de Formatos de Registro</h1>
-  
-    <div>
-      <button class="btn btn-primary" (click)="addColumn()">Agregar Columna</button>
-    </div>
-  
-    <form>
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Columna </label>
-        <div class="col-sm-8">
-          <input type="text" class="form-control">
+  <h5>Gestión de Formatos de Registro</h5>
+
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <div class="example-button-container">
+        <label>Crear Nuevo Formato</label>
+        <button mat-fab aria (click)="openDialog()">
+          <mat-icon
+            ><span class="material-symbols-outlined"> add </span></mat-icon
+          >
+        </button>
+        <div>
+          CREADO SACTISFATORIAMENTE: <em> {{ nombre() }}</em>
+
+         
         </div>
-        <div class="col-sm-2">
-          <button type="button" class="btn btn-danger">Eliminar</button>
-        </div>
+
       </div>
-    </form>
-  
-    <div>
-      <button class="btn btn-success" (click)="saveFormat()">Guardar Formato</button>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="container">
+  <table id="format-table">
+    <thead>
+      <tr>
+        <th>Nombre de la Columna</th>
+        <th>Tipo de Dato</th>
+        <th class="actions">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Las filas de las columnas se añadirán aquí dinámicamente -->
+    </tbody>
+  </table>
+
+  <button id="add-column" class="add-column" (click)="onNoClick()">
+    Añadir Columna
+  </button>
+</div>

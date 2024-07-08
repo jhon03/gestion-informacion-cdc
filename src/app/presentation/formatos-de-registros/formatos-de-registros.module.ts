@@ -2,15 +2,38 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormatosDeRegistrosRoutingModule } from './formatos-de-registros-routing.module';
-import {MatButtonModule} from '@angular/material/button';
 
+import { DialogAsignarNombre, FormatoRegistroProgramaComponent} from './components/formato-registro-programa/formato-registro-programa.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatGridListModule} from '@angular/material/grid-list';
+
+import {MatIconModule} from '@angular/material/icon';
+
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
+import {MatDividerModule} from '@angular/material/divider';
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
+
+
   imports: [
     CommonModule,
     FormatosDeRegistrosRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    MatGridListModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatDividerModule,
+    MatCardModule,
+    FormatoRegistroProgramaComponent,
+    DialogAsignarNombre,
+    MatInputModule
+   
   ]
+  
 })
 export class FormatosDeRegistrosModule { }
