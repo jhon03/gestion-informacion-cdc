@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProgramaComponent } from './programa/programa.component';
+
 
 const routes: Routes = [
+
+
   {
-    path: '*',
-    component: ProgramaComponent
-  },
-  {
-    path:'colaborador',
-    component: ProgramaComponent
+    path: 'programa',
+    loadChildren: () => import('./programa/programa.module').then(m => m.ProgramaModule)
   }
+  
+
 ];
 
 @NgModule({

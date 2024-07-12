@@ -12,8 +12,8 @@ export const routes: Routes = [
 
 
     {
-     path: 'formato-registro',
-     loadChildren: ()=> import('./presentation/formatos-de-registros/formatos-de-registros.module').then(m => m.FormatosDeRegistrosModule)
+        path: 'formato-registro',
+        loadChildren: ()=> import('./presentation/formatos-de-registros/formatos-de-registros.module').then(m => m.FormatosDeRegistrosModule)
     },
 
     {

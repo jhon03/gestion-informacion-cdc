@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Programa } from '../../../domain/models/programa.models';
-import { ProgramaRepository } from '../../../domain/repositories/programa.repository';
+import { Component } from '@angular/core';
+import { responsePrograms } from '../../../../infrastructure/helpers/interfaces/programa.interface';
+import { ProgramaRepository } from '../../../../domain/repositories/programa.repository';
+import { ProgramaDto } from '../../../../infrastructure/dto/programa.dto';
 import { Subscription } from 'rxjs';
-import { ProgramaDto } from '../../../infrastructure/dto/programa.dto';
-import { responseProgram } from '../../../infrastructure/helpers/interfaces/responses.interface';
 
 @Component({
-  selector: 'app-programa',
-  templateUrl: './programa.component.html',
-  styleUrl: './programa.component.css'
+  selector: 'app-list-programas',
+  templateUrl: './list-programas.component.html',
+  styleUrl: './list-programas.component.css'
 })
-export class ProgramaComponent {
+export class ListProgramasComponent {
 
   private programasSuscripcion: Subscription | null = null;
 
@@ -29,11 +28,12 @@ export class ProgramaComponent {
 
   obtenerProgramas(){
     this.programasSuscripcion = this.programaRepository.getPrograms().subscribe({
-      next: ({msg, programas}: responseProgram ) => {
+      next: ({msg, programas}: responsePrograms ) => {
         console.log(programas)
         this.programas = programas;
       },
       error: (error:Error) => console.log(error),
     })
   }
+
 }

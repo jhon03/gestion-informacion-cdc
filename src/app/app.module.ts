@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutes } from './app.routes';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Importar tus componentes aquí
 import { ProgramaListComponent } from './presentation/components/programa/programa-list/programa-list.component';
@@ -12,19 +13,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
 import { programaRepositoryImpl } from './infrastructure/repositoryImpl/programa.repositoryImpl';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
 
-import {MatDividerModule} from '@angular/material/divider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatCardModule} from '@angular/material/card';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { HttpClientModule } from '@angular/common/http';
-import { UsuariosModule } from './presentation/modules/usuarios/usuarios.module';
-import { CommonModule } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -32,12 +22,13 @@ import { CommonModule } from '@angular/common';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutes,
     MatButtonModule,
     RouterModule,
     FormatosDeRegistrosModule,
     RegistroProgramaModule,
-    ProgramaListComponent,
+    ProgramaListComponent
     // Otros módulos que necesites importar
     MatGridListModule,
     MatIconModule,
@@ -52,7 +43,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   providers: [  
-    {provide: ProgramaRepository, useClass: programaRepositoryImpl}, provideAnimationsAsync()
+    {provide: ProgramaRepository, useClass: programaRepositoryImpl}
   ], 
   bootstrap: [AppComponent]
 })
