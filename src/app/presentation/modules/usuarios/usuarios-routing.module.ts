@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PanelAdministracionComponent } from './panel-administracion/panel-administracion.component';
-
-import { ColaboradorComponent } from './colaborador/colaborador.component'
+import { CrearColaboradorComponent } from './colaborador/crear-colaborador/crear-colaborador.component';
 const routes: Routes = [
 
   {
@@ -12,7 +11,7 @@ const routes: Routes = [
 
   {
     path:'crear-colaborador',
-    component: ColaboradorComponent
+    component: CrearColaboradorComponent
   }
   
 ];

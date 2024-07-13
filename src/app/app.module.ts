@@ -7,13 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Importar tus componentes aquí
 import { ProgramaListComponent } from './presentation/components/programa/programa-list/programa-list.component';
 import { ProgramaRepository } from './domain/repositories/programa.repository';
-import { RegistroProgramaModule } from './presentation/registro-programa/registro-programa.module';
+
 import { FormatosDeRegistrosModule } from './presentation/formatos-de-registros/formatos-de-registros.module';
 import {MatButtonModule} from '@angular/material/button';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
 import { programaRepositoryImpl } from './infrastructure/repositoryImpl/programa.repositoryImpl';
-
+import { UsuariosModule } from './presentation/modules/usuarios/usuarios.module';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from './presentation/modules/material/material/material.module';
 
 @NgModule({
   declarations: [
@@ -27,20 +30,14 @@ import { programaRepositoryImpl } from './infrastructure/repositoryImpl/programa
     MatButtonModule,
     RouterModule,
     FormatosDeRegistrosModule,
-    RegistroProgramaModule,
-    ProgramaListComponent
+    
+    ProgramaListComponent,
     // Otros módulos que necesites importar
-    MatGridListModule,
-    MatIconModule,
-    MatSlideToggleModule,
-    MatDividerModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    MatButtonToggleModule,
     HttpClientModule,
     UsuariosModule,
-    CommonModule
+    CommonModule,
+    MaterialModule
+    
   ],
   providers: [  
     {provide: ProgramaRepository, useClass: programaRepositoryImpl}

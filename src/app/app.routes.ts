@@ -16,21 +16,11 @@ export const routes: Routes = [
         loadChildren: ()=> import('./presentation/formatos-de-registros/formatos-de-registros.module').then(m => m.FormatosDeRegistrosModule)
     },
 
-    {
-        path: 'registro-programa',
-        loadChildren: () => import('./presentation/registro-programa/registro-programa.module').then(m => m.RegistroProgramaModule)
-
-    },
+   
 
     {
         path: 'evaluacion-activacion-programa',
         loadChildren: () => import('./presentation/evaluacion-activacion-programas/evaluacion-activacion-programas.module').then(m => m.EvaluacionActivacionProgramasModule)
-
-    },
-
-    {
-        path: 'mdl',
-        loadChildren: () => import('./presentation/modules/module.module').then(m => m.ModuleModule)
 
     },
 
@@ -44,9 +34,7 @@ export const routes: Routes = [
     { path: '', redirectTo: '/formato-registro', pathMatch: 'full'},
     { path: '**', redirectTo: '/formato-registro'},
 
-    {path: '', redirectTo: '/registro-programa',  pathMatch: 'full'},
-    {path: '**', redirectTo: '/registro-programa'},
-
+    
     {path: '', redirectTo: '/evaluacion-activacion-programa', pathMatch: 'full'},
     {path: '**', redirectTo: '/evaluacion-activacion-programa'},
 
