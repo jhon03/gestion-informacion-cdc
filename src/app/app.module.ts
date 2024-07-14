@@ -9,18 +9,22 @@ import { ProgramaListComponent } from './presentation/components/programa/progra
 import { ProgramaRepository } from './domain/repositories/programa.repository';
 
 import { FormatosDeRegistrosModule } from './presentation/formatos-de-registros/formatos-de-registros.module';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
 import { programaRepositoryImpl } from './infrastructure/repositoryImpl/programa.repositoryImpl';
 import { UsuariosModule } from './presentation/modules/usuarios/usuarios.module';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './presentation/modules/material/material/material.module';
-
+import { TipoIdentificacionRepository } from './domain/repositories/tipoIdentificacion.repositories';
+import { TidentificacionRepositoryImp } from './infrastructure/repositoryImpl/tipoIdentificacion.repositoryImpl';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ColaboradorRepository } from './domain/repositories/colaborador.repository';
+import { ColaboradorRepositoryImpl } from './infrastructure/repositoryImpl/colaborador.repositoryImpl';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
     // Otros componentes que necesites declarar
   ],
   imports: [
@@ -30,18 +34,25 @@ import { MaterialModule } from './presentation/modules/material/material/materia
     MatButtonModule,
     RouterModule,
     FormatosDeRegistrosModule,
-    
+
     ProgramaListComponent,
     // Otros módulos que necesites importar
-    HttpClientModule,
+
     UsuariosModule,
     CommonModule,
-    MaterialModule
-    
+    MaterialModule,
+    HttpClientModule
+   
   ],
-  providers: [  
-    {provide: ProgramaRepository, useClass: programaRepositoryImpl}
-  ], 
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: ProgramaRepository, useClass: programaRepositoryImpl },
+    { provide: ColaboradorRepository, useClass: ColaboradorRepositoryImpl },
+    {
+      provide: TipoIdentificacionRepository,
+      useClass: TidentificacionRepositoryImp,
+    },
+    provideAnimationsAsync(),
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

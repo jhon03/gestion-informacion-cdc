@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +20,7 @@ import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   exports: [
+    CommonModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
@@ -35,6 +37,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatSnackBarModule,
     MatToolbarModule,
     MatDividerModule,
+
   ]
 })
 export class MaterialModule { }

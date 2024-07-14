@@ -1,2 +1,11 @@
 
-  
+<h1>COLABORADOR</h1>
+<mat-form-field class="col-12">
+    <mat-label>Tipo de documento</mat-label>
+    <mat-select disableRipple required formControlName="tipoIdentificacion">
+        <mat-option *ngFor="let tIdentificacion of tipoIdentificaciones" [value]="tIdentificacion.idIdentificacion">
+            {{tIdentificacion.nombreIdentificacion}}
+        </mat-option>
+        
+    </mat-select>
+</mat-form-field>

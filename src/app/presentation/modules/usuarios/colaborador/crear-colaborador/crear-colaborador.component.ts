@@ -6,13 +6,19 @@ import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
+import { MaterialModule } from '../../../material/material/material.module';
+import { TipoIdentificacionRepository } from '../../../../../domain/repositories/tipoIdentificacion.repositories';
+import { tIdentificacionesResponse } from '../../../../../infrastructure/helpers/interfaces/tipoIdentificacion.interface';
+import { TipoIdentificacionDto } from '../../../../../infrastructure/dto/tipoIdentificacion.dto';
+import { colaboradorRequest, colaboradorResponse } from '../../../../../infrastructure/helpers/interfaces/colaborador.interface';
 
-
-
+import { ColaboradorRepository } from '../../../../../domain/repositories/colaborador.repository';
 @Component({
   selector: 'app-crear-colaborador',
   standalone: true,
-  
+  imports: [
+    MaterialModule
+     ],
   templateUrl: './crear-colaborador.component.html',
   styleUrl: './crear-colaborador.component.css'
 
@@ -22,7 +28,7 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   public colaboradorSuscripcion: Subscription|null = null;
   public tipoIdentificacionSuscripcion: Subscription|null = null;
 
-  //tipoIdentificaciones: TipoIdentificacionDto[]|null= null;
+  tipoIdentificaciones: TipoIdentificacionDto[]|null= null;
 
   ngOnDestroy(): void {
       this.colaboradorSuscripcion?.unsubscribe();
@@ -30,11 +36,11 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   }
 
   ngOnInit(): void {
-    
+    this.obtenerIdentificaciones();
   }
 
   //inicializar objeto
- /* public colaborador: colaboradorRequest= {tipoIdentificacion:"",numeroIdentificacion:0,nombreUsuario:"",nombreColaborador:"",contrasena:""};
+ public colaborador: colaboradorRequest= {tipoIdentificacion:"",numeroIdentificacion:0,nombreUsuario:"",nombreColaborador:"",contrasena:""};
   
   //formulario reactivo
   public colaboradorForm = new FormGroup({
@@ -44,8 +50,8 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
     nombreUsuario: new FormControl(''),
     contrasena: new FormControl(''),
   });
-*/
-/*
+
+
   
   constructor(
     private colaboradorRepository: ColaboradorRepository, 
@@ -112,6 +118,6 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
     }
   }
     
-*/
 
 }
+
