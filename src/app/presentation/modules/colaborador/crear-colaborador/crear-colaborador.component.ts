@@ -114,7 +114,7 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
     this.colaborador.nombreUsuario = this.currentColaborador.nombreUsuario;
     this.colaborador.contrasena = this.currentColaborador.contrasena;
     this.colaborador.rol = this.currentColaborador.rol;
-    //this.crearColaborador();
+    this.crearColaborador();
     //this.colaboradorForm.reset(col);
     console.log(this.colaborador)
 
@@ -123,8 +123,9 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   crearColaborador(){
     this.colaboradorSuscripcion = this.colaboradorRepository.createColaborador(this.colaborador).subscribe({
       next: (res: colaboradorResponse) => {
+        this.showSnackBar("colaborador creado correctamente")
         console.log(res);
-        this.colaboradorForm.reset({});
+        //this.colaboradorForm.reset({});
       },
       error: ({error}) => {
         this.showAlert(error.errors[0].msg, false);
