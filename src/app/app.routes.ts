@@ -34,23 +34,8 @@ export const routes: Routes = [
 
     },
 
-    { path: 'detalles-programa', component: DetalleProgramaComponent},
-
-    { path: '', redirectTo: '/formato-registro', pathMatch: 'full'},
-    { path: '**', redirectTo: '/formato-registro'},
-
-    {path: '', redirectTo: '/registro-programa',  pathMatch: 'full'},
-    {path: '**', redirectTo: '/registro-programa'},
-
-    {path: '', redirectTo: '/evaluacion-activacion-programa', pathMatch: 'full'},
-    {path: '**', redirectTo: '/evaluacion-activacion-programa'},
-
-    { path: 'detalles-programa', component: DetalleProgramaComponent},
-    {path: '', redirectTo: '/detalles-programa', pathMatch: 'full'},
-
-
-    { path: 'programas', component: ProgramaListComponent},
-    {path: '', redirectTo: '/progrmas', pathMatch: 'full'},
+    {path: '', redirectTo: '/mdl', pathMatch: 'full'},
+    {path: '**', redirectTo: '/mdl', pathMatch: 'full'},
 
 ];
 

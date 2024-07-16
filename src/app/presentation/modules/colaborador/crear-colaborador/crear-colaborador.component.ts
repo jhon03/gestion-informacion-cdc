@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { colaboradorRequest, colaboradorResponse} from '../../../../infrastructure/helpers/interfaces/colaborador.interface';
 import { ColaboradorRepository } from '../../../../domain/repositories/colaborador.repository';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,18 @@ import { TipoIdentificacionDto } from '../../../../infrastructure/dto/tipoIdenti
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { RolRespository } from '../../../../domain/repositories/rol.repository';
+import { rolesResponse } from '../../../../infrastructure/helpers/interfaces/rol.interface';
+import { RolDto } from '../../../../infrastructure/dto/rol.dto';
+
+const col = {
+  tipoIdentificacion: '',
+  numeroIdentificacion: '',
+  nombreColaborador: '',
+  nombreUsuario: '',
+  contrasena: '',
+}
 
 
 @Component({
@@ -16,41 +28,73 @@ import Swal from 'sweetalert2';
   templateUrl: './crear-colaborador.component.html',
   styleUrl: './crear-colaborador.component.css'
 })
+
 export class CrearColaboradorComponent implements OnDestroy, OnInit{
 
   public colaboradorSuscripcion: Subscription|null = null;
   public tipoIdentificacionSuscripcion: Subscription|null = null;
+  public rolSuscripcion: Subscription| null = null;
 
-  tipoIdentificaciones: TipoIdentificacionDto[]|null= null;
+  public tipoIdentificaciones: TipoIdentificacionDto[]|null= null;
+  public roles: RolDto[]| null = null;
+  public colaborador: colaboradorRequest= {tipoIdentificacion:"",numeroIdentificacion:0,nombreUsuario:"",nombreColaborador:"",contrasena:"", rol: ""};
 
   ngOnDestroy(): void {
       this.colaboradorSuscripcion?.unsubscribe();
       this.tipoIdentificacionSuscripcion?.unsubscribe();
+      this.rolSuscripcion?.unsubscribe();
   }
 
   ngOnInit(): void {
+      this.colaboradorForm.reset(col);
       this.obtenerIdentificaciones();
+      this.obtenerRoles();
   }
 
-  //inicializar objeto
-  public colaborador: colaboradorRequest= {tipoIdentificacion:"",numeroIdentificacion:0,nombreUsuario:"",nombreColaborador:"",contrasena:""};
-  
-  //formulario reactivo
-  public colaboradorForm = new FormGroup({
-    tipoIdentificacion: new FormControl(''),
-    numeroIdentificacion: new FormControl(''),
-    nombreColaborador:new FormControl('', {nonNullable: true}),
-    nombreUsuario: new FormControl(''),
-    contrasena: new FormControl(''),
-  });
+  isValidField( field: string): boolean| null{
+    return this.colaboradorForm.controls[field].errors 
+      && this.colaboradorForm.controls[field].touched;
+  }
 
+  getFieldError(field: string): string | null {
+    if( !this.colaboradorForm.controls[field] ) return null;
 
-  
+    const errors = this.colaboradorForm.controls[field].errors || {};
+    for(const key of Object.keys(errors)){
+      switch (key) {
+        case 'required':
+          return '*este campo es requerido';
+        case 'pattern':
+          if(field === 'numeroIdentificacion'){
+            return '*este campo debe tener solo numeros';
+          } else if(field === 'nombreColaborador'){
+            return '*este campo debe tener solo letras';
+          }
+          return '*fallo al validar una expresion regular';
+        case 'minlength':
+          return `*EL campo debe tener minimo ${ errors['minlength'].requiredLength} caracteres`;
+      }
+    }
+    return null;
+  }
+
   constructor(
     private colaboradorRepository: ColaboradorRepository, 
     private tipoIdentificacionRepository: TipoIdentificacionRepository,
-    private snackBar: MatSnackBar
+    private rolRespository: RolRespository,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
   ){}
+
+  public colaboradorForm: FormGroup = this.fb.group({
+    tipoIdentificacion: ['', [Validators.required]],
+    numeroIdentificacion: ['', [Validators.required, Validators.pattern('^[0-9]*$') ]],
+    nombreColaborador: ['', [Validators.minLength(3) ,Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
+    nombreUsuario: ['', [Validators.required, Validators.minLength(5)]],
+    contrasena: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&+-/#]).{8,}$'), Validators.minLength(8) ]],
+    rol: ['', [Validators.required]],
+  })
   
   get currentColaborador(): colaboradorRequest{
     const colaborador = this.colaboradorForm.value as colaboradorRequest;
@@ -58,24 +102,32 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   }
 
   onSubmit(): void {
-    if(this.colaboradorForm.invalid) return this.showAlert("El formulario esta incompleto", false);
+    if(this.colaboradorForm.invalid) {
+      this.colaboradorForm.markAllAsTouched();
+        //this.showAlert( "El formulario esta incompleto", false);
+        return;
+    }
 
     this.colaborador.tipoIdentificacion  = this.currentColaborador.tipoIdentificacion;
     this.colaborador.numeroIdentificacion = this.currentColaborador.numeroIdentificacion;
     this.colaborador.nombreColaborador = this.currentColaborador.nombreColaborador;
     this.colaborador.nombreUsuario = this.currentColaborador.nombreUsuario;
     this.colaborador.contrasena = this.currentColaborador.contrasena;
-    this.crearColaborador();
+    this.colaborador.rol = this.currentColaborador.rol;
+    //this.crearColaborador();
+    //this.colaboradorForm.reset(col);
+    console.log(this.colaborador)
 
   }
 
   crearColaborador(){
     this.colaboradorSuscripcion = this.colaboradorRepository.createColaborador(this.colaborador).subscribe({
       next: (res: colaboradorResponse) => {
-        console.log(res)
+        console.log(res);
+        this.colaboradorForm.reset({});
       },
       error: ({error}) => {
-        console.log(error.error);
+        this.showAlert(error.errors[0].msg, false);
       }
     })
   };
@@ -90,6 +142,16 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
     })
   }
 
+  obtenerRoles(){
+    this.rolSuscripcion = this.rolRespository.getListRols().subscribe({
+      next: ({msg, roles}: rolesResponse) => {
+        this.roles = roles;
+        console.log(this.roles)
+      },
+      error: (error) => console.log(error),
+    })
+  }
+
   //formas de mostrar mensajes
   showSnackBar(message: string) :void {
     this.snackBar.open( message, 'done', {
@@ -98,6 +160,7 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   }
 
   showAlert(message: string, paso: boolean = false): void {
+    console.log(message);
     if(paso){
       Swal.fire({
         icon: 'success',

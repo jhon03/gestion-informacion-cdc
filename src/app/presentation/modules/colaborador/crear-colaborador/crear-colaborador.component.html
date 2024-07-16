@@ -15,7 +15,6 @@
           <mat-form-field class="col-12">
             <mat-label>Tipo Documento</mat-label>
             <mat-select 
-              required
               formControlName="tipoIdentificacion"
             >
               <mat-option *ngFor="let tIdentificacion of tipoIdentificaciones"
@@ -24,15 +23,18 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          
 
           <mat-form-field class="col-12 sm:col-6">
             <mat-label>Numero Documento</mat-label>
             <input
               matInput
               type="text"
-              required
               formControlName="numeroIdentificacion"
             />
+            <mat-hint *ngIf="isValidField('numeroIdentificacion')" class="text-danger form-text uppercase text-start">
+              {{getFieldError('numeroIdentificacion')}}
+            </mat-hint>
           </mat-form-field>
 
           <mat-form-field class="col-12 sm:col-6">
@@ -40,9 +42,11 @@
             <input
               matInput
               type="text"
-              required
               formControlName="nombreColaborador"
             />
+            <mat-hint *ngIf="isValidField('nombreColaborador')" class="text-danger form-text uppercase text-start">
+              {{getFieldError('nombreColaborador')}}
+            </mat-hint>
           </mat-form-field>
 
 
@@ -51,9 +55,11 @@
             <input
               matInput
               type="text"
-              required
               formControlName="nombreUsuario"
             />
+            <mat-hint *ngIf="isValidField('nombreUsuario')" class="text-danger form-text uppercase text-start">
+              {{getFieldError('nombreUsuario')}}
+            </mat-hint>
           </mat-form-field>
 
           <mat-form-field class="col-12">
@@ -61,9 +67,20 @@
             <input
               matInput
               type="text"
-              required
               formControlName="contrasena"
             />
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <mat-label>Rol</mat-label>
+            <mat-select 
+              formControlName="rol"
+            >
+              <mat-option *ngFor="let r of roles"
+                [value]="r.idRol">
+                {{ r.nombreRol }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
         </div>

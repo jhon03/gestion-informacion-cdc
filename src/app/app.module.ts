@@ -20,6 +20,8 @@ import { CommonModule } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { TipoIdentificacionRepository } from './domain/repositories/tipoIdentificacion.repositories';
 import { TidentificacionRepositoryImp } from './infrastructure/repositoryImpl/tipoIdentificacion.repositoryImpl';
+import { RolRespository } from './domain/repositories/rol.repository';
+import { RolRespositoryImpl } from './infrastructure/repositoryImpl/rol.repositoryImpl';
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import { TidentificacionRepositoryImp } from './infrastructure/repositoryImpl/ti
     {provide: ProgramaRepository, useClass: programaRepositoryImpl},
     {provide: ColaboradorRepository, useClass: ColaboradorRepositoryImpl},
     {provide: TipoIdentificacionRepository, useClass: TidentificacionRepositoryImp},
+    {provide: RolRespository, useClass: RolRespositoryImpl},
     provideAnimationsAsync()
   ], 
   bootstrap: [AppComponent]
