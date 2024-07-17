@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
@@ -13,34 +14,55 @@ import { TipoIdentificacionDto } from '../../../../../infrastructure/dto/tipoIde
 import { colaboradorRequest, colaboradorResponse } from '../../../../../infrastructure/helpers/interfaces/colaborador.interface';
 
 import { ColaboradorRepository } from '../../../../../domain/repositories/colaborador.repository';
+
+const col = {
+  tipoIdentificacion: '',
+  numeroIdentificacion: '',
+  nombreColaborador: '',
+  nombreUsuario: '',
+  contrasena: '',
+}
+
 @Component({
   selector: 'app-crear-colaborador',
   standalone: true,
   imports: [
-    MaterialModule
-     ],
+    MaterialModule,
+    
+     ],changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './crear-colaborador.component.html',
   styleUrl: './crear-colaborador.component.css'
 
 })
 export class CrearColaboradorComponent implements OnDestroy, OnInit{
 
+
+
   public colaboradorSuscripcion: Subscription|null = null;
   public tipoIdentificacionSuscripcion: Subscription|null = null;
 
   tipoIdentificaciones: TipoIdentificacionDto[]|null= null;
+ 
+ 
 
+  //inicializar objeto
+  public colaborador: colaboradorRequest= {tipoIdentificacion:"",numeroIdentificacion:0,nombreUsuario:"",nombreColaborador:"",contrasena:""};
+
+  
   ngOnDestroy(): void {
       this.colaboradorSuscripcion?.unsubscribe();
       this.tipoIdentificacionSuscripcion?.unsubscribe();
   }
 
   ngOnInit(): void {
+    this.colaboradorForm.reset(col);
     this.obtenerIdentificaciones();
   }
+ 
 
-  //inicializar objeto
- public colaborador: colaboradorRequest= {tipoIdentificacion:"",numeroIdentificacion:0,nombreUsuario:"",nombreColaborador:"",contrasena:""};
+  
+  
+
   
   //formulario reactivo
   public colaboradorForm = new FormGroup({
@@ -56,7 +78,9 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   constructor(
     private colaboradorRepository: ColaboradorRepository, 
     private tipoIdentificacionRepository: TipoIdentificacionRepository,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    
+    private fb: FormBuilder,
   ){}
   
   get currentColaborador(): colaboradorRequest{

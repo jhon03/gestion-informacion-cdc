@@ -17,6 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDividerModule} from '@angular/material/divider';
+import { MatHint } from '@angular/material/form-field';
 
 @NgModule({
   exports: [
@@ -37,7 +38,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatSnackBarModule,
     MatToolbarModule,
     MatDividerModule,
-
+    MatHint
   ]
 })
 export class MaterialModule { }
