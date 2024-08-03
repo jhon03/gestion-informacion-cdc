@@ -1,0 +1,31 @@
+.formulario{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: stretch;
+  justify-content: center;
+  align-items: stretch;
+  padding: 10px;
+}
+
+button{
+  height: 50px;
+  width: 150px;
+  padding: 5px;
+  margin: 20px;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+.btn-save{
+  height: 40px;
+  width: 100px;
+  padding: 5px;
+  margin-top: 100px;
+  margin-left: 20px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: green;
+  color: aliceblue;
+  
+}

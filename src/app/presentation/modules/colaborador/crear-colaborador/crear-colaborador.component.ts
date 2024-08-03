@@ -39,6 +39,8 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   public roles: RolDto[]| null = null;
   public colaborador: colaboradorRequest= {tipoIdentificacion:"",numeroIdentificacion:0,nombreUsuario:"",nombreColaborador:"",contrasena:"", rol: ""};
 
+  public mostrarContrasena : boolean = false;
+
   ngOnDestroy(): void {
       this.colaboradorSuscripcion?.unsubscribe();
       this.tipoIdentificacionSuscripcion?.unsubscribe();
@@ -95,6 +97,8 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
     contrasena: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&+-/#]).{8,}$'), Validators.minLength(8) ]],
     rol: ['', [Validators.required]],
   })
+
+  
   
   get currentColaborador(): colaboradorRequest{
     const colaborador = this.colaboradorForm.value as colaboradorRequest;

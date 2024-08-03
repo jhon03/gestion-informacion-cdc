@@ -4,6 +4,9 @@ import { ColaboradorService } from '../../../../infrastructure/services/colabora
 import { ColaboradorRepository } from '../../../../domain/repositories/colaborador.repository';
 import { colaboradorResponse, colaboradoresResponse } from '../../../../infrastructure/helpers/interfaces/colaborador.interface';
 import { ColaboradorDto } from '../../../../infrastructure/dto/colaborador.dto';
+import { UserRepository } from '../../../../domain/repositories/user.repository';
+import { UserDto } from '../../../../infrastructure/dto/user.dto';
+import { usersResponse } from '../../../../infrastructure/helpers/interfaces/user.interface';
 
 @Component({
   selector: 'app-list-colaboradores',
@@ -13,18 +16,24 @@ import { ColaboradorDto } from '../../../../infrastructure/dto/colaborador.dto';
 export class ListColaboradoresComponent implements OnInit, OnDestroy{
 
   private colaboradoresListSuscripcion: Subscription | null = null;
-  colaboradores: ColaboradorDto[] = [];
+  private usersSuscripcion: Subscription | null = null;
+  public colaboradores: ColaboradorDto[] = [];
+  public users: UserDto[] = [];
 
-  constructor( private colaboradorRepository: ColaboradorRepository){
 
-  }
+  constructor( 
+    private colaboradorRepository: ColaboradorRepository,
+    private userRepository: UserRepository
+  ){}
 
   ngOnInit(): void {
       this.obtenerColaboradores();
+      this.obtenerUsuarios();
   }
 
   ngOnDestroy(): void {
       this.colaboradoresListSuscripcion?.unsubscribe();
+      this.usersSuscripcion?.unsubscribe();
   }
 
   obtenerColaboradores(){
@@ -34,6 +43,16 @@ export class ListColaboradoresComponent implements OnInit, OnDestroy{
         this.colaboradores = colaboradores;
       },
       error: (error:Error) => console.log(error),
+    })
+  }
+
+  obtenerUsuarios(){
+    this.usersSuscripcion = this.userRepository.getUsers().subscribe({
+      next: ({msg, usuarios}: usersResponse) => {
+        console.log(usuarios);
+        this.users = usuarios;
+      },
+      error: (error: Error) => console.log(error),
     })
   }
 

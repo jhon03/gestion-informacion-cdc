@@ -13,7 +13,7 @@ import { environments } from '../../../../environments/environments';
 })
 export class ProgramaService {
 
-  private baseUrl: string = `${environments.baseUrl}/api/colaboradores`
+  private baseUrl: string = `${environments.baseUrl}/api/programa`
 
   constructor(private http: HttpClient) { }
 

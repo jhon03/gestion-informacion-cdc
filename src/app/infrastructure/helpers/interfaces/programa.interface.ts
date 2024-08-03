@@ -1,8 +1,13 @@
 import { ProgramaDto } from "../../dto/programa.dto"
 
+export enum tipoDato {
+    string='string',
+    number='number',
+}
+
 export interface programaRequest {
     nombrePrograma: string,
-    formato: Record<string, any>
+    formato: Record<string, tipoDato>
 }
 
 
@@ -15,3 +20,4 @@ export interface responseProgram {
     msg: string,
     programa: ProgramaDto
 }
+

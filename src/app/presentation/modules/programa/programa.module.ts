@@ -8,6 +8,10 @@ import { DesactivateProgramaComponent } from './desactivate-programa/desactivate
 import { FindProgramaByIdComponent } from './find-programa-by-id/find-programa-by-id.component';
 import { ProgramaenEsperaComponent } from './programaen-espera/programaen-espera.component';
 import { ActualizarProgramaComponent } from './actualizar-programa/actualizar-programa.component';
+import { CrearProgramaComponent } from './crear-programa/crear-programa.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -17,11 +21,15 @@ import { ActualizarProgramaComponent } from './actualizar-programa/actualizar-pr
     DesactivateProgramaComponent,
     FindProgramaByIdComponent,
     ProgramaenEsperaComponent,
-    ActualizarProgramaComponent
+    ActualizarProgramaComponent,
+    CrearProgramaComponent
   ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
-    ProgramaRoutingModule
+    ProgramaRoutingModule,
+    MaterialModule,
+
   ]
 })
 export class ProgramaModule { }

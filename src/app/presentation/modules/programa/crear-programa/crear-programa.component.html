@@ -1,0 +1,40 @@
+<form class="formulario" [formGroup]="programForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="nombrePrograma">Nombre del Programa:</label>
+      <input id="nombrePrograma" formControlName="nombrePrograma" required />
+    </div>
+  
+    <div class="button">
+      <button type="button" (click)="addField()">Agregar Campo</button>
+    </div>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre del Campo</th>
+          <th>Tipo de Dato</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="formato">
+        <tr *ngFor="let field of camposProgram.controls; let i = index" [formGroupName]="i">
+          <td>
+            <input type="text" formControlName="nombreCampo" placeholder="Nombre del Campo" required>
+          </td>
+          <td>
+            <select formControlName="tipoDato" required>
+              <option *ngFor="let option of tipoDatoOptions" [value]="option.value">
+                {{ option.key }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <button type="button" (click)="deleteField(i)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <button class="btn-save" type="submit">Guardar</button>
+  </form>
+  
