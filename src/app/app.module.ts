@@ -22,6 +22,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ColaboradorRepository } from './domain/repositories/colaborador.repository';
 import { ColaboradorRepositoryImpl } from './infrastructure/repositoryImpl/colaborador.repositoryImpl';
 import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,

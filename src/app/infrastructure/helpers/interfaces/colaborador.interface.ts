@@ -7,7 +7,8 @@ export interface colaboradorRequest {
     numeroIdentificacion: number| string,
     nombreColaborador: string,
     nombreUsuario: string,
-    contrasena: string
+    contrasena: string, 
+    rol: string;
 }
 
 

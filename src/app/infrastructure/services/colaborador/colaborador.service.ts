@@ -5,7 +5,9 @@ import { Colaborador } from '../../../domain/models/colaborador.models';
 import { environment } from '../../../../enviroments/enviroment';
 import { colaboradorResponse, colaboradoresResponse } from '../../helpers/interfaces/colaborador.interface';
 import { colaboradorRequest } from '../../helpers/interfaces/colaborador.interface';
-
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs';
+import { throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +18,7 @@ export class ColaboradorService {
   private endpoint = `${this.apiUrl}/api/colaborador`;
 
   constructor(private http: HttpClient) { }
+
 
   obtenerColaboradores(): Observable<colaboradoresResponse>{
     return this.http.get<colaboradoresResponse>(`${this.apiUrl}/listColaboradores`);

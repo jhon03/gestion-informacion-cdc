@@ -17,7 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDividerModule} from '@angular/material/divider';
-import { MatHint } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   exports: [
@@ -38,7 +38,7 @@ import { MatHint } from '@angular/material/form-field';
     MatSnackBarModule,
     MatToolbarModule,
     MatDividerModule,
-    MatHint
+    ReactiveFormsModule
   ]
 })
 export class MaterialModule { }

@@ -14,6 +14,7 @@ export class TipoIdentificacionService {
   constructor(private http: HttpClient) { }
 
   obtenerIdentificaciones(): Observable<tIdentificacionesResponse>{
+    console.log(`${this.apiUrl}/listaIdentificaciones`)
     return this.http.get<tIdentificacionesResponse>(`${this.apiUrl}/listaIdentificaciones`);
   }
 
