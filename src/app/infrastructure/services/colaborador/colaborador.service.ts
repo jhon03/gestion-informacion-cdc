@@ -15,7 +15,7 @@ export class ColaboradorService {
 
   private apiUrl = environment.apiUrl;
   
-  private endpoint = `${this.apiUrl}/api/colaborador`;
+  private endpoint: string = `${environment.apiUrl}/api/colaboradores`;
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +29,7 @@ export class ColaboradorService {
   }
 
   crearColaborador(colaborador: colaboradorRequest): Observable<colaboradorResponse>{
-    return this.http.post<colaboradorResponse>(`${this.apiUrl}/crear`, colaborador);
+    return this.http.post<colaboradorResponse>(`${this.endpoint}/crear`, colaborador);
   }
   desactivarColaborador(idColaborador: string): Observable<colaboradorResponse>{
     return this.http.delete<colaboradorResponse>(`${this.apiUrl}/desactivar/${idColaborador}`);
