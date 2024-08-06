@@ -15,7 +15,7 @@ import { userRepositoryImpl } from '../../../infrastructure/repositoryImpl/user.
   declarations: [
     LayoutComponent,
     ListColaboradoresComponent,
-    CrearColaboradorComponent,
+    CrearColaboradorComponent
   ],
   imports: [
     CommonModule,

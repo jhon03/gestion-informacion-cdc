@@ -4,8 +4,14 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { ProgramaRepository } from '../../../../domain/repositories/programa.repository';
+import { ColaboradorRepository } from '../../../../domain/repositories/colaborador.repository';
 
 type tiposDato = 'string' | 'number';
+
+interface Campo {
+  nombreCampo: string;
+  valor: string;
+}
 
 @Component({
   selector: 'app-crear-programa',
@@ -20,7 +26,7 @@ export class CrearProgramaComponent implements OnInit, OnDestroy{
 
   public programa: programaRequest = {
     nombrePrograma:"",
-    formato:{}
+    informacion: {}
   }
 
   tipoDatoOptions: { key: string, value: tiposDato }[] = [
@@ -30,13 +36,14 @@ export class CrearProgramaComponent implements OnInit, OnDestroy{
 
   programForm: FormGroup = this.fb.group({
     nombrePrograma: ['', Validators.required],
-    formato: this.fb.array([])
+    informacion: this.fb.array([])
   });
 
   constructor(
     private fb: FormBuilder, 
     private cd: ChangeDetectorRef, 
-    private programaRepository: ProgramaRepository
+    private programaRepository: ProgramaRepository,
+    private colaboradorRepository: ColaboradorRepository
   ) {}
 
   ngOnDestroy(): void {
@@ -53,13 +60,13 @@ export class CrearProgramaComponent implements OnInit, OnDestroy{
   }
 
   get camposProgram(): FormArray {
-    return this.programForm.get('formato') as FormArray;
+    return this.programForm.get('informacion') as FormArray;
   }
 
   addField(): void {
     const fieldGroup = this.fb.group({
       nombreCampo: ['', Validators.required],
-      tipoDato: ['string', Validators.required]
+      valor: ['', Validators.required]
     });
     this.camposProgram.push(fieldGroup);
     this.cd.detectChanges();
@@ -71,11 +78,12 @@ export class CrearProgramaComponent implements OnInit, OnDestroy{
   }
 
   onSubmit() {
-    console.log(this.programForm.value)
-    this.programForm.value.formato.forEach( (campo:any) => {
-      this.programa.formato[campo.nombreCampo] = campo.tipoDato;
+
+    this.programForm.value.informacion.forEach( (campo:Campo) => {
+      this.programa.informacion[campo.nombreCampo] = this.convertirANumero(campo.valor)
     });
     this.programa.nombrePrograma = this.curretProgram.nombrePrograma;
+    console.log(this.programa);
     this.crearPrograma();
   }
 
@@ -87,6 +95,12 @@ export class CrearProgramaComponent implements OnInit, OnDestroy{
       },
       error: (error: Error) => console.log(error),
     })
+  };
+
+  //funcion para convertir un numero en caso de serlo a numero
+  convertirANumero(valor: string): number|string {
+    const numero = Number(valor);
+    return isNaN(numero) ? valor : numero;
   }
 
 

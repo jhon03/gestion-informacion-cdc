@@ -7,7 +7,7 @@ export enum tipoDato {
 
 export interface programaRequest {
     nombrePrograma: string,
-    formato: Record<string, tipoDato>
+    informacion: Record<string, string|number>
 }
 
 

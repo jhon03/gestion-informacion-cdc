@@ -16,18 +16,21 @@
           <th>Eliminar</th>
         </tr>
       </thead>
-      <tbody formArrayName="formato">
+      <tbody formArrayName="informacion">
         <tr *ngFor="let field of camposProgram.controls; let i = index" [formGroupName]="i">
           <td>
             <input type="text" formControlName="nombreCampo" placeholder="Nombre del Campo" required>
           </td>
           <td>
-            <select formControlName="tipoDato" required>
+            <input type="text" formControlName="valor" placeholder="diligencia el campo" required>
+          </td>
+          <!-- <td>
+            <select formControlName="valor" required>
               <option *ngFor="let option of tipoDatoOptions" [value]="option.value">
                 {{ option.key }}
               </option>
             </select>
-          </td>
+          </td> -->
           <td>
             <button type="button" (click)="deleteField(i)">Eliminar</button>
           </td>
