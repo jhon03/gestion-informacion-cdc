@@ -1,0 +1,19 @@
+.example-spacer {
+    flex: 1 1 auto;
+    background-color: #07386b;
+  }
+  .logo img {
+  
+    width: 100px; /* Ajusta según tu necesidad */
+    height: auto; /* Mantén la proporción de la imagen */
+    margin: 20px;
+}
+  .footer {
+    background-color: #07386b;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
