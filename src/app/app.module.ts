@@ -11,7 +11,6 @@ import { ProgramaRepository } from './domain/repositories/programa.repository';
 import { FormatosDeRegistrosModule } from './presentation/formatos-de-registros/formatos-de-registros.module';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule, RouterOutlet } from '@angular/router';
-
 import { programaRepositoryImpl } from './infrastructure/repositoryImpl/programa.repositoryImpl';
 import { UsuariosModule } from './presentation/modules/usuarios/usuarios.module';
 import { CommonModule } from '@angular/common';
@@ -21,12 +20,15 @@ import { TidentificacionRepositoryImp } from './infrastructure/repositoryImpl/ti
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ColaboradorRepository } from './domain/repositories/colaborador.repository';
 import { ColaboradorRepositoryImpl } from './infrastructure/repositoryImpl/colaborador.repositoryImpl';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { PaginaInicioComponent } from './presentation/components/pagina-inicio/pagina-inicio.component';
+//import { HttpClientModule } from '@angular/common/http'; deprecado
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
     // Otros componentes que necesites declarar
+  
   ],
   imports: [
     BrowserModule,
@@ -35,15 +37,14 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     RouterModule,
     FormatosDeRegistrosModule,
-
+     
     ProgramaListComponent,
     // Otros módulos que necesites importar
-
+    
     UsuariosModule,
     CommonModule,
     MaterialModule,
-    HttpClientModule
-   
+   // HttpClientModule,
   ],
   providers: [
     { provide: ProgramaRepository, useClass: programaRepositoryImpl },
@@ -52,6 +53,9 @@ import { HttpClientModule } from '@angular/common/http';
       provide: TipoIdentificacionRepository,
       useClass: TidentificacionRepositoryImp,
     },
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
     provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
