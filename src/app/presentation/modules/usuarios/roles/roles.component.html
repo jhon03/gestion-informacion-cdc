@@ -1,1 +1,37 @@
-<p>roles works!</p>
+<form class="form" [formGroup]="rolForm">
+  <div class="form-container">
+
+    <mat-card class="responsive-card">
+      <mat-card-content>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre del Rol</mat-label>
+            <input matInput type="text" formControlName="nombreRol"/>
+            <mat-hint *ngIf="isValidField('nombreRol')" class="text-danger form-text uppercase text-start">
+              {{getFieldError('nombreRol')}}
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción</mat-label>
+            <input matInput type="text" formControlName="descripcion" />
+            <mat-hint *ngIf="isValidField('descripcion')" class="text-danger form-text uppercase text-start">
+              {{getFieldError('descripcion')}}
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit()">
+          <mat-icon>save</mat-icon> Guardar
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+</form>

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { RolRespository } from "../../domain/repositories/rol.repository";
 import { RolService } from "../services/rol/rol.service";
 import { Observable } from "rxjs";
-import { rolesResponse, rolResponse } from "../helpers/rol.interface";
+import { rolesResponse, rolRequest, rolResponse } from "../helpers/rol.interface";
 @Injectable({
     providedIn: 'root'
 })
@@ -18,4 +18,6 @@ export class RolRepositoryImpl implements RolRespository {
      getRolById(id: string): Observable<rolResponse> {
          return this.rolService.obtenerRoleById(id);
      }
-}
+     create(rol: rolRequest): Observable<rolResponse>{
+          return this.rolService.crearRol(rol);
+ }}

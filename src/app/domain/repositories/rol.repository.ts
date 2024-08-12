@@ -8,7 +8,9 @@ import { Injectable } from "@angular/core";
 })
 export abstract class RolRespository {
 
-   // abstract create(rol: rolRequest): Observable<rolResponse>;
+    abstract create(rol: rolRequest): Observable<rolResponse>;
     abstract getListRols(): Observable<rolesResponse>;
     abstract getRolById(id: string): Observable<rolResponse>;
+
+
 }

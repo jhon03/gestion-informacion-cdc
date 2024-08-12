@@ -18,4 +18,7 @@ export class RolService {
   obtenerRoleById(id: string): Observable<rolResponse> {
   return this.http.get<rolResponse>(`${this.apiUrl}/findRolById/${id}`);
   }
+  crearRol(datos: rolRequest): Observable<rolResponse>{
+    return this.http.post<rolResponse>(`${this.apiUrl}/crear`, datos);
+  }
 }
