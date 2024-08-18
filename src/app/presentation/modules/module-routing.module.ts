@@ -4,6 +4,10 @@ import { ProgramaListComponent } from '../components/programa/programa-list/prog
 
 const routes: Routes = [
 
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
 
   {
     path: 'programa',

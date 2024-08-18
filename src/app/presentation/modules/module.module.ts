@@ -6,6 +6,7 @@ import { ProgramaListComponent } from '../components/programa/programa-list/prog
 import { ProgramaModule } from './programa/programa.module';
 import { ColaboradorModule } from './colaborador/colaborador.module';
 import { FormsModule } from '@angular/forms';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     ModuleRoutingModule,
     ProgramaModule,
-    ColaboradorModule
+    ColaboradorModule,
+    AuthModule
   ]
 })
 export class ModuleModule { }

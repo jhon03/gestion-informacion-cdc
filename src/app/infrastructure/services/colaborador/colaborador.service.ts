@@ -15,7 +15,7 @@ export class ColaboradorService {
   constructor(private http: HttpClient) { }
 
   obtenerColaboradores(): Observable<colaboradoresResponse>{
-    return this.http.get<colaboradoresResponse>(`${this.baseUrl}/listColaboradores`);
+    return this.http.get<colaboradoresResponse>(`${this.baseUrl}/listColaboradores?page=3`);
   }
 
   obtenerColaboradorById(idColaborador: string): Observable <colaboradorResponse>{

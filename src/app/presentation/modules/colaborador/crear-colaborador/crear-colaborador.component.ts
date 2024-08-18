@@ -125,7 +125,7 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   }
 
   crearColaborador(){
-    this.colaboradorSuscripcion = this.colaboradorRepository.createColaborador(this.colaborador).subscribe({
+    this.colaboradorSuscripcion = this.colaboradorRepository.createColaborador(this.currentColaborador).subscribe({
       next: (res: colaboradorResponse) => {
         this.showSnackBar("colaborador creado correctamente")
         console.log(res);

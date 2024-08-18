@@ -1,9 +1,6 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Programa } from '../../../domain/models/programa.models';
-import { ProgramaDto } from '../../dto/programa.dto'
-import { ProgramaMapper } from '../../../domain/mappers/programa.mapper';
 import { responseProgram, responsePrograms } from '../../helpers/interfaces/programa.interface';
 import { programaRequest } from '../../helpers/interfaces/programa.interface';
 import { environments } from '../../../../environments/environments';

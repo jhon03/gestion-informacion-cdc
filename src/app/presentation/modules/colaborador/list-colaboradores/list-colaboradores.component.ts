@@ -36,15 +36,15 @@ export class ListColaboradoresComponent implements OnInit, OnDestroy{
       this.usersSuscripcion?.unsubscribe();
   }
 
-  obtenerColaboradores(){
-    this.colaboradoresListSuscripcion = this.colaboradorRepository.getColaboradors().subscribe({
-      next: ({msg, colaboradores}: colaboradoresResponse ) => {
-        console.log(colaboradores)
-        this.colaboradores = colaboradores;
-      },
-      error: (error:Error) => console.log(error),
-    })
-  }
+    obtenerColaboradores(){
+      this.colaboradoresListSuscripcion = this.colaboradorRepository.getColaboradors().subscribe({
+        next: ({msg, colaboradores}: colaboradoresResponse ) => {
+          console.log(msg)
+          this.colaboradores = colaboradores;
+        },
+        error: (error:Error) => console.log(error),
+      })
+    }
 
   obtenerUsuarios(){
     this.usersSuscripcion = this.userRepository.getUsers().subscribe({

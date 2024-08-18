@@ -10,7 +10,7 @@ import { ProgramaenEsperaComponent } from './programaen-espera/programaen-espera
 import { ActualizarProgramaComponent } from './actualizar-programa/actualizar-programa.component';
 import { CrearProgramaComponent } from './crear-programa/crear-programa.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from '../material/material/material.module';
+import { MaterialModule } from '../material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
