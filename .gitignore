@@ -41,5 +41,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# modulos
-src/app/presentation
+

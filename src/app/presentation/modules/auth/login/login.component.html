@@ -1,0 +1,29 @@
+<form class="login" [formGroup]="loginForm" (click)="onSubmit()">
+    <div class="login-header">
+      <h1>Login</h1>
+    </div>
+    <div class="login-form">
+      <h3>Username:</h3>
+      <input type="text" formControlName="nombreUsuario" placeholder="Username"/><br>
+      <div class="alert alert-danger mt-2" [hidden]="loginForm.get('nombreUsuario')?.valid ||loginForm.get('nombreUsuario')?.pristine">
+        El nombre de usuario es requerido
+      </div>
+
+
+      <h3>Password:</h3>
+      <input type="password" formControlName="contrasena" placeholder="Password"/>
+      <div class="alert alert-danger mt-2" [hidden]="loginForm.get('contrasena')?.valid ||loginForm.get('contrasena')?.pristine">
+        la contraseña es requerida
+      </div>
+      <br>
+      <button type="button" value="Login" class="login-button">Iniciar Sesion</button>  
+      <br>
+      <a class="sign-up">Sign Up!</a>
+      <br>
+      <h6 class="no-access">Can't access your account?</h6>
+    </div>
+</form>
+<span>{{loginForm.value| json}}</span>
+<div class="error-page">
+  <div class="try-again">Error: Try again?</div>
+</div>
