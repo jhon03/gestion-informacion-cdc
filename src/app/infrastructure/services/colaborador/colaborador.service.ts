@@ -13,9 +13,9 @@ import { throwError } from 'rxjs';
 })
 export class ColaboradorService {
 
-  private apiUrl = environment.apiUrl;
+  //rivate apiUrl = environment.apiUrl;
   
-  private endpoint: string = `${environment.apiUrl}/api/colaboradores`;
+  private apiUrl: string = `${environment.apiUrl}/api/colaboradores`;
 
   constructor(private http: HttpClient) { }
 
@@ -28,8 +28,9 @@ export class ColaboradorService {
     return this.http.get<colaboradorResponse>(`${this.apiUrl}/findById/${idColaborador}`);
   }
 
-  crearColaborador(colaborador: colaboradorRequest): Observable<colaboradorResponse>{
-    return this.http.post<colaboradorResponse>(`${this.endpoint}/crear`, colaborador);
+  //recomendación implementar en cada metodo de los servicios el async antes del nombre del metodo y el await despues del return. => optimización de memoria verificar que termine de hacero traer toda la información para seguir con la ejecución del código. 
+ crearColaborador(datos: colaboradorRequest): Observable<colaboradorResponse>{
+    return this.http.post<colaboradorResponse>(`${this.apiUrl}/crear`, datos);
   }
   desactivarColaborador(idColaborador: string): Observable<colaboradorResponse>{
     return this.http.delete<colaboradorResponse>(`${this.apiUrl}/desactivar/${idColaborador}`);

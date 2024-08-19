@@ -1,81 +1,76 @@
 
 <form class="form" [formGroup]="colaboradorForm">
- <div>
-  <mat-card>
-    <mat-card-content>
+  <div class="form-container">
 
-  <mat-form-field>
-    <mat-label>Tipo de Documento</mat-label>
-    <mat-select formControlName="tipoIdentificacion">
-      <mat-option *ngFor="let tIdentificacion of tipoIdentificaciones" [value]="tIdentificacion.idIdentificacion">{{tIdentificacion.nombreIdentificacion}}</mat-option>
-    
-    </mat-select>
-  </mat-form-field>
+    <div class="form-column">
+      <mat-card class="responsive-card">
+        <mat-card-content>
 
-  <mat-form-field>
-    <mat-label>Número de Documento</mat-label>
-    <input matInput 
-    type="text"
-    formControlName="numeroIdentificacion"/>
-  <mat-hint *ngIf="isValidField('numeroIdentificacion')" class="text-danger form-text uppercase text-start">
-  {{getFieldError('numeroIdentificacion')}}
-  </mat-hint>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Tipo de Documento</mat-label>
+            <mat-select formControlName="tipoIdentificacion">
+              <mat-option *ngFor="let tIdentificacion of tipoIdentificaciones" [value]="tIdentificacion.idIdentificacion">
+                {{tIdentificacion.nombreIdentificacion}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-  </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Número de Documento</mat-label>
+            <input matInput type="text" formControlName="numeroIdentificacion" />
+            <mat-hint *ngIf="isValidField('numeroIdentificacion')" class="text-danger form-text uppercase text-start">
+              {{getFieldError('numeroIdentificacion')}}
+            </mat-hint>
+          </mat-form-field>
 
-  <mat-form-field >
-    <mat-label>Nombre</mat-label>
-    <input
-      matInput
-      type="text"
-      formControlName="nombreColaborador"
-    />
-    <mat-hint *ngIf="isValidField('nombreColaborador')" class="text-danger form-text uppercase text-start">
-      {{getFieldError('nombreColaborador')}}
-    </mat-hint>
-  </mat-form-field>
-  <mat-form-field >
-    <mat-label>Nombre Usuario</mat-label>
-    <input
-      matInput
-      type="text"
-      formControlName="nombreUsuario"
-    />
-    <mat-hint *ngIf="isValidField('nombreUsuario')" class="text-danger form-text uppercase text-start">
-      {{getFieldError('nombreUsuario')}}
-    </mat-hint>
-  </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombreColaborador" />
+            <mat-hint *ngIf="isValidField('nombreColaborador')" class="text-danger form-text uppercase text-start">
+              {{getFieldError('nombreColaborador')}}
+            </mat-hint>
+          </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Contraseña</mat-label>
-    <input matInput [type]="hide() ? 'password' : 'text'" formControlName="contrasena" />
-    <button
-      mat-icon-button
-      matSuffix
-      (click)="clickEvent($event)"
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide()"
-    >
-      <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-  </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+    </div>
 
-  <mat-form-field>
-    <mat-label>Rol</mat-label>
-    <mat-select formControlName="rol">
-      <mat-option *ngFor="let r of roles" [value]="r.idRol">{{r.nombreRol}}</mat-option>
-    
-    </mat-select>
-  </mat-form-field>
+    <div class="form-column">
+      <mat-card class="responsive-card">
+        <mat-card-content>
 
-<button mat-flat-button color="primary" (click)="onSubmit()">
-<mat-icon>save</mat-icon>
-</button>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre Usuario</mat-label>
+            <input matInput type="text" formControlName="nombreUsuario" />
+            <mat-hint *ngIf="isValidField('nombreUsuario')" class="text-danger form-text uppercase text-start">
+              {{getFieldError('nombreUsuario')}}
+            </mat-hint>
+          </mat-form-field>
 
+          <mat-form-field appearance="outline" class="full-width password-field">
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="hide() ? 'password' : 'text'" formControlName="contrasena" />
+            <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
 
-        
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="rol">
+              <mat-option *ngFor="let r of roles" [value]="r.idRol">{{r.nombreRol}}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-</mat-card-content>
-</mat-card>
-</div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="form-actions">
+      <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit()">
+        <mat-icon>save</mat-icon> Guardar
+      </button>
+    </div>
+
+  </div>
 </form>
