@@ -6,8 +6,10 @@
 
       
     </button>
+
+
     <div class="logo">
-        <img src="assets/cdc_logo.png" alt="logo">
+        <img src="assets/CDC_LOGO_FULLCOLOR.png" alt="logo">
        
      </div>
      
@@ -15,7 +17,8 @@
     
 
 
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"
+    (click)="navigateToLogin()">
       <mat-icon>person</mat-icon> 
     </button>
 
@@ -32,13 +35,18 @@
         <a mat-list-item routerLink="/escenario" (click)="sidenav.close()">Problemas Identificados</a>
 
       </mat-nav-list>
+
+
     </mat-sidenav>
-  
-    <mat-sidenav-content>
+  <!--<div *ngIf="sidenav.toggle()==true"> </div>-->
+    <mat-sidenav-content >
+      
       <app-info-cdc></app-info-cdc>
       <app-escenario-problema></app-escenario-problema>
-    </mat-sidenav-content>
 
+
+    </mat-sidenav-content>
+ 
   </mat-sidenav-container>
 
 <div class="footer">
