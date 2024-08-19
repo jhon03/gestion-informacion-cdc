@@ -22,12 +22,15 @@ import { ColaboradorRepository } from './domain/repositories/colaborador.reposit
 import { ColaboradorRepositoryImpl } from './infrastructure/repositoryImpl/colaborador.repositoryImpl';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PaginaInicioComponent } from './presentation/components/pagina-inicio/pagina-inicio.component';
+import { AutenticacionModule } from './presentation/modules/autenticacion/autenticacion.module';
+import { LoginComponent } from './presentation/modules/autenticacion/auth/login/login.component';
 //import { HttpClientModule } from '@angular/common/http'; deprecado
 
 @NgModule({
   declarations: [
     AppComponent
     // Otros componentes que necesites declarar
+   
   
   ],
   imports: [
@@ -45,6 +48,7 @@ import { PaginaInicioComponent } from './presentation/components/pagina-inicio/p
     CommonModule,
     MaterialModule,
    // HttpClientModule,
+   AutenticacionModule
   ],
   providers: [
     { provide: ProgramaRepository, useClass: programaRepositoryImpl },
