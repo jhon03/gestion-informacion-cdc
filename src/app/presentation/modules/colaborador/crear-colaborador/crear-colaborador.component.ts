@@ -7,12 +7,11 @@ import { TipoIdentificacionRepository } from '../../../../domain/repositories/ti
 import { tIdentificacionesResponse } from '../../../../infrastructure/helpers/interfaces/tipoIdentificacion.interface';
 import { TipoIdentificacionDto } from '../../../../infrastructure/dto/tipoIdentificacion.dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// import { MatSnackBar } from '@angular/material/snack-bar';
-import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { RolRespository } from '../../../../domain/repositories/rol.repository';
 import { rolesResponse } from '../../../../infrastructure/helpers/interfaces/rol.interface';
 import { RolDto } from '../../../../infrastructure/dto/rol.dto';
+import { mostrar, mostrarVariosTextos } from '../../../../infrastructure/plugins/sweetalert/swal.plugin';
 
 const col = {
   tipoIdentificacion: '',
@@ -132,7 +131,12 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
         //this.colaboradorForm.reset({});
       },
       error: ({error}) => {
-        this.showAlert(error.errors[0].msg, false);
+        if(error.msg && error.errro){
+          mostrarVariosTextos(error.msg, error.error, 'error');
+        } else {
+          mostrar('Error al crear el colaborador', 'error');
+        }
+        
       }
     })
   };
@@ -164,20 +168,7 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
     })
   }
 
-  showAlert(message: string, paso: boolean = false): void {
-    console.log(message);
-    if(paso){
-      Swal.fire({
-        icon: 'success',
-        title: message,
-      })
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: message,
-      })
-    }
-  }
+
     
 
 

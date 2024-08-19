@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProgramaListComponent } from '../components/programa/programa-list/programa-list.component';
-import { authGuard } from '../../infrastructure/security/guards/auth.guard';
 
 const routes: Routes = [
 
@@ -19,7 +18,7 @@ const routes: Routes = [
     loadChildren: () => import('./colaborador/colaborador.module').then(m => m.ColaboradorModule),
   },
   {
-    path: '*',
+    path: '**',
     redirectTo: 'login',
   }
 

@@ -39,7 +39,6 @@ export class ListColaboradoresComponent implements OnInit, OnDestroy{
     obtenerColaboradores(){
       this.colaboradoresListSuscripcion = this.colaboradorRepository.getColaboradors().subscribe({
         next: ({msg, colaboradores}: colaboradoresResponse ) => {
-          console.log(msg)
           this.colaboradores = colaboradores;
         },
         error: (error:Error) => console.log(error),
@@ -49,7 +48,6 @@ export class ListColaboradoresComponent implements OnInit, OnDestroy{
   obtenerUsuarios(){
     this.usersSuscripcion = this.userRepository.getUsers().subscribe({
       next: ({msg, usuarios}: usersResponse) => {
-        console.log(usuarios);
         this.users = usuarios;
       },
       error: (error: Error) => console.log(error),

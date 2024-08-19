@@ -29,6 +29,10 @@ export class userRepositoryImpl implements UserRepository {
     updateUser(idUser: string, datos: UserDto): Observable<userResponse>{
         return this.userService.actualizarUser(idUser, datos);
     };
+    getCurrentUser(): Observable<userResponse> {
+        return this.userService.obtenerUsuarioActual();
+    }
+
 
 
 }

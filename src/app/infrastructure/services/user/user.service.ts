@@ -34,4 +34,8 @@ export class UserService {
     return this.http.put<userResponse>(`${this.url}/actualizar/${idUser}`, datos);
   }
 
+  obtenerUsuarioActual(): Observable<userResponse>{
+    return this.http.get<userResponse>(`${this.url}/getCurrentUser`);
+  }
+
 }

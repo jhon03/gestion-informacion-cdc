@@ -13,7 +13,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = tokenRepository.getToken();
   if(token){
     if(tokenRepository.isTokenExpired(token)){
-      mostrar('cuenta inactiva, se cierra sesion por su seguridad');
+      mostrar('cuenta inactiva, se cierra sesion por su seguridad', 'informacion');
       loginRepository.loggout();
     };
     const reqCloned = req.clone({

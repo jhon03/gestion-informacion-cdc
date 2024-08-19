@@ -4,8 +4,8 @@ import { BehaviorSubject, Observable, Subscription, switchMap, tap, timer } from
 import { loginRequest, loginResponse } from '../../helpers/interfaces/login.interface';
 import { environments } from '../../../../environments/environments';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { TokenRepository } from '../../../domain/repositories/token.repository';
+import { mostrar } from '../../plugins/sweetalert/swal.plugin';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,10 @@ export class LoginService implements OnDestroy{
 
   private validacionSuscripcion: Subscription|null = null;
 
-  public isUserLoggin: BehaviorSubject<boolean> = new BehaviorSubject(
+  private isUserLoggin: BehaviorSubject<boolean> = new BehaviorSubject(
     !!localStorage.getItem('token')
   );
+  private userRol: BehaviorSubject<string> = new BehaviorSubject<string>('');  //servicio para almacenar el rol del usuario
       
   private url = `${environments.baseUrl}/api/auth`;
 
@@ -30,8 +31,12 @@ export class LoginService implements OnDestroy{
       this.validacionSuscripcion?.unsubscribe();
   }
 
-  get userLogin(): Observable<Boolean> {
+  getUserIsLogin(): Observable<Boolean> {
     return this.isUserLoggin.asObservable();
+  }
+
+  getUserRole(): string {
+    return '';
   }
 
   public iniciarSesion(formLogin: loginRequest): Observable<HttpResponse<loginResponse>> {
@@ -41,6 +46,7 @@ export class LoginService implements OnDestroy{
         if(status == 200 && body){
           this.tokenRepository.setTokenInBrowser(body.tokenAcesso);
           this.iniciarValidacionSession(62);
+          this.userRol.next(body.usuario.rol);
           this.isUserLoggin.next(true);
         }
     }));
@@ -64,7 +70,7 @@ export class LoginService implements OnDestroy{
       next:(data)=> console.log(data),
       error:(error)=>{
         console.log(error),
-        Swal.fire('sesion inactiva, se cierra su session');
+        mostrar('sesion inactiva se cierra por su seguridad', 'informacion')
         this.cerrarSesion();
       }
     })

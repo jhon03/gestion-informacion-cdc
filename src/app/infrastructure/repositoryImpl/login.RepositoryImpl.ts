@@ -21,11 +21,15 @@ export class LoginRepositoryImpl implements LoginRepository {
     }
 
     isUserLoggin(): Observable<Boolean> {
-        return this.loginService.userLogin;
+        return this.loginService.getUserIsLogin();
     }
 
     login(formLogin: loginRequest): Observable< HttpResponse<loginResponse> > {
         return this.loginService.iniciarSesion(formLogin);
+    }
+
+    getUserRole(): string {
+        return this.loginService.getUserRole();    
     }
 
 }

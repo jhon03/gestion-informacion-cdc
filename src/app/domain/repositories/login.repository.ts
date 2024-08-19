@@ -12,5 +12,6 @@ import { HttpResponse } from "@angular/common/http";
     abstract login(formLogin: loginRequest): Observable< HttpResponse<loginResponse> >;
     abstract loggout(): void;
     abstract isUserLoggin(): Observable<Boolean>;
+    abstract getUserRole(): string;
     
  }

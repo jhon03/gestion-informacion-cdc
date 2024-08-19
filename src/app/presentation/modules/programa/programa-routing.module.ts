@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListProgramasComponent } from './list-programas/list-programas.component';
 import { CrearProgramaComponent } from './crear-programa/crear-programa.component';
-import { authGuard } from '../../../infrastructure/security/guards/auth.guard';
+import { authGuard } from '../../../infrastructure/security/guards/auth/auth.guard';
+
 
 const routes: Routes = [
 

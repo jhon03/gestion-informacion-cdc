@@ -27,5 +27,9 @@ export class TokenRepositoryImpl implements TokenRepository {
     isTokenExpired(token: string): boolean {
         return this.tokenService.estaExpiradoElToken(token);
     }
+    getRolUserByToken(token: string): string {
+        return this.tokenService.obtenerRolUsuario(token);    
+    }
+
 
 }

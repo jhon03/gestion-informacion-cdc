@@ -16,5 +16,7 @@ export abstract class UserRepository {
     abstract activateUser(idUser: string): Observable<userResponse>;
     abstract deleteUser(idUser: string): Observable<userResponse>;
     abstract updateUser(idUser: string, datos: UserDto): Observable<userResponse>;
+    abstract getCurrentUser(): Observable<userResponse>;
+
 
 }

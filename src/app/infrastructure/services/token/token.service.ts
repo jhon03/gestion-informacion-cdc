@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { loginResponse } from '../../helpers/interfaces/login.interface';
 import { tokenDecoded } from '../../plugins/jwt/jwt-decode.plugin';
+import { TokenDecoded } from '../../helpers/interfaces/token.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,15 @@ export class TokenService {
     }
   }
 
+  public obtenerRolUsuario(token: string ) : string {
+    const rol: TokenDecoded = this.decodificarToken(token);
+    return rol.rol;
+  }
+
+  private decodificarToken(token: string): TokenDecoded {
+    const payload = token.split('.')[1];
+    return JSON.parse(atob(payload));
+  }
+
   
-
-
 }

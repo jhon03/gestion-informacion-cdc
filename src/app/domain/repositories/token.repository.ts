@@ -11,5 +11,6 @@ export abstract class TokenRepository {
     abstract PutTokenInBrowser(token: string): void;
     abstract isTokenExpired(token: String) : boolean; 
     abstract removeTokenBrowser(): void;
+    abstract getRolUserByToken(token: String): string;
 
 }

@@ -3,7 +3,9 @@ import { Subscription } from 'rxjs';
 import { loginRequest, loginResponse } from '../../../../infrastructure/helpers/interfaces/login.interface';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRepository } from '../../../../domain/repositories/login.repository';
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { mostrar, mostrarVariosTextos } from '../../../../infrastructure/plugins/sweetalert/swal.plugin';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy{
   constructor(
     private fb: FormBuilder,
     private loginRepository: LoginRepository,
+    private router: Router,
   ){}
 
   ngOnInit(): void {
@@ -45,12 +48,22 @@ export class LoginComponent implements OnInit, OnDestroy{
     this.iniciarSesion();
   }
 
+
+
   iniciarSesion(){
     this.loginSuscripcion = this.loginRepository.login(this.CurrentFormLogin).subscribe({
       next: ({body}: HttpResponse<loginResponse>) => {
-        console.log(body?.usuario),
-        console.log(body?.tokenAcesso);
-      }, error: (error: Error) => console.log(error),
+        mostrar(`bienvenido ${body?.usuario.nombreUsuario} `, 'correcto');
+        this.router.navigateByUrl('/mdl/colaborador/lista')
+      }, error: ({error}: HttpErrorResponse) => {
+
+        if(error.msg && error.error) {
+          mostrarVariosTextos(error.msg, error.error, 'error');
+        } else {
+          mostrar('error al iniciar sesion', 'error');
+        }
+        
+      },
     })
   }
 
