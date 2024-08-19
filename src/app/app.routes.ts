@@ -8,7 +8,8 @@ import { DetalleProgramaComponent } from './presentation/detalles-programa/compo
 import { PaginaInicioComponent } from './presentation/components/pagina-inicio/pagina-inicio.component';
 import { InfoCdcComponent } from './presentation/components/info-cdc/info-cdc.component';
 import { EscenarioProblemaComponent } from './presentation/components/escenario-problema/escenario-problema.component';
-
+import { authGuard } from './infrastructure/seguridad/auth/authGuard';
+import { DashboardComponent } from './presentation/components/dashboard/dashboard.component';
 
 
 export const routes: Routes = [
@@ -34,30 +35,33 @@ export const routes: Routes = [
     },
 
     {
-        path: 'usuarios',
-        loadChildren: () => import('./presentation/modules/usuarios/usuarios.module').then(m => m.UsuariosModule)
-    },
+
+        path: 'autenticacion',
+        loadChildren: () => import('./presentation/modules/autenticacion/autenticacion.module').then(m => m.AutenticacionModule)
     
-    {
-        path: 'formato-registro',
-        loadChildren: ()=> import('./presentation/formatos-de-registros/formatos-de-registros.module').then(m => m.FormatosDeRegistrosModule)
-    },
+        },
+        {
+            path: 'usuarios',
+            loadChildren: () => import('./presentation/modules/usuarios/usuarios.module').then(m => m.UsuariosModule)
+        },
 
     {
-        path: 'evaluacion-activacion-programa',
-        loadChildren: () => import('./presentation/evaluacion-activacion-programas/evaluacion-activacion-programas.module').then(m => m.EvaluacionActivacionProgramasModule)
+        path: 'dashboard',
+        component: DashboardComponent, children: [
 
-    },
-
-
-    { path: 'detalles-programa', 
-    component: DetalleProgramaComponent
-    },
-    
-    { path: 'programas',
+            
+            
+            {
+                path: 'formulacion',
+                loadChildren: ()=> import('./presentation/modules/formulacion/formulacion.module').then(m => m.FormulacionModule)
+            },
         
-     component: ProgramaListComponent
-    },
+            {
+                path: 'evaluacion-activacion-programa',
+                loadChildren: () => import('./presentation/evaluacion-activacion-programas/evaluacion-activacion-programas.module').then(m => m.EvaluacionActivacionProgramasModule)
+        
+            },
+    ]},    
 
     {
         path: '**',
