@@ -16,6 +16,12 @@ export class LoginComponent implements OnInit, OnDestroy{
 
   private loginSuscripcion: Subscription|null = null;
 
+  funciones = [
+    "crear",
+    "actualizar",
+    "lista"
+  ]
+
   loginForm: FormGroup = this.fb.group({
     nombreUsuario: ['', Validators.required],
     contrasena: ['', Validators.required]
@@ -46,6 +52,10 @@ export class LoginComponent implements OnInit, OnDestroy{
       return;
     } 
     this.iniciarSesion();
+  }
+
+  redirigir(): void {
+
   }
 
 

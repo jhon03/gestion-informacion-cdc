@@ -19,11 +19,11 @@ export const rolGuard: CanActivateFn = (route, state) => {
 
   const token = tokenRepository.getToken();
   if(token){
-    const rol = tokenRepository.getRolUserByToken(token);
+    const rol = tokenRepository.getRolUserByToken(token); //SUPERUSER O OTRO ROL
     const isPermited = userRolesPermitidos.includes(rol);
     if(isPermited) return true;
     mostrarVariosTextos('Redirigiendo', 'no estas autorizado para ingresar a esta ruta', 'informacion');
-    router.navigateByUrl('/mdl/login')
+    router.navigateByUrl('/mdl/programa/listprogramas')
     return false;
   }
   return false;
