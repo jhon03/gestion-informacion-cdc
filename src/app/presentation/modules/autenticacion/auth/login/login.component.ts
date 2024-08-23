@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit{
 
           //se guarda el token el localStorage
           localStorage.setItem('token', response.token);
-          this.router.navigate(['/usuarios/administracion-usuarios']);
+          this.router.navigate(['/dashboard']);
 
         },
         error => {
