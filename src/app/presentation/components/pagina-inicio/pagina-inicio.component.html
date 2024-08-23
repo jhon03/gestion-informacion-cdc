@@ -17,8 +17,7 @@
     
 
 
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"
-    (click)="navigateToLogin()">
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" routerLink="/autenticacion/login">
       <mat-icon>person</mat-icon> 
     </button>
 
@@ -41,8 +40,7 @@
   <!--<div *ngIf="sidenav.toggle()==true"> </div>-->
     <mat-sidenav-content >
       
-      <app-info-cdc></app-info-cdc>
-      <app-escenario-problema></app-escenario-problema>
+      <router-outlet></router-outlet>
 
 
     </mat-sidenav-content>
