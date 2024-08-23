@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { FormatosDeRegistrosRoutingModule } from './formatos-de-registros-routing.module';
 
-import { DialogAsignarNombre, FormatoRegistroProgramaComponent} from './components/formato-registro-programa/formato-registro-programa.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 
@@ -29,8 +28,6 @@ import {MatInputModule} from '@angular/material/input';
     MatSlideToggleModule,
     MatDividerModule,
     MatCardModule,
-    FormatoRegistroProgramaComponent,
-    DialogAsignarNombre,
     MatInputModule
    
   ]
