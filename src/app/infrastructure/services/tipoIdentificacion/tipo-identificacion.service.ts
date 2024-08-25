@@ -15,7 +15,7 @@ export class TipoIdentificacionService {
 
   obtenerIdentificaciones(): Observable<tIdentificacionesResponse>{
     console.log(`${this.apiUrl}/listaIdentificaciones`)
-    return this.http.get<tIdentificacionesResponse>(`${this.apiUrl}/listaIdentificaciones`);
+    return this.http.get<tIdentificacionesResponse>(`${this.apiUrl}/listaIdentificaciones?page=3`);
   }
 
   //no implementado en el backend

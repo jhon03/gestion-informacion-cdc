@@ -13,7 +13,7 @@ export class RolService {
   constructor(private http: HttpClient) { }
 
   obtenerRoles(): Observable<rolesResponse>{
-    return this.http.get<rolesResponse>(`${this.apiUrl}/listRols`);
+    return this.http.get<rolesResponse>(`${this.apiUrl}/listRols?page=3`);
   }
   obtenerRoleById(id: string): Observable<rolResponse> {
   return this.http.get<rolResponse>(`${this.apiUrl}/findRolById/${id}`);
