@@ -6,6 +6,7 @@ export interface rolRequest {
 }
 
 export interface rolesResponse {
+    pagina?: string
     msg: string,
     roles: RolDto[]
 }

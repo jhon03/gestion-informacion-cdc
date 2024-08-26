@@ -17,7 +17,7 @@ export class LoginRepositoryImpl implements LoginRepository {
     ){}
 
     loggout(): void {
-        return this.loginService.cerrarSesion();
+        this.loginService.cerrarSesion();
     }
 
     isUserLoggin(): Observable<Boolean> {

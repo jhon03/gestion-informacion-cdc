@@ -5,5 +5,6 @@ export abstract class RolRespository {
 
     abstract create(rol: rolRequest): Observable<rolResponse>;
     abstract getListRols(): Observable<rolesResponse>;
+    abstract getRolsNotPagination(): Observable<rolesResponse>;
     abstract getRolById(id: string): Observable<rolResponse>;
 }

@@ -17,6 +17,10 @@ export class TipoIdentificacionService {
     return this.http.get<tIdentificacionesResponse>(`${this.baseUrl}/listaIdentificaciones`);
   }
 
+  obtenerIdentificacionesSinPaginacion(): Observable<tIdentificacionesResponse>{
+    return this.http.get<tIdentificacionesResponse>(`${this.baseUrl}/getIdentificaciones`);
+  }
+
   //no implementado en el backend
   obtenerIdentificacionById(id: string): Observable<tIdentificacionResponse>{
     return this.http.get<tIdentificacionResponse>(`${this.baseUrl}/`);

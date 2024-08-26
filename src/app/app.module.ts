@@ -27,6 +27,8 @@ import { userRepositoryImpl } from './infrastructure/repositoryImpl/user.reposit
 import { TokenRepository } from './domain/repositories/token.repository';
 import { TokenRepositoryImpl } from './infrastructure/repositoryImpl/token.repositoryImpl';
 import { authInterceptor } from './infrastructure/security/interceptor/auth.interceptor';
+import { LoginRepository } from './domain/repositories/login.repository';
+import { LoginRepositoryImpl } from './infrastructure/repositoryImpl/login.RepositoryImpl';
 
 
 @NgModule({
@@ -51,6 +53,7 @@ import { authInterceptor } from './infrastructure/security/interceptor/auth.inte
   providers: [  
     { provide: RolRespository,               useClass: RolRespositoryImpl},
     { provide: UserRepository,               useClass: userRepositoryImpl},
+    { provide: LoginRepository,              useClass: LoginRepositoryImpl},
     { provide: TokenRepository,              useClass: TokenRepositoryImpl},
     { provide: ProgramaRepository,           useClass: programaRepositoryImpl},
     { provide: ColaboradorRepository,        useClass: ColaboradorRepositoryImpl},

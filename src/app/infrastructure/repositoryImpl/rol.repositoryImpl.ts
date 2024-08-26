@@ -18,6 +18,9 @@ export class RolRespositoryImpl implements RolRespository {
     getListRols(): Observable<rolesResponse> {
         return this.rolService.obtenerRoles();
     }
+    getRolsNotPagination(): Observable<rolesResponse> {
+        return this.rolService.obtenerRolesSinPaginacion();
+    }
     getRolById(id: string): Observable<rolResponse> {
         return this.rolService.obtenerRoleById(id);
     }

@@ -107,19 +107,10 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   onSubmit(): void {
     if(this.colaboradorForm.invalid) {
       this.colaboradorForm.markAllAsTouched();
-        //this.showAlert( "El formulario esta incompleto", false);
+        mostrar( "El formulario esta incompleto", "informacion");
         return;
     }
-
-    this.colaborador.tipoIdentificacion  = this.currentColaborador.tipoIdentificacion;
-    this.colaborador.numeroIdentificacion = this.currentColaborador.numeroIdentificacion;
-    this.colaborador.nombreColaborador = this.currentColaborador.nombreColaborador;
-    this.colaborador.nombreUsuario = this.currentColaborador.nombreUsuario;
-    this.colaborador.contrasena = this.currentColaborador.contrasena;
-    this.colaborador.rol = this.currentColaborador.rol;
     this.crearColaborador();
-    //this.colaboradorForm.reset(col);
-    console.log(this.colaborador)
 
   }
 
@@ -130,7 +121,8 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
         console.log(res);
         //this.colaboradorForm.reset({});
       },
-      error: ({error}) => {
+      error: (error) => {
+        console.log(error);
         if(error.msg && error.errro){
           mostrarVariosTextos(error.msg, error.error, 'error');
         } else {
@@ -142,7 +134,7 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   };
 
   obtenerIdentificaciones(){
-    this.tipoIdentificacionSuscripcion = this.tipoIdentificacionRepository.getTipoIdentificaciones().subscribe({
+    this.tipoIdentificacionSuscripcion = this.tipoIdentificacionRepository.getIdentificacionsWithOutPagination().subscribe({
       next: (res: tIdentificacionesResponse) => {
         this.tipoIdentificaciones = res.Identificaciones,
         console.log(this.tipoIdentificaciones)
@@ -152,7 +144,7 @@ export class CrearColaboradorComponent implements OnDestroy, OnInit{
   }
 
   obtenerRoles(){
-    this.rolSuscripcion = this.rolRespository.getListRols().subscribe({
+    this.rolSuscripcion = this.rolRespository.getRolsNotPagination().subscribe({
       next: ({msg, roles}: rolesResponse) => {
         this.roles = roles;
         console.log(this.roles)

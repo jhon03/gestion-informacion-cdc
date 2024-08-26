@@ -17,6 +17,10 @@ export class TidentificacionRepositoryImp implements TipoIdentificacionRepositor
         return this.tipoIdentificacionService.obtenerIdentificaciones();
     }
 
+    getIdentificacionsWithOutPagination(): Observable<tIdentificacionesResponse> {
+        return this.tipoIdentificacionService.obtenerIdentificacionesSinPaginacion();
+    }
+
     getTipoIdentificacionById(): Observable<tIdentificacionResponse> {
         return this.tipoIdentificacionService.obtenerIdentificacionById("");
     }
