@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../enviroments/enviroment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { rolesResponse, rolRequest, rolResponse } from '../../helpers/rol.interface';
+import { rolesResponse, rolRequest, rolResponse } from '../../helpers/interfaces/rol.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +14,10 @@ export class RolService {
 
   obtenerRoles(): Observable<rolesResponse>{
     return this.http.get<rolesResponse>(`${this.apiUrl}/listRols?page=3`);
+  }
+
+  obtenerRolesSinPaginacion(): Observable<rolesResponse>{
+    return this.http.get<rolesResponse>(`${this.apiUrl}/findRols`);
   }
   obtenerRoleById(id: string): Observable<rolResponse> {
   return this.http.get<rolResponse>(`${this.apiUrl}/findRolById/${id}`);

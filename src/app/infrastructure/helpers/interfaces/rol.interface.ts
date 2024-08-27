@@ -1,4 +1,4 @@
-import { RolDto } from "../dto/rol.dto";
+import { RolDto } from "../../dto/rol.dto";
 
 export interface rolRequest {
 
@@ -9,6 +9,7 @@ export interface rolRequest {
 export interface rolesResponse {
     msg: string;
     roles: RolDto[];
+    pagina?: string
 
 }
 

@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../material/material/material.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticacionService } from '../../../../../infrastructure/services/authenticacion/authenticacion.service';
+
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { LoginRepository } from '../../../../../domain/repositories/login.repository';
+import { loginRequest, loginResponse } from '../../../../../infrastructure/helpers/interfaces/login.interface';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { mostrar, mostrarVariosTextos } from '../../../../../infrastructure/plugins/jwt/sweetalert/swal.plugin';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -12,47 +17,77 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit, OnDestroy{
 
+  private loginSuscripcion: Subscription|null = null;
+
+  funciones = [
+
+    "crear",
+    "actualizar",
+    "lista"
+  ]
+
+  loginForm: FormGroup = this.fb.group({
+    nombreUsuario: ['', Validators.required],
+    contrasena: ['', Validators.required]
+  })
   
-  username: string = '';
-  password: string = '';
-  loginForm!: FormGroup;
+ 
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthenticacionService, private router: Router){}
+  constructor(private fb: FormBuilder, private loginRepository: LoginRepository, private router: Router){}
+  
+  
+  ngOnDestroy(): void {
+   this.loginSuscripcion?.unsubscribe();
+  }
 
   
   ngOnInit(): void {
-      this.loginForm = this.fb.group({
-        username: ['', Validators.required], 
-        password: ['', Validators.required]
-      });
+    
   }
 
-  onSubmit() {
-    if (this.loginForm.valid){
-      const {username, password} = this.loginForm.value;
-      this.authService.login(username, password).subscribe(
-        response => {
-          console.log('login exitoso', response);
+  get CurrentFormLogin(): loginRequest {
+    const login = this.loginForm.value as loginRequest;
+    return login;
+  }
 
-          //se guarda el token el localStorage
-          localStorage.setItem('token', response.token);
-          this.router.navigate(['/dashboard']);
+  onSubmit(): void {
+    if (this.loginForm.invalid){
 
-        },
-        error => {
-          console.error('error al iniciar sesión', error);
-          this.errorMessage = error.error?.error || 'credenciales no válidas'
-          
-        }
-      );
-    } else {
-      console.log("formulario no válido")
+      this.loginForm.markAllAsTouched();
+      return;
     }
+    this.iniciarSesion();
   }
+  redirigir(): void {
+
+  }
+
+
+
+  iniciarSesion(){
+
+    this.loginSuscripcion = this.loginRepository.login(this.CurrentFormLogin).subscribe({
+      next: ({body}: HttpResponse<loginResponse>) => {
+        mostrar(`bienvenido ${body?.usuario.nombreUsuario} `, 'correcto');
+        this.router.navigateByUrl('dashboard')
+      }, error: ({error}: HttpErrorResponse) => {
+
+        if (error.msg && error.error) {
+          mostrarVariosTextos(error.msg, error.error, 'error');
+        } else {
+          mostrar('error al iniciar sesión', 'error')
+        }
+      },
+      })
+  }
+ usuarioLogeado(){
+
+ }
 
 
 
 }
+

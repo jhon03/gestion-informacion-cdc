@@ -8,7 +8,7 @@ import { DetalleProgramaComponent } from './presentation/detalles-programa/compo
 import { PaginaInicioComponent } from './presentation/components/pagina-inicio/pagina-inicio.component';
 import { InfoCdcComponent } from './presentation/components/info-cdc/info-cdc.component';
 import { EscenarioProblemaComponent } from './presentation/components/escenario-problema/escenario-problema.component';
-import { authGuard } from './infrastructure/seguridad/auth/authGuard';
+import { authGuard } from './infrastructure/seguridad/auth/auth.guard';
 import { DashboardComponent } from './presentation/components/dashboard/dashboard.component';
 
 

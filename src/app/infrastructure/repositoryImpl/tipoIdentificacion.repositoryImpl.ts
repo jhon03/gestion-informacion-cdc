@@ -13,6 +13,11 @@ export class TidentificacionRepositoryImp implements TipoIdentificacionRepositor
 
     constructor(private tipoIdentificacionService: TipoIdentificacionService) { }
 
+
+    getIdentificacionsWithOutPagination(): Observable<tIdentificacionesResponse> { 
+        return this.tipoIdentificacionService.obtenerIdentificacionesSinPaginacion();
+    }
+
     getTipoIdentificaciones(): Observable<tIdentificacionesResponse> {
         return this.tipoIdentificacionService.obtenerIdentificaciones();
     }

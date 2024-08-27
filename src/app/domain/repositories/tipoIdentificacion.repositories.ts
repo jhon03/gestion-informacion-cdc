@@ -11,4 +11,6 @@ import { tIdentificacionResponse, tIdentificacionesResponse } from "../../infras
 
     abstract getTipoIdentificacionById(): Observable<tIdentificacionResponse>;
     abstract getTipoIdentificaciones():Observable<tIdentificacionesResponse>;
+    
+    abstract getIdentificacionsWithOutPagination(): Observable<tIdentificacionesResponse>
  }

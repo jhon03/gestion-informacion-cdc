@@ -22,4 +22,8 @@ export class TipoIdentificacionService {
   obtenerIdentificacionById(id: string): Observable<tIdentificacionResponse>{
     return this.http.get<tIdentificacionResponse>(`${this.apiUrl}/`);
   }
+
+  obtenerIdentificacionesSinPaginacion(): Observable<tIdentificacionesResponse>{
+    return this.http.get<tIdentificacionesResponse>(`${this.apiUrl}/getIdentificaciones`);
+  }
 }

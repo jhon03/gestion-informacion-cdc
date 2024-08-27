@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { RolRespository } from "../../domain/repositories/rol.repository";
 import { RolService } from "../services/rol/rol.service";
 import { Observable } from "rxjs";
-import { rolesResponse, rolRequest, rolResponse } from "../helpers/rol.interface";
+import { rolesResponse, rolRequest, rolResponse } from "../helpers/interfaces/rol.interface";
 @Injectable({
     providedIn: 'root'
 })
@@ -10,6 +10,10 @@ import { rolesResponse, rolRequest, rolResponse } from "../helpers/rol.interface
 export class RolRepositoryImpl implements RolRespository {
 
     constructor (private rolService: RolService){}
+
+    getRolsNotPagination(): Observable<rolesResponse> {
+        return this.rolService.obtenerRolesSinPaginacion();
+    }
 
 
      getListRols(): Observable<rolesResponse> {

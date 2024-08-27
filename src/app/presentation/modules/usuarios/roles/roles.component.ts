@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RolRepositoryImpl } from '../../../../infrastructure/repositoryImpl/rol.repositoryImpl';
 import { Subscription } from 'rxjs';
 import { RolDto } from '../../../../infrastructure/dto/rol.dto';
-import { rolRequest, rolResponse } from '../../../../infrastructure/helpers/rol.interface';
+import { rolRequest, rolResponse } from '../../../../infrastructure/helpers/interfaces/rol.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { BreakpointObserver } from '@angular/cdk/layout';

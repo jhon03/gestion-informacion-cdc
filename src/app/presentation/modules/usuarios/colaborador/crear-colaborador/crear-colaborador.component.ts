@@ -11,11 +11,13 @@ import { tIdentificacionesResponse } from '../../../../../infrastructure/helpers
 import { RolDto } from '../../../../../infrastructure/dto/rol.dto';
 //import { RolRespository } from '../../../../../domain/repositories/rol.repository';
 import { RolRepositoryImpl } from '../../../../../infrastructure/repositoryImpl/rol.repositoryImpl';
-import { rolesResponse } from '../../../../../infrastructure/helpers/rol.interface';
+import { rolesResponse } from '../../../../../infrastructure/helpers/interfaces/rol.interface';
 import { ColaboradorRepository} from '../../../../../domain/repositories/colaborador.repository';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { mostrar, mostrarVariosTextos } from '../../../../../infrastructure/plugins/jwt/sweetalert/swal.plugin';
 const col = {
   tipoIdentificacion: '',
   numeroIdentificacion: '',
@@ -48,7 +50,8 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
     private fb: FormBuilder, //faltaba la inyecccion del formbuider
     private rolRepository: RolRepositoryImpl,
     private colaboradorRepository: ColaboradorRepository,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
     
    
   ){}
@@ -70,6 +73,7 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
   public roles: RolDto[]| null = null; 
   public colaborador: colaboradorRequest= {tipoIdentificacion: "", numeroIdentificacion:0, nombreUsuario:"",nombreColaborador:"",contrasena:"", rol: ""};
 
+  public mostrarContrasena : boolean = false;
  
   ngOnDestroy(): void {
     this.colaboradorSuscripcion?.unsubscribe();
@@ -92,9 +96,13 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
   onSubmit(){
     if(this.colaboradorForm.invalid) {
       this.colaboradorForm.markAllAsTouched();
+      mostrar ("el formulario esta incompleto", "informacion");
       return;
     }
-    this.colaborador.tipoIdentificacion  = this.currentColaborador.tipoIdentificacion;
+
+    this.crearColaborador();
+
+    /*this.colaborador.tipoIdentificacion  = this.currentColaborador.tipoIdentificacion;
     this.colaborador.numeroIdentificacion = this.currentColaborador.numeroIdentificacion;
     this.colaborador.nombreColaborador = this.currentColaborador.nombreColaborador;
     this.colaborador.nombreUsuario = this.currentColaborador.nombreUsuario;
@@ -102,7 +110,7 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
     this.colaborador.rol = this.currentColaborador.rol;
     this.crearColaborador();
     //this.colaboradorForm.reset(col);
-    console.log(this.colaborador)
+    console.log(this.colaborador)*/
   }
   crearColaborador() {
     this.colaboradorSuscripcion = this.colaboradorRepository.createColaborador(this.colaborador).subscribe({
@@ -110,8 +118,13 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
        this.showSnackBar("colaborador creado correctamente");
         console.log(res);
       },
-      error: ({error}) =>{
-        this.showAlert(error.errors[0].msg, false);
+      error: (error) => {
+        console.log(error);
+        if(error.msg && error.errro){
+          mostrarVariosTextos(error.msg, error.error, 'error');
+        } else {
+          mostrar('Error al crear el colaborador', 'error');
+        }
       }
       })
     }
@@ -165,6 +178,8 @@ obtenerRoles(){
     },
   })
 }
+
+ 
 
 }
    

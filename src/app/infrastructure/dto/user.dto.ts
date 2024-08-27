@@ -2,7 +2,8 @@
 export interface UserDto {
 
     idUsuario: string,
-    colaborador: string,
+    idColaborador: string,
+    nombreColaborador: string,
     nombreUsuario: string,
     contrasena: string,
     rol: string,
