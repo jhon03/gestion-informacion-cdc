@@ -7,6 +7,7 @@ import { ColaboradorDto } from '../../../../infrastructure/dto/colaborador.dto';
 import { UserRepository } from '../../../../domain/repositories/user.repository';
 import { UserDto } from '../../../../infrastructure/dto/user.dto';
 import { usersResponse } from '../../../../infrastructure/helpers/interfaces/user.interface';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-colaboradores',
@@ -19,6 +20,8 @@ export class ListColaboradoresComponent implements OnInit, OnDestroy{
   private usersSuscripcion: Subscription | null = null;
   public colaboradores: ColaboradorDto[] = [];
   public users: UserDto[] = [];
+  public paginaAct: number = 1; //inicializamos en uno para cargar siempre la primera pagina
+  public paginasDis: number = 1;
 
 
   constructor( 
@@ -37,21 +40,35 @@ export class ListColaboradoresComponent implements OnInit, OnDestroy{
   }
 
     obtenerColaboradores(){
-      this.colaboradoresListSuscripcion = this.colaboradorRepository.getColaboradors().subscribe({
-        next: ({msg, colaboradores}: colaboradoresResponse ) => {
-          this.colaboradores = colaboradores;
+      this.colaboradoresListSuscripcion = this.colaboradorRepository.getColaboradors(this.paginaAct).subscribe({
+        next: ({body}: HttpResponse<colaboradoresResponse> ) => {
+          this.colaboradores = body?.colaboradores??[];
+          this.paginaAct = body?.pagina ?? 1;
+          this.paginasDis = body?.paginasDis?? 1;
         },
         error: (error:Error) => console.log(error),
       })
     }
 
   obtenerUsuarios(){
-    this.usersSuscripcion = this.userRepository.getUsers().subscribe({
+    this.usersSuscripcion = this.userRepository.getUsers(this.paginaAct).subscribe({
       next: ({msg, usuarios}: usersResponse) => {
         this.users = usuarios;
       },
       error: (error: Error) => console.log(error),
     })
+  };
+
+  turnPage(): void {
+    this.paginaAct += 1;
+    this.obtenerColaboradores();
+    this.obtenerUsuarios();
+  }
+
+  turnBackPage(): void {
+    this.paginaAct -= 1;
+    this.obtenerColaboradores();
+    this.obtenerUsuarios();
   }
 
 }

@@ -40,4 +40,16 @@
         </td>
       </tr>
     </tbody>
-  </table>
+</table>
+<div class="container flex">
+  <button [disabled]="paginaAct==1" type="button" class="btn btn-warning btn-sm" (click)="turnBackPage()">
+    <
+  </button>
+  <button type="button" class="btn btn-primary">
+    pagina {{paginaAct}}
+  </button>
+  <button [disabled]="paginasDis<=paginaAct" type="button" class="btn btn-warning btn-sm" (click)="turnPage()">
+    >
+  </button>
+</div>
+

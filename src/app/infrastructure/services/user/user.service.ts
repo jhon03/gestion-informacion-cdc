@@ -14,8 +14,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  buscarUsers():Observable<usersResponse>{
-    return this.http.get<usersResponse>(`${this.url}/listUsers?page=3`);
+  buscarUsers(page: number):Observable<usersResponse>{
+    return this.http.get<usersResponse>(`${this.url}/listUsers?page=${page}`);
   }
 
   buscarUserById(idUser: string):Observable<userResponse>{

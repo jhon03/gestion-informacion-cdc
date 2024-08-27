@@ -12,12 +12,15 @@ export interface programaRequest {
 
 
 export interface responsePrograms {
+    pagina?:string,
     msg: string,
-    programas: ProgramaDto[]
+    programas: ProgramaDto[],
+    tokenAcessoRenovado?: string,
 }
 
 export interface responseProgram {
     msg: string,
-    programa: ProgramaDto
+    programa: ProgramaDto,
+    tokenAcessoRenovado?: string,
 }
 

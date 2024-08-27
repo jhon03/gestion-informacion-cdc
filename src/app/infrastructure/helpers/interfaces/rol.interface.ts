@@ -8,7 +8,8 @@ export interface rolRequest {
 export interface rolesResponse {
     pagina?: string
     msg: string,
-    roles: RolDto[]
+    roles: RolDto[],
+    tokenAcessoRenovado?: string,
 }
 
 export interface rolResponse {

@@ -11,7 +11,7 @@ import { UserDto } from "../../infrastructure/dto/user.dto";
 
 export abstract class UserRepository {
 
-    abstract getUsers(): Observable<usersResponse>;
+    abstract getUsers(page: number): Observable<usersResponse>;
     abstract getUserById(idUser: string): Observable<userResponse>;
     abstract activateUser(idUser: string): Observable<userResponse>;
     abstract deleteUser(idUser: string): Observable<userResponse>;

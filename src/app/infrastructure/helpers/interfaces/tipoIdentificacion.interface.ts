@@ -7,8 +7,10 @@ export interface tIdentificacionResponse {
 }
 
 export interface tIdentificacionesResponse {
+    pagina?:string,
     msg: string,
-    Identificaciones: TipoIdentificacionDto[]
+    Identificaciones: TipoIdentificacionDto[],
+    tokenAcessoRenovado?: string,
 }
 
 export interface tIdentificacionRequest {

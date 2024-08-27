@@ -14,12 +14,16 @@ export interface colaboradorRequest {
 
 
 export interface colaboradoresResponse {
+    pagina?: number,
+    paginasDis?: number,
     msg: string,
-    colaboradores: ColaboradorDto[]
+    colaboradores: ColaboradorDto[],
+    tokenAcessoRenovado?: string
 }
 
 export interface colaboradorResponse {
     msg: string,
     colaborador: ColaboradorDto
     usuario?: UserDto
+    tokenAcessoRenovado?: string
 }

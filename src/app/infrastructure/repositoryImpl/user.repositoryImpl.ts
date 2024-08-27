@@ -14,8 +14,8 @@ export class userRepositoryImpl implements UserRepository {
 
     constructor(private userService: UserService){}
 
-    getUsers(): Observable<usersResponse>{
-        return this.userService.buscarUsers();
+    getUsers(page: number): Observable<usersResponse>{
+        return this.userService.buscarUsers(page);
     };
     getUserById(idUser: string): Observable<userResponse>{
         return this.userService.buscarUserById(idUser);

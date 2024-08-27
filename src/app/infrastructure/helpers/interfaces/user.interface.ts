@@ -7,6 +7,8 @@ export interface userResponse {
 }
 
 export interface usersResponse {
+    pagina?:string,
     msg: string,
     usuarios: UserDto[];
+    tokenAcessoRenovado?: string,
 }
