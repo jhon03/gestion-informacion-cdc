@@ -24,8 +24,8 @@ export class programaRepositoryImpl implements ProgramaRepository {
     desactivateProgram(idPrograma: string): Observable<responseProgram> {
         return this.programaService.desactivarPrograma(idPrograma);
     }
-    confirmarPrograma(idPrograma: string, idColaboradorAsignado: string): Observable<responseProgram> {
-        return this.programaService.confirmarPrograma(idPrograma, idColaboradorAsignado);
+    confirmarPrograma(idPrograma: string, idColaboradorAsignado: string, formato: any): Observable<programaRequest> {
+        return this.programaService.confirmarPrograma(idPrograma, idColaboradorAsignado, formato);
     }
     crearProgram(idColaborador: string, datos: programaRequest): Observable<responseProgram> {
         return this.programaService.crearPrograma(idColaborador, datos);
@@ -34,8 +34,8 @@ export class programaRepositoryImpl implements ProgramaRepository {
         return this.programaService.actualizarPrograma(idPrograma, datos);
     }
 
-    getPrograms(): Observable<responsePrograms> {
-        return this.programaService.obtenerProgramas();
+    getPrograms(page: number, limit: number = 10): Observable<responsePrograms> {
+        return this.programaService.obtenerProgramas(page, limit);
     }
 
     getProgramById(idPrograma: string): Observable<responseProgram> {

@@ -11,12 +11,12 @@ import { programaRequest, responseProgram, responsePrograms } from '../../infras
 
 export abstract class ProgramaRepository {
    
-   abstract getPrograms(): Observable<responsePrograms>;
+   abstract getPrograms(page: number, limit: number): Observable<responsePrograms>;
    abstract getProgramsInConfirmation(): Observable<responsePrograms>
    abstract getProgramById(idPrograma: string):Observable<responseProgram>;
    abstract activateProgram(idPrograma: string): Observable<responseProgram>;
    abstract desactivateProgram(idPrograma: string): Observable<responseProgram>;
-   abstract confirmarPrograma(idPrograma: string, idColaboradorAsignado: string): Observable<responseProgram>;
+   abstract confirmarPrograma(idPrograma: string, idColaboradorAsignado: string, formato: any): Observable<programaRequest>;
    abstract crearProgram(idColaborador: string, datos: programaRequest): Observable<responseProgram>;
    abstract updateProgram(idPrograma: string, datos: programaRequest): Observable<responseProgram>;
 }
