@@ -9,6 +9,8 @@ export interface programaRequest {
 export interface responsePrograms {
     msg: string,
     programas: ProgramaDto[]
+    pagina: string;
+    tokenAccessRenovado: string;
 }
 
 export interface responseProgram {
