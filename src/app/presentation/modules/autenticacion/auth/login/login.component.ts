@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy{
 
     this.loginSuscripcion = this.loginRepository.login(this.CurrentFormLogin).subscribe({
       next: ({body}: HttpResponse<loginResponse>) => {
-        mostrar(`bienvenido ${body?.usuario.nombreUsuario} `, 'correcto');
+        mostrar(`bienvenido ${body?.usuario.nombreColaborador} ${body?.usuario.nombreUsuario}`, 'correcto');
         this.router.navigateByUrl('dashboard')
       }, error: ({error}: HttpErrorResponse) => {
 
