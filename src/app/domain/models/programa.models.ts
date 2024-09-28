@@ -1,4 +1,4 @@
-
+import { InformacionDTO } from "../../infrastructure/dto/programa.dto";
 export class Programa {
 
     constructor (
@@ -9,6 +9,7 @@ export class Programa {
         public formato: Record<string,any>,
         public colaboradorCreador: string,
         public ColaboradorResponsable: string,
+        public informacion: InformacionDTO[] // Array para campos dinámicos
     ){}
 
 

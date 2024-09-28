@@ -1,12 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DialogAsignarNombre, FormatoRegistroProgramaComponent } from './formato-registro-programa/formato-registro-programa.component';
+import { FormatoRegistroPorgramaComponent } from './formato-registro-porgrama/formato-registro-porgrama.component';
+import { VisualizarPogramasEnEsperaComponent } from './visualizar-pogramas-en-espera/visualizar-pogramas-en-espera.component';
+import { ProgramasActivosComponent } from './programas-activos/programas-activos.component';
 
 const routes: Routes = [
 
+
   {
-    path: 'formato-registro-programa', 
-    component: FormatoRegistroProgramaComponent
+    path: 'registro-programa',
+    component: FormatoRegistroPorgramaComponent
+  },
+  {
+    path: 'ver-programas-en-espera',
+    component: VisualizarPogramasEnEsperaComponent
+  }, 
+  {
+    path: 'ver-programas-activos',
+    component: ProgramasActivosComponent
   }
 ];
 

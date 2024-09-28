@@ -1,0 +1,92 @@
+/* Estilos generales del formulario */
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #FFFFFF; /* Fondo blanco para un aspecto limpio */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: #193A6F; /* Color de la marca para el título */
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  
+  /* Contenedor de los campos */
+  div {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    color: #11224D; /* Color de la marca para las etiquetas */
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #193A6F; /* Color de la marca para el borde de los inputs */
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input:focus {
+    border-color: #F98125; /* Color de la marca para el borde al enfocar */
+    outline: none;
+  }
+  
+  button {
+    background-color: #F98125; /* Color de la marca para los botones */
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #FB9B50; /* Color de la marca para el hover del botón */
+  }
+  
+  button:disabled {
+    background-color: #E0E0E0;
+    cursor: not-allowed;
+  }
+  
+  /* Estilos para los campos dinámicos */
+  [formArrayName="informacion"] {
+    margin-top: 20px;
+  }
+  
+  [formArrayName="informacion"] > div {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #193A6F;
+    border-radius: 4px;
+    background-color: #F9F9F9; /* Color de fondo para los campos dinámicos */
+  }
+  
+  button[type="button"] {
+    background-color: #193A6F; /* Color de la marca para el botón de agregar campo */
+  }
+  
+  button[type="button"]:hover {
+    background-color: #11224D; /* Color de la marca para el hover del botón de agregar campo */
+  }
+  
+  button[type="button"]:disabled {
+    background-color: #E0E0E0;
+  }
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Ajusta según sea necesario */
+  }

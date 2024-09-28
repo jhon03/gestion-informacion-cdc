@@ -10,6 +10,9 @@ import { InfoCdcComponent } from './presentation/components/info-cdc/info-cdc.co
 import { EscenarioProblemaComponent } from './presentation/components/escenario-problema/escenario-problema.component';
 import { authGuard } from './infrastructure/seguridad/auth/auth.guard';
 import { DashboardComponent } from './presentation/components/dashboard/dashboard.component';
+import { CrearColaboradorComponent } from './presentation/modules/usuarios/colaborador/crear-colaborador/crear-colaborador.component';
+import { CrearNuevoProgramaComponent } from './presentation/components/crear-nuevo-programa/crear-nuevo-programa.component';
+import { FormRegistroUsuariosComponent } from './presentation/components/form-registro-usuarios/form-registro-usuarios.component';
 
 
 export const routes: Routes = [
@@ -45,23 +48,36 @@ export const routes: Routes = [
             loadChildren: () => import('./presentation/modules/usuarios/usuarios.module').then(m => m.UsuariosModule)
         },
 
+        {
+            path: 'formulacion',
+            loadChildren: () => import('./presentation/modules/formulacion/formulacion.module').then(m => m.FormulacionModule)
+        },
+
+        {
+            path: 'ejecucion',
+            loadChildren: () => import('./presentation/modules/ejecucion-programas/ejecucion-programas.module').then(m => m.EjecucionProgramasModule)
+        },
+
     {
         path: 'dashboard',
         component: DashboardComponent, children: [
+    ]
+    }, 
 
-            
-            
-            {
-                path: 'formulacion',
-                loadChildren: ()=> import('./presentation/modules/formulacion/formulacion.module').then(m => m.FormulacionModule)
-            },
-        
-            {
-                path: 'evaluacion-activacion-programa',
-                loadChildren: () => import('./presentation/evaluacion-activacion-programas/evaluacion-activacion-programas.module').then(m => m.EvaluacionActivacionProgramasModule)
-        
-            },
-    ]},    
+    {
+         path: 'registro_programa',
+         component: CrearNuevoProgramaComponent
+    },
+    {
+         path: 'crear-formulario',
+         component: FormRegistroUsuariosComponent
+    },
+    
+    {
+        path: 'evaluacion-activacion-programa',
+        loadChildren: () => import('./presentation/evaluacion-activacion-programas/evaluacion-activacion-programas.module').then(m => m.EvaluacionActivacionProgramasModule)
+
+    },
 
     {
         path: '**',

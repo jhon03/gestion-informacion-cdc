@@ -1,0 +1,30 @@
+<form [formGroup]="programaForm" (ngSubmit)="crearPrograma()">
+    <!-- Nombre del programa -->
+    <div>
+      <label for="nombrePrograma">Nombre del Programa</label>
+      <input id="nombrePrograma" formControlName="nombrePrograma" required>
+    </div>
+  
+    <!-- Campos dinámicos para 'informacion' -->
+    <div formArrayName="informacion">
+      <div *ngFor="let campo of informacion.controls; let i = index" [formGroupName]="i">
+        <label>Campo</label>
+        <input formControlName="campo" placeholder="Nombre del campo">
+        
+        <label>Valor</label>
+        <input formControlName="valor" placeholder="Valor del campo">
+        
+        <button (click)="eliminarCampo(i)">Eliminar campo</button>
+      </div>
+    </div>
+  
+    <button type="button" (click)="agregarCampo()">Agregar nuevo campo</button>
+  
+    <button type="submit" [disabled]="programaForm.invalid || isLoading">Crear Programa</button>
+
+
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  </form>
+  
