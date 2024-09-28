@@ -1,0 +1,26 @@
+:host {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .registro-button {
+    background-color: #F98125;
+    color: #ffffff;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .registro-button:hover {
+    background-color: #FB9B50;
+  }
+  
+  .registro-button:active {
+    background-color: #193A6F;
+  }
+  

@@ -2,17 +2,21 @@ import { Component, ViewChild, OnInit} from '@angular/core';
 import { MaterialModule } from '../../modules/material/material/material.module';
 import { MatSidenav } from '@angular/material/sidenav';
 import * as jwt_decode from 'jwt-decode';
-
+import { jwtDecode } from 'jwt-decode';
 import { AuthenticacionService } from '../../../infrastructure/services/authenticacion/authenticacion.service';
 import Swal from 'sweetalert2';
 import { LoginRepository } from '../../../domain/repositories/login.repository';
-import { Router } from '@angular/router';
-
+import { Router, RouterModule } from '@angular/router';
+import { CrearNuevoProgramaComponent } from '../crear-nuevo-programa/crear-nuevo-programa.component';
+import { FormRegistroUsuariosComponent } from '../form-registro-usuarios/form-registro-usuarios.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    MaterialModule
+    MaterialModule,
+    CrearNuevoProgramaComponent,
+    RouterModule,
+    FormRegistroUsuariosComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -23,13 +27,21 @@ userRole: string = '';
   
 @ViewChild('sidenav') sidenav!: MatSidenav;
 
-constructor(private loginRespository: LoginRepository, private router: Router){}
+constructor(private loginRespository: LoginRepository, 
+  private authService: AuthenticacionService, private router: Router,
+
+){}
+
+
 ngOnInit(): void {
     this.userRole;
+    this.getUserRole;
 }
 
-getUserRole() {
-  const token = localStorage.getItem('token');
+getUserRole(): void {
+
+  this.userRole = this.authService.getUserRole();
+  console.log('user Role: ', this.userRole);
 
  
 }
