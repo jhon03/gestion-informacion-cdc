@@ -37,7 +37,7 @@ const col = {
 export class CrearColaboradorComponent implements OnInit, OnDestroy {
   hide = signal(true);
   showAlert: any;
-  showSnackBar: any;
+  //showSnackBar: any;
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
@@ -56,6 +56,21 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
    
   ){}
 
+  // Función para mostrar el snackbar
+showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+    });
+  }
+
+   // Función para mostrar el error en un MatSnackBar
+showErrorSnackBar(message: string, errors: string[]): void {
+  const errorMessage = `${message}\n${errors.join('\n')}`;
+  this.snackBar.open(errorMessage, 'Cerrar', {
+    duration: 5000,
+    panelClass: ['snackbar-error']
+  });
+} 
   //faltaba la inicializacion del formulario reactivo 
   public colaboradorForm: FormGroup = this.fb.group({
     tipoIdentificacion: ['', [Validators.required]],
@@ -98,10 +113,36 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
       this.colaboradorForm.markAllAsTouched();
       mostrar ("el formulario esta incompleto", "informacion");
       return;
+
+     
     }
 
-    this.crearColaborador();
+    console.log("Datos enviados:", this.currentColaborador);
+   // this.crearColaborador();
 
+    this.colaboradorSuscripcion = this.colaboradorRepository.createColaborador(this.currentColaborador).subscribe({
+      next: (res: colaboradorResponse) => {
+          this.showSnackBar("Colaborador creado correctamente");
+          console.log(res);
+      },
+     // En el manejo del error
+error: (error) => {
+  console.log(error);
+  if(error.error && error.error.message && error.error.errors) {
+    
+    this.showErrorSnackBar(error.error.message, error.error.errors);
+  } else {
+   
+    this.showErrorSnackBar('Error al crear el colaborador', ['Ocurrió un error inesperado']);
+  } 
+
+ 
+}
+
+
+  });
+
+  
     /*this.colaborador.tipoIdentificacion  = this.currentColaborador.tipoIdentificacion;
     this.colaborador.numeroIdentificacion = this.currentColaborador.numeroIdentificacion;
     this.colaborador.nombreColaborador = this.currentColaborador.nombreColaborador;
@@ -113,7 +154,7 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
     console.log(this.colaborador)*/
   }
   crearColaborador() {
-    this.colaboradorSuscripcion = this.colaboradorRepository.createColaborador(this.colaborador).subscribe({
+    this.colaboradorSuscripcion = this.colaboradorRepository.createColaborador(this.currentColaborador).subscribe({
       next: (res: colaboradorResponse) => {
        this.showSnackBar("colaborador creado correctamente");
         console.log(res);
@@ -163,7 +204,7 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
     
   }
     obtenerIdentificaciones(){
-      this.tipoIdentificacionSuscripcion = this.tipoidentificacionRepository.getTipoIdentificaciones().subscribe({
+      this.tipoIdentificacionSuscripcion = this.tipoidentificacionRepository.getIdentificacionsWithOutPagination().subscribe({
         next: (res: tIdentificacionesResponse)=> {
           this.tipoIdentificaciones = res.Identificaciones,
           console.log(this.tipoIdentificaciones)
@@ -171,11 +212,13 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
         error: (error) => console.log(error),})
     }
 obtenerRoles(){
-  this.rolSuscripcion = this.rolRepository.getListRols().subscribe({
+  this.rolSuscripcion = this.rolRepository.getRolsNotPagination().subscribe({
     next: ({msg, roles}: rolesResponse)=>  {
         this.roles = roles;
         console.log(this.roles)
     },
+    error: (error) => console.log(error),
+
   })
 }
 
@@ -184,7 +227,3 @@ obtenerRoles(){
 }
    
   
-
-
-
- 

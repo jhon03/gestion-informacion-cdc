@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { Colaborador } from '../../../domain/models/colaborador.models';
 import { environment } from '../../../../enviroments/enviroment';
 import { colaboradorResponse, colaboradoresResponse } from '../../helpers/interfaces/colaborador.interface';
@@ -8,6 +8,7 @@ import { colaboradorRequest } from '../../helpers/interfaces/colaborador.interfa
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { throwError } from 'rxjs';
+import { TokenRepository } from '../../../domain/repositories/tokenRepository';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,17 +16,35 @@ export class ColaboradorService {
 
   //rivate apiUrl = environment.apiUrl;
   
-  private apiUrl: string = `${environment.apiUrl}/api/colaboradores`;
+  private apiUrl: string = `${environment.apiUrl}/api/colaboradores`
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private tokenRepository: TokenRepository,
+    private http: HttpClient) { }
 
 
-  obtenerColaboradores(): Observable<colaboradoresResponse>{
-    return this.http.get<colaboradoresResponse>(`${this.apiUrl}/listColaboradores`);
-  }
-
-  obtenerColaboradorById(idColaborador: string): Observable <colaboradorResponse>{
-    return this.http.get<colaboradorResponse>(`${this.apiUrl}/findById/${idColaborador}`);
+    obtenerColaboradores(page: number, pageSize: number): Observable<HttpResponse<colaboradoresResponse>> {
+      const params = new HttpParams()
+        .set('page', page.toString())
+        .set('pageSize', pageSize.toString());
+  
+      return this.http.get<colaboradoresResponse>(`${this.apiUrl}/listColaboradores`, { params, observe: 'response' }).pipe(
+        tap(({ body }: HttpResponse<colaboradoresResponse>) => {
+          if (body?.tokenAcessoRenovado) {
+            // Manejo del token si es necesario
+          }
+        })
+      );
+    }
+  
+  obtenerColaboradorById(idColaborador: string): Observable <HttpResponse<colaboradorResponse>>{
+    return this.http.get<colaboradorResponse>(`${this.apiUrl}/findById/${idColaborador}`,{
+      observe: 'response'
+    }).pipe( tap(({body}: HttpResponse<colaboradorResponse>)  => {
+      if(body?.tokenAcessoRenovado){
+        this.tokenRepository.PutTokenInBrowser(body.tokenAcessoRenovado);
+      }
+    }));
   }
 
   //recomendación implementar en cada metodo de los servicios el async antes del nombre del metodo y el await despues del return. => optimización de memoria verificar que termine de hacero traer toda la información para seguir con la ejecución del código. 

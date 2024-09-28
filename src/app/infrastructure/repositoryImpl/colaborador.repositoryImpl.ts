@@ -3,6 +3,7 @@ import { ColaboradorRepository } from "../../domain/repositories/colaborador.rep
 import { ColaboradorService } from "../services/colaborador/colaborador.service";
 import { Injectable } from "@angular/core";
 import { colaboradorRequest, colaboradorResponse, colaboradoresResponse } from "../helpers/interfaces/colaborador.interface";
+import { HttpResponse } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -12,10 +13,10 @@ export class ColaboradorRepositoryImpl implements ColaboradorRepository {
  
     constructor(private colaboradorService: ColaboradorService){}
 
-    getColaboradors(): Observable<colaboradoresResponse> {
-        return this.colaboradorService.obtenerColaboradores();
+    getColaboradors(page: number, pageSize: number): Observable<HttpResponse<colaboradoresResponse>> {
+        return this.colaboradorService.obtenerColaboradores(page, pageSize);
     }
-    getColaboradorById(idColaborador: string): Observable<colaboradorResponse> {
+    getColaboradorById(idColaborador: string): Observable<HttpResponse<colaboradorResponse>> {
         return this.colaboradorService.obtenerColaboradorById(idColaborador);
     }
     createColaborador(datos: colaboradorRequest): Observable<colaboradorResponse> {
