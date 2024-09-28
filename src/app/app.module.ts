@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProgramaListComponent } from './presentation/components/programa/programa-list/programa-list.component';
 import { ProgramaRepository } from './domain/repositories/programa.repository';
 
-import { FormatosDeRegistrosModule } from './presentation/formatos-de-registros/formatos-de-registros.module';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { programaRepositoryImpl } from './infrastructure/repositoryImpl/programa.repositoryImpl';
@@ -34,13 +33,17 @@ import { LoginRepositoryImpl } from './infrastructure/repositoryImpl/loginReposi
 import { TokenRepository } from './domain/repositories/tokenRepository';
 import { TokenRepositoryImpl } from './infrastructure/repositoryImpl/tokenRepositoryImpl';
 import { authInterceptor } from './infrastructure/seguridad/auth/interceptor/auth.interceptor';
+import { DashboardComponent } from './presentation/components/dashboard/dashboard.component';
+import { CrearNuevoProgramaComponent } from './presentation/components/crear-nuevo-programa/crear-nuevo-programa.component';
+import { FormulacionModule } from './presentation/modules/formulacion/formulacion.module';
+import { EjecucionProgramasModule } from './presentation/modules/ejecucion-programas/ejecucion-programas.module';
 //import { HttpClientModule } from '@angular/common/http'; deprecado
 
 @NgModule({
   declarations: [
     AppComponent
     // Otros componentes que necesites declarar
-   
+  
   
   ],
   imports: [
@@ -49,8 +52,6 @@ import { authInterceptor } from './infrastructure/seguridad/auth/interceptor/aut
     AppRoutes,
     MatButtonModule,
     RouterModule,
-    FormatosDeRegistrosModule,
-     
     ProgramaListComponent,
     // Otros módulos que necesites importar
     
@@ -60,7 +61,9 @@ import { authInterceptor } from './infrastructure/seguridad/auth/interceptor/aut
    // HttpClientModule,
    AutenticacionModule,
    FormsModule,
-   ReactiveFormsModule
+   ReactiveFormsModule,
+   FormulacionModule,
+   EjecucionProgramasModule
   ],
   providers: [
     { provide: ProgramaRepository,                useClass: programaRepositoryImpl },
