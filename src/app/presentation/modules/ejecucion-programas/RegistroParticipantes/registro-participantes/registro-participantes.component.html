@@ -1,0 +1,38 @@
+<div class="form-container">
+    <h2>Diligenciar Formulario</h2>
+  
+    <form [formGroup]="formularioForm" (ngSubmit)="diligenciarFormulario()">
+      <div *ngFor="let campo of camposFormulario" class="form-group">
+        <label [for]="campo.nombre">{{ campo.nombre }}</label>
+        <input
+          *ngIf="campo.tipo === 'string'"
+          [id]="campo.nombre"
+          [formControlName]="campo.nombre"
+          type="text"
+          class="form-control"
+          placeholder="Ingrese {{ campo.nombre }}"
+          required
+        />
+        
+        <input
+          *ngIf="campo.tipo === 'number'"
+          [id]="campo.nombre"
+          [formControlName]="campo.nombre"
+          type="number"
+          class="form-control"
+          placeholder="Ingrese {{ campo.nombre }}"
+          required
+        />
+  
+        <div *ngIf="formularioForm.get(campo.nombre)?.invalid && formularioForm.get(campo.nombre)?.touched" class="error-message">
+          <span *ngIf="formularioForm.get(campo.nombre)?.errors?.['required']">{{ campo.nombre }} es requerido.</span>
+        </div>
+      </div>
+      
+      <!-- Botón de envío que llama al método diligenciarFormulario -->
+      <button type="submit" class="btn btn-primary" [disabled]="formularioForm.invalid">
+        Diligenciar Formulario
+      </button>
+    </form>
+  </div>
+  

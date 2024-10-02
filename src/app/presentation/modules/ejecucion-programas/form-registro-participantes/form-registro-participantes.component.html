@@ -1,0 +1,46 @@
+<form [formGroup]="formularioProgramaForm" (ngSubmit)="onSubmit()">
+
+
+  
+  <!-- <div>
+    <label for="programa">Programa</label>
+    <select id="programa" formControlName="idPrograma">
+     <label for="programa">Selecciona un programa</label> -->
+    <!-- <option value="" disabled selected>Selecciona un programa</option>
+      <option *ngFor="let programa of programas" [value]="programa.idPrograma">
+ {{ programa.nombrePrograma}}
+      </option>
+      </select>
+  </div>  -->
+
+
+
+  <div>
+    <label for="nombrePrograma">nombre del Programa</label>
+    <input id="nombrePrograma" placeHolder="nombre del programa" matInput formControlName="nombrePrograma"/>
+  </div>
+
+  <div formArrayName="campos">
+    <div *ngFor="let campo of campos.controls; let i = index" [formGroupName]="i">
+      <mat-form-field appearance="outline">
+      <label>Nombre del Campo</label>
+      <input matInput id="nombre" formControlName="nombre" placeHolder="nombre del campo"/>
+      <mat-error *ngIf="campo.get('nombre')?.invalid">Campo obligatorio</mat-error>
+      </mat-form-field>
+
+  <mat-form-field appearance="outline">
+      <label for="tipo">Tipo de dato</label>
+      <input matInput id="tipo" formControlName="tipo" placeHolder="tipo de dato/text/number/fecha"/>
+      <mat-error *ngIf="campo.get('tipo')?.invalid">Campo obligatorio</mat-error>
+    </mat-form-field>
+
+      <button type="button" (click)="eliminarCampo(i)">Eliminar Campo</button>
+    </div>
+  </div>
+
+  <button type="button" (click)="agregarCampo()">Agregar Campo</button>
+  <button type="submit" [disabled]="formularioProgramaForm.invalid || isSubmitting">
+    {{ isSubmitting ? 'Enviando...' : 'Crear Formulario' }}
+  </button>
+
+</form>
