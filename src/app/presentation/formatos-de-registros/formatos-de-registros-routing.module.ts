@@ -1,14 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DialogAsignarNombre, FormatoRegistroProgramaComponent } from '../modules/formulacion/formato-registro-programa/formato-registro-programa.component';
 
 const routes: Routes = [
 
 
-  {
-    path: 'formato-registro-programa', 
-    component: FormatoRegistroProgramaComponent
-  },
 
   
   
