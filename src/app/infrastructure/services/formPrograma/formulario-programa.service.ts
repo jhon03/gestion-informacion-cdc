@@ -14,7 +14,6 @@ export class FormularioProgramaService {
 
   private Url: string = `${environment.apiUrl}/api/formPrograma`;
 
-
   constructor(
   private http: HttpClient) {}
 
@@ -32,8 +31,8 @@ export class FormularioProgramaService {
     }
 
    //Método para obtener el formulario por ID
-   
-   
+
+
    }
    obtenerFormulario(idPrograma: string, idFormulario: string): Observable<responseFormPrograma> {
     return this.http.get<responseFormPrograma>(`${this.Url}/${idPrograma}/formularios/${idFormulario}`)
@@ -56,8 +55,11 @@ obtenerFormularioPorId(idFormulario: string): Observable<any> {
 }
   //Método para diligenciar un formulario
 
-  diligenciarFormulario(idFormulario: string, data: DiligenciarFormularioRequest): Observable<ResponseDiligenciarFormulario>{
-    return this.http.post<ResponseDiligenciarFormulario>(`${this.Url}/formularios/${idFormulario}/diligenciar`, data).pipe(
+  diligenciarFormulario(colaboradorId: string, idFormulario: string, data: DiligenciarFormularioRequest):
+  Observable<ResponseDiligenciarFormulario>{
+
+    console.log(`Formulario ID: ${idFormulario}, Colaborador ID: ${colaboradorId}`);
+  return this.http.post<ResponseDiligenciarFormulario>(`${this.Url}/formularios/${colaboradorId}/${idFormulario}/diligenciar`, data).pipe(
       catchError(error => {
         console.error('Error al diligenciar el formulario', error);
         return throwError(error);

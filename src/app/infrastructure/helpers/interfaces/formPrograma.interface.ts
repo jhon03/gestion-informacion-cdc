@@ -1,4 +1,4 @@
-import { FormularioProgramaDTO} from "../../dto/formPrograma.dto"; 
+import { FormularioProgramaDTO} from "../../dto/formPrograma.dto";
 
 export interface formProgramaRequest {
 
@@ -32,6 +32,8 @@ export interface CampoFormulario {
   }
 
   export interface DiligenciarFormularioRequest {
+    idFormulario: string;
+    colaboradorId: string;
     valores: {
       nombreCampo: string;
       valor: any; // Puede ser string, number, etc.

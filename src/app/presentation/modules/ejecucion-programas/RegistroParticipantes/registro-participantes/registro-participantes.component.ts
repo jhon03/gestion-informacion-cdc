@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MaterialModule } from '../../../material/material/material.module';
 import { DiligenciarFormularioRequest} from '../../../../../infrastructure/helpers/interfaces/formPrograma.interface';
 import Swal from 'sweetalert2';
+import { AuthenticacionService } from '../../../../../infrastructure/services/authenticacion/authenticacion.service';
 
 @Component({
   selector: 'app-registro-participantes',
@@ -19,15 +20,33 @@ import Swal from 'sweetalert2';
 export class RegistroParticipantesComponent implements OnInit{
   formularioForm!: FormGroup;
   camposFormulario: any[] = [];
-  idFormulario: string = 'cce24ebe-9769-4477-9254-2b8f3ec43a82';
+  idFormulario: string = '71fc31be-bbcd-44e1-a4d8-b581b6ea5863';
+  //colaboradorId: string = '5c451cae-7229-42c8-b527-0f88ebe24554'; // Variable para almacenar el colaboradorId
 
   constructor(
     private fb: FormBuilder,
-    private formularioService: FormularioProgramaService
-  ) { }
+    private formularioService: FormularioProgramaService,
+    private authService: AuthenticacionService,
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
+  ) {
+
+    this.formularioForm = this.fb.group({
+      colaboradorId: ['', Validators.required],
+      idFormulario: ['', Validators.required],
+      valores: this.fb.array([]) // Usar FormArray para campos dinámicos
+    });
+  }
 
   ngOnInit(): void {
-    //SE OBTIENE EL FORMULARIO Y SUS CAMPOS DESDE EL BACKEND
+
+    this.idFormulario = this.route.snapshot.paramMap.get('idFomulario') || this.idFormulario;
+    this.formularioForm.patchValue({
+    idFormulario: this.idFormulario
+    });
+
+
+  //SE OBTIENE EL FORMULARIO Y SUS CAMPOS DESDE EL BACKEND
     this.formularioService.obtenerFormularioPorId(this.idFormulario).subscribe(
       response => {
         this.camposFormulario = response.campos;
@@ -35,60 +54,81 @@ export class RegistroParticipantesComponent implements OnInit{
       },
     error => {
       console.error('Error al obtener el formulario', error);
-    }
-      
-    );
+    });
+
+
   }
 
 initializeForm(): void {
   const formGroupConfig: any = {};
   this.camposFormulario.forEach(campo => {
-    formGroupConfig[campo.nombre] = [ '', campo.tipo === 'string' ? Validators.required : Validators.required];
+    formGroupConfig[campo.nombre] = ['', Validators.required]; // Asegúrate de agregar validadores
   });
-
   this.formularioForm = this.fb.group(formGroupConfig);
 }
 
 
-  diligenciarFormulario(): void {
-    if (this.formularioForm.invalid) {
-      return;
-    }
+  diligenciarFormulario(): void{
 
-    const valores: DiligenciarFormularioRequest = {
-      valores: this.camposFormulario.map(campo => ({
-        nombreCampo: campo.nombre,
-        valor: this.formularioForm.get(campo.nombre)?.value
-      }))
-    };
 
-    //const idFormulario = 'a28f59c3-9ca8-4ec9-826c-74ef533bc556'; // Reemplaza esto con el ID real del formulario
-    this.formularioService.diligenciarFormulario(this.idFormulario, valores).subscribe(
-      response => {
-        console.log('Formulario diligenciado correctamente:', response);
-        // Aquí puedes mostrar un mensaje de éxito o redirigir al usuario
+//VERIFICAR QUE el formulario es válido antes de enviarlo
+if( this.formularioForm.invalid) {
+  console.log(this.formularioForm.valid);  // Verificar si el formulario es válido
+console.log(this.formularioForm.errors); // Verificar los errores del formulario
+  this.snackBar.open('Por favor complete todos los campos obligatorios', 'Cerrar',{
+    duration: 3000,
+  });
+  return;
+}
 
-         // Mostrar el mensaje de éxito usando SweetAlert
-         Swal.fire({
-          title: '¡Formulario creado!',
-          text: 'El formulario ha sido diligenciado correctamente.',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-        this.formularioForm.reset();
+const idColaborador = this.authService.getColaboradorId();
+console.log('Colaborador ID enviado:', idColaborador); // Verifica si este ID es correcto
 
-      },
-      error => {
-        console.error('Error al diligenciar el formulario:', error);
+if (!idColaborador) {
+  console.log('No se encontró el ID del colaborador');
+  Swal.fire({
+    title: 'Error',
+    text: 'Hubo un error al encontrar el ID del colaborador. Intenta nuevamente.',
+    icon: 'error',
+    confirmButtonText: 'Aceptar'
+  });
+  return;
+}
 
-        Swal.fire({
-          title: 'Error',
-          text: 'Hubo un error al diligenciar el formulario. Intenta nuevamente.',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    );
+const valores = this.camposFormulario.map(campo => ({
+  nombreCampo: campo.nombre,
+  valor: this.formularioForm.get(campo.nombre)?.value
+}));
+
+const valoresDiligenciados: DiligenciarFormularioRequest = {
+
+  idFormulario: this.idFormulario,
+  colaboradorId: idColaborador, // Asegúrate de que este campo esté bien formado
+  valores:valores
+  };
+
+
+
+this.formularioService.diligenciarFormulario( idColaborador, this.idFormulario, valoresDiligenciados).subscribe(
+  response => {
+    console.log('Formulario diligenciado correctamente', response);
+    Swal.fire({
+      title: '¡Formulario creado!',
+      text: 'El formulario ha sido diligenciado correctamente.',
+      icon: 'success',
+      confirmButtonText: 'Aceptar'
+    });
+this.formularioForm.reset();
+  },
+  error => {
+    console.error('Error al diligenciar el formulario', error);
+    Swal.fire({
+      title: 'Error',
+      text: 'Hubo un error al diligenciar el formulario. Intenta nuevamente.',
+      icon: 'error',
+      confirmButtonText: 'Aceptar'
+    });
   }
-  }
-
+);
+}
+}
