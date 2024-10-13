@@ -1,0 +1,98 @@
+.container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  h2 {
+    color: #11224D;
+  }
+
+  .actions {
+    margin-bottom: 20px;
+  }
+
+  .btn-crear {
+    background-color: #F98125;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .btn-crear:hover {
+    background-color: #FB9B50;
+  }
+
+  .table-colaboradores {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table-colaboradores th, .table-colaboradores td {
+    padding: 12px;
+    border: 1px solid #193A6F;
+    text-align: left;
+  }
+
+  .table-colaboradores th {
+    background-color: #193A6F;
+    color: white;
+  }
+
+  .btn-editar {
+    background-color: #11224D;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-eliminar {
+    background-color: #F98125;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-eliminar:hover {
+    background-color: #FB9B50;
+  }
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f5f5f5; /* Color de fondo */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+  }
+
+  .btn-pagina {
+    background-color: #193A6F; /* Color del botón */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    padding: 8px 15px; /* Espaciado interno */
+    cursor: pointer; /* Cambiar el cursor */
+    transition: background-color 0.3s, transform 0.2s; /* Transición */
+  }
+
+  .btn-pagina:disabled {
+    background-color: #b0b0b0; /* Color del botón deshabilitado */
+    cursor: not-allowed; /* Cursor de no permitido */
+  }
+
+  .btn-pagina:not(:disabled):hover {
+    background-color: #F98125; /* Color al pasar el ratón */
+    transform: scale(1.05); /* Efecto de crecimiento */
+  }
+
+  span {
+    font-weight: bold; /* Hacer el texto más destacado */
+  }

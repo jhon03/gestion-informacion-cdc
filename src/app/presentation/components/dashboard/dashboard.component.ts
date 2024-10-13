@@ -9,6 +9,7 @@ import { LoginRepository } from '../../../domain/repositories/login.repository';
 import { Router, RouterModule } from '@angular/router';
 import { CrearNuevoProgramaComponent } from '../crear-nuevo-programa/crear-nuevo-programa.component';
 import { FormRegistroUsuariosComponent } from '../form-registro-usuarios/form-registro-usuarios.component';
+import { GestionarColaboradoresComponent } from '../usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -16,7 +17,8 @@ import { FormRegistroUsuariosComponent } from '../form-registro-usuarios/form-re
     MaterialModule,
     CrearNuevoProgramaComponent,
     RouterModule,
-    FormRegistroUsuariosComponent
+    FormRegistroUsuariosComponent,
+    GestionarColaboradoresComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -24,10 +26,10 @@ import { FormRegistroUsuariosComponent } from '../form-registro-usuarios/form-re
 export class DashboardComponent implements OnInit{
 userRole: string = '';
 
-  
+
 @ViewChild('sidenav') sidenav!: MatSidenav;
 
-constructor(private loginRespository: LoginRepository, 
+constructor(private loginRespository: LoginRepository,
   private authService: AuthenticacionService, private router: Router,
 
 ){}
@@ -43,7 +45,7 @@ getUserRole(): void {
   this.userRole = this.authService.getUserRole();
   console.log('user Role: ', this.userRole);
 
- 
+
 }
 
 cerrarSesion(){

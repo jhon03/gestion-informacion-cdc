@@ -1,6 +1,7 @@
+import { User } from "./user.models";
 
 export class Colaborador{
-  
+
     constructor(
         public idColaborador: string="",
         public tipoIdentificacion: string="",
@@ -9,6 +10,7 @@ export class Colaborador{
         public estado: string= "",
         public fechaCreacion: string="",
         public fechaModificacion: string="",
+        public users: User
     ){}
 
 }

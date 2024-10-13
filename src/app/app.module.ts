@@ -36,15 +36,15 @@ import { authInterceptor } from './infrastructure/seguridad/auth/interceptor/aut
 import { DashboardComponent } from './presentation/components/dashboard/dashboard.component';
 import { CrearNuevoProgramaComponent } from './presentation/components/crear-nuevo-programa/crear-nuevo-programa.component';
 import { FormulacionModule } from './presentation/modules/formulacion/formulacion.module';
-import { EjecucionProgramasModule } from './presentation/modules/ejecucion-programas/ejecucion-programas.module';
 //import { HttpClientModule } from '@angular/common/http'; deprecado
+import { GestionarColaboradoresComponent } from './presentation/components/usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
 
 @NgModule({
   declarations: [
     AppComponent
     // Otros componentes que necesites declarar
-  
-  
+
+
   ],
   imports: [
     BrowserModule,
@@ -53,8 +53,9 @@ import { EjecucionProgramasModule } from './presentation/modules/ejecucion-progr
     MatButtonModule,
     RouterModule,
     ProgramaListComponent,
+
     // Otros módulos que necesites importar
-    
+
     UsuariosModule,
     CommonModule,
     MaterialModule,
@@ -62,18 +63,19 @@ import { EjecucionProgramasModule } from './presentation/modules/ejecucion-progr
    AutenticacionModule,
    FormsModule,
    ReactiveFormsModule,
-   FormulacionModule,
-   EjecucionProgramasModule
+   FormulacionModule
   ],
+
+
   providers: [
     { provide: ProgramaRepository,                useClass: programaRepositoryImpl },
     { provide: ColaboradorRepository,             useClass: ColaboradorRepositoryImpl },
     { provide: TipoIdentificacionRepository,      useClass: TidentificacionRepositoryImp},
     { provide: RolRespository,                    useClass: RolRepositoryImpl},
-    { provide: UserRepository,                    useClass: userRepositoryImpl}, 
+    { provide: UserRepository,                    useClass: userRepositoryImpl},
     { provide: LoginRepository,                   useClass: LoginRepositoryImpl},
     { provide: TokenRepository,                   useClass: TokenRepositoryImpl},
-  
+
     provideHttpClient(
       withInterceptors([authInterceptor])
     ),
