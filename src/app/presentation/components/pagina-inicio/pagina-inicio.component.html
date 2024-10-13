@@ -1,24 +1,24 @@
 
 
 <mat-toolbar>
-    <button mat-icon-button class="example-icon" (click)="sidenav.toggle()"aria-label="Example icon-button with menu icon">
+    <button mat-icon-button class="example-icon" (click)="toggleSidenav()"aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
 
-      
+
     </button>
 
 
     <div class="logo">
-        <img src="assets/CDC_LOGO_FULLCOLOR.png" alt="logo">
-       
+        <img src="assets/CDC_LOGO_FULLCOLOR.png" alt="logo" class="toolbar-logo">
+
      </div>
-     
+
     <span class="example-spacer"></span>
-    
+
 
 
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" routerLink="/autenticacion/login">
-      <mat-icon>person</mat-icon> 
+      <mat-icon>person</mat-icon>
     </button>
 
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
@@ -26,11 +26,16 @@
     </button>
   </mat-toolbar>
 
+<!-- Fondo con logo centrado -->
+<div class="background-container">
+  <img src="assets/1.png" alt="Logo centrado" class="center-logo">
+</div>
+
   <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" opened="false">
       <mat-nav-list>
         <a mat-list-item routerLink="/info-cdc" (click)="sidenav.close()">Que es el cdc</a>
-       
+
         <a mat-list-item routerLink="/escenario" (click)="sidenav.close()">Problemas Identificados</a>
 
       </mat-nav-list>
@@ -39,12 +44,12 @@
     </mat-sidenav>
   <!--<div *ngIf="sidenav.toggle()==true"> </div>-->
     <mat-sidenav-content >
-      
+
       <router-outlet></router-outlet>
 
 
     </mat-sidenav-content>
- 
+
   </mat-sidenav-container>
 
 <div class="footer">
