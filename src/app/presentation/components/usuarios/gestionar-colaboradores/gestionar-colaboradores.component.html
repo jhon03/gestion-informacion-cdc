@@ -11,7 +11,8 @@
     </div>
 
     <!-- Tabla de colaboradores -->
-    <table class="table-colaboradores"  *ngIf="colaboradores.length > 0">
+
+    <table class="table-colaboradores"  *ngIf="colaboradores.length > 0" >
       <thead>
         <tr>
           <th>Nombre</th>
@@ -27,12 +28,17 @@
           <td>{{ colaborador.estado }}</td>
 
           <td>
-            <button  class="btn-editar">Editar</button>
+            <button  class="btn-editar" (click)="editarColaborador(colaborador)">Editar</button>
             <button  class="btn-eliminar" (click)="desactivarColaborador(colaborador.idColaborador)">Deshabilitar</button>
           </td>
         </tr>
       </tbody>
     </table>
+
+  <!-- Mostrar mensaje de error si no se pudieron cargar colaboradores -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
 
   <!-- Paginación -->
   <div class="pagination" *ngIf="totalPaginas > 1">

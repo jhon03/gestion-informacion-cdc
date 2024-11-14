@@ -119,5 +119,9 @@ formatearFecha(fecha: string): string {
       }
     })
   }
+editarColaborador(colaborador: Colaborador): void{
+  this.router.navigate(['/usuarios/actualizar-colaborador', colaborador.idColaborador]);
+}
+
 
 }

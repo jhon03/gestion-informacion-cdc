@@ -7,11 +7,15 @@ import { HttpResponse } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
-}) 
+})
 
 export class ColaboradorRepositoryImpl implements ColaboradorRepository {
- 
+
     constructor(private colaboradorService: ColaboradorService){}
+
+    updateColaborador(idColaborador: string, datos: colaboradorResponse): Observable<colaboradorResponse> {
+        return this.colaboradorService.actualizarColaborador(idColaborador, datos);
+    }
 
     getColaboradors(page: number, pageSize: number): Observable<HttpResponse<colaboradoresResponse>> {
         return this.colaboradorService.obtenerColaboradores(page, pageSize);
@@ -22,14 +26,14 @@ export class ColaboradorRepositoryImpl implements ColaboradorRepository {
     createColaborador(datos: colaboradorRequest): Observable<colaboradorResponse> {
         return this.colaboradorService.crearColaborador(datos);
     }
-    updateColaborador(idColaborador: string, nombreColaborador: string): Observable<colaboradorResponse> {
-        return this.colaboradorService.actualizarColaborador(idColaborador, nombreColaborador);
-    }
+
     desactivateColaborador(idColaborador: string): Observable<colaboradorResponse> {
         return this.colaboradorService.desactivarColaborador(idColaborador);
     }
     activateColaborador(idColaborador: string): Observable<colaboradorResponse> {
         return this.colaboradorService.activarColaborador(idColaborador);
     }
-    
+
+
+
 }

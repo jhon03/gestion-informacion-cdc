@@ -77,9 +77,9 @@ return this.http.get<colaboradoresPageResponse>(`${this.apiUrl}/listcolaboradore
   activarColaborador(idColaborador: string): Observable<colaboradorResponse>{
     return this.http.get<colaboradorResponse>(`${this.apiUrl}/activar/${idColaborador}`);
   }
-
-  actualizarColaborador(idColaborador: string, nombreColaborador: string): Observable<colaboradorResponse>{
-    return this.http.put<colaboradorResponse>(`${this.apiUrl}/actualizar/${idColaborador}`, {nombreColaborador});
+ //implementación del servicio para crear el colaborador
+  actualizarColaborador(idColaborador: string, datos: colaboradorResponse): Observable<colaboradorResponse>{
+    return this.http.put<colaboradorResponse>(`${this.apiUrl}/actualizar/${idColaborador}`, datos);
   }
 
   }

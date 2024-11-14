@@ -35,9 +35,12 @@ export interface colaboradorResponse {
     usuario?: UserDto
     tokenAcessoRenovado?: string
 
-
-    idColaborador: string;
     nombreColaborador: string;
+    id: string;
+    tipoIdentificacion: string;
+    numeroDocumento: string;
+    nombre: string;
+    idColaborador: string;
     nombreUsuario: string;
     rol: string;
     estado: string;

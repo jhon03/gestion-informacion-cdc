@@ -1,0 +1,14 @@
+<form [formGroup]="colaboradorForm" (ngSubmit)="onSubmit()">
+
+  <label for="nombreColaborador">Nombre del Colaborador8opcional)</label>
+  <input id="nombreColaborador" formControlName="nombreColaborador" required />
+
+  <label for="nombreUsuario">Nombre de Usuario</label>
+  <input id="nombreUsuario" formControlName="nombreUsuario" />
+
+  <label for="contrasena">contraseña</label>
+  <input id="contrasena" formControlName="contrasena" />
+
+
+  <button type="submit"  class="submit-button" (click)="onSubmit()"  value="onSubmit">Actualizar Colaborador</button>
+</form>
