@@ -18,13 +18,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { mostrar, mostrarVariosTextos } from '../../../../../infrastructure/plugins/jwt/sweetalert/swal.plugin';
+import { ColaboradorService } from '../../../../../infrastructure/services/colaborador/colaborador.service';
+import { ActivatedRoute, Router} from '@angular/router';
 const col = {
   tipoIdentificacion: '',
   numeroIdentificacion: '',
   nombreColaborador: '',
   nombreUsuario: '',
   contrasena: '',
-  
+
 
 }
 @Component({
@@ -35,6 +37,9 @@ const col = {
   styleUrl: './crear-colaborador.component.css',
 })
 export class CrearColaboradorComponent implements OnInit, OnDestroy {
+
+
+  idColaborador!: string;
   hide = signal(true);
   showAlert: any;
   //showSnackBar: any;
@@ -43,18 +48,21 @@ export class CrearColaboradorComponent implements OnInit, OnDestroy {
     event.stopPropagation();
   }
 
-  
+
   constructor(
-   
+
     private tipoidentificacionRepository: TipoIdentificacionRepository,
     private fb: FormBuilder, //faltaba la inyecccion del formbuider
     private rolRepository: RolRepositoryImpl,
     private colaboradorRepository: ColaboradorRepository,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
-    
-   
-  ){}
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private colaboradorService: ColaboradorService,
+    private router: Router
+  ){
+
+  }
 
   // Función para mostrar el snackbar
 showSnackBar(message: string): void {
@@ -70,8 +78,8 @@ showErrorSnackBar(message: string, errors: string[]): void {
     duration: 5000,
     panelClass: ['snackbar-error']
   });
-} 
-  //faltaba la inicializacion del formulario reactivo 
+}
+  //faltaba la inicializacion del formulario reactivo
   public colaboradorForm: FormGroup = this.fb.group({
     tipoIdentificacion: ['', [Validators.required]],
     numeroIdentificacion: ['', [Validators.required, Validators.pattern('^[0-9]*$') ]],
@@ -81,15 +89,17 @@ showErrorSnackBar(message: string, errors: string[]): void {
     rol: ['', [Validators.required]]
 
   })
+
+
  public colaboradorSuscripcion: Subscription| null = null;
   public tipoIdentificacionSuscripcion: Subscription|null = null;
-  public rolSuscripcion: Subscription| null = null; 
+  public rolSuscripcion: Subscription| null = null;
   public tipoIdentificaciones: TipoIdentificacionDto[]|null = null;
-  public roles: RolDto[]| null = null; 
+  public roles: RolDto[]| null = null;
   public colaborador: colaboradorRequest= {tipoIdentificacion: "", numeroIdentificacion:0, nombreUsuario:"",nombreColaborador:"",contrasena:"", rol: ""};
 
   public mostrarContrasena : boolean = false;
- 
+
   ngOnDestroy(): void {
     this.colaboradorSuscripcion?.unsubscribe();
       this.tipoIdentificacionSuscripcion?.unsubscribe();
@@ -97,16 +107,47 @@ showErrorSnackBar(message: string, errors: string[]): void {
   }
 
   ngOnInit(): void {
-     
+
     this.colaboradorForm.reset(col);
     this.obtenerIdentificaciones();
     this.obtenerRoles();
-    
-     
+
+    //recuperar estado del colaborador seleccionado
+    const state = this.router.getCurrentNavigation()?.extras.state;
+    if(state && state['colaborador']) {
+      const colaborador = state['colaborador'];
+      this.colaboradorForm.patchValue({
+        tipoIdentificacion: colaborador.tipoIdentificacion,
+      numeroIdentificacion: colaborador.numeroIdentificacion,
+      nombreColaborador: colaborador.nombreColaborador,
+      nombreUsuario: colaborador.nombreUsuario,
+      rol: colaborador.rol,
+      });
+    }
   }
+
+  actualizarColaborador(): void {
+    if (this.colaboradorForm.valid){
+
+      const colaboradorActualizado = this.colaboradorForm.value;
+      this.colaboradorService.actualizarColaborador(this.idColaborador, colaboradorActualizado).subscribe({
+        next: (response)=> {
+          this.showSnackBar("ColaboradorActualizado exitosamente");
+          this.router.navigate(['/usuarios/gestionar-colaboradores']);
+        },
+        error: (error)=> {
+          this.showErrorSnackBar("Error al actualizar el colaborador", error.errors);
+        }
+      });
+    }
+
+
+  }
+
+
   get currentColaborador(): colaboradorRequest{
     const colaborador = this.colaboradorForm.value as colaboradorRequest;
-    return colaborador; 
+    return colaborador;
   }
   onSubmit(){
     if(this.colaboradorForm.invalid) {
@@ -114,7 +155,7 @@ showErrorSnackBar(message: string, errors: string[]): void {
       mostrar ("el formulario esta incompleto", "informacion");
       return;
 
-     
+
     }
 
     console.log("Datos enviados:", this.currentColaborador);
@@ -129,29 +170,20 @@ showErrorSnackBar(message: string, errors: string[]): void {
 error: (error) => {
   console.log(error);
   if(error.error && error.error.message && error.error.errors) {
-    
+
     this.showErrorSnackBar(error.error.message, error.error.errors);
   } else {
-   
-    this.showErrorSnackBar('Error al crear el colaborador', ['Ocurrió un error inesperado']);
-  } 
 
- 
+    this.showErrorSnackBar('Error al crear el colaborador', ['Ocurrió un error inesperado']);
+  }
+
+
 }
 
 
   });
 
-  
-    /*this.colaborador.tipoIdentificacion  = this.currentColaborador.tipoIdentificacion;
-    this.colaborador.numeroIdentificacion = this.currentColaborador.numeroIdentificacion;
-    this.colaborador.nombreColaborador = this.currentColaborador.nombreColaborador;
-    this.colaborador.nombreUsuario = this.currentColaborador.nombreUsuario;
-    this.colaborador.contrasena = this.currentColaborador.contrasena;
-    this.colaborador.rol = this.currentColaborador.rol;
-    this.crearColaborador();
-    //this.colaboradorForm.reset(col);
-    console.log(this.colaborador)*/
+
   }
   crearColaborador() {
     this.colaboradorSuscripcion = this.colaboradorRepository.createColaborador(this.currentColaborador).subscribe({
@@ -176,8 +208,8 @@ error: (error) => {
   }
   getFieldError(field: string): string | null {
      if( !this.colaboradorForm.controls[field] ) return null;
-     
-     
+
+
      const errors = this.colaboradorForm.controls[field].errors || {};
      for(const key of Object.keys(errors)){
 
@@ -189,7 +221,7 @@ error: (error) => {
             if(field === 'numeroIdentificacion'){
               return '*este campo debe tener solo números';
 
-              
+
             } else if(field === 'nombreColaborador'){
               return '*este campo debe tener solo letras'
             }
@@ -197,11 +229,11 @@ error: (error) => {
 
             case 'minlenght':
               return `*EL campo debe tener minimo ${ errors['minlength'].requiredLength} caracteres`;
-     
+
       }
      }
      return null;
-    
+
   }
     obtenerIdentificaciones(){
       this.tipoIdentificacionSuscripcion = this.tipoidentificacionRepository.getIdentificacionsWithOutPagination().subscribe({
@@ -222,8 +254,22 @@ obtenerRoles(){
   })
 }
 
- 
+
 
 }
-   
-  
+
+
+
+
+
+
+
+    /*this.colaborador.tipoIdentificacion  = this.currentColaborador.tipoIdentificacion;
+    this.colaborador.numeroIdentificacion = this.currentColaborador.numeroIdentificacion;
+    this.colaborador.nombreColaborador = this.currentColaborador.nombreColaborador;
+    this.colaborador.nombreUsuario = this.currentColaborador.nombreUsuario;
+    this.colaborador.contrasena = this.currentColaborador.contrasena;
+    this.colaborador.rol = this.currentColaborador.rol;
+    this.crearColaborador();
+    //this.colaboradorForm.reset(col);
+    console.log(this.colaborador)*/

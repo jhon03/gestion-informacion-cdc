@@ -1,0 +1,64 @@
+<div class="container" *ngIf="!loading && colaboradores.length > 0; else cargando">
+    <h5>Gestión de Colaboradores</h5>
+ <!-- Mensaje de error si no hay colaboradores -->
+ <p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+
+    <!-- Botones de acción -->
+    <div class="actions">
+      <button  class="btn-crear" (click)="irACrearColaborador()">Crear Colaborador</button>
+      <button  class="btn-crear" (click)="irACrearRol()">Crear Rol</button>
+    </div>
+
+    <!-- Tabla de colaboradores -->
+
+    <table class="table-colaboradores"  *ngIf="colaboradores.length > 0" >
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let colaborador of colaboradores">
+          <td>{{ colaborador.nombreColaborador }}</td>
+          <td>{{ colaborador.rol }}</td>
+          <td>{{ colaborador.estado }}</td>
+
+          <td>
+            <button  class="btn-editar" (click)="editarColaborador(colaborador)">Editar</button>
+            <button  class="btn-eliminar" (click)="desactivarColaborador(colaborador.idColaborador)">Deshabilitar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  <!-- Mostrar mensaje de error si no se pudieron cargar colaboradores -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination" *ngIf="totalPaginas > 1">
+    <button
+        (click)="page > 1 && (page = page - 1) && obtenerColaboradores()"
+        [disabled]="page === 1"
+        class="btn-pagina anterior">
+        Anterior
+    </button>
+    <span>Página {{ page }} de {{ totalPaginas }}</span>
+    <button
+        (click)="page < totalPaginas && (page = page + 1) && obtenerColaboradores()"
+        [disabled]="page === totalPaginas"
+        class="btn-pagina siguiente">
+        Siguiente
+    </button>
+</div>
+
+
+</div>
+  <ng-template #cargando>
+    <p>Cargando colaboradores...</p>
+  </ng-template>

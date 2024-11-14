@@ -13,15 +13,16 @@ import { DashboardComponent } from './presentation/components/dashboard/dashboar
 import { CrearColaboradorComponent } from './presentation/modules/usuarios/colaborador/crear-colaborador/crear-colaborador.component';
 import { CrearNuevoProgramaComponent } from './presentation/components/crear-nuevo-programa/crear-nuevo-programa.component';
 import { FormRegistroUsuariosComponent } from './presentation/components/form-registro-usuarios/form-registro-usuarios.component';
+import { GestionarColaboradoresComponent } from './presentation/components/usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
 
 
 export const routes: Routes = [
-   
+
     {
        path: '',
       component: PaginaInicioComponent
     },
- 
+
     {
         path: 'home',
         component: PaginaInicioComponent
@@ -31,9 +32,9 @@ export const routes: Routes = [
         path: 'info-cdc',
         component: InfoCdcComponent
     },
-    
+
     {
-        path: 'escenario', 
+        path: 'escenario',
         component: EscenarioProblemaComponent
     },
 
@@ -41,7 +42,7 @@ export const routes: Routes = [
 
         path: 'autenticacion',
         loadChildren: () => import('./presentation/modules/autenticacion/autenticacion.module').then(m => m.AutenticacionModule)
-    
+
         },
         {
             path: 'usuarios',
@@ -53,16 +54,11 @@ export const routes: Routes = [
             loadChildren: () => import('./presentation/modules/formulacion/formulacion.module').then(m => m.FormulacionModule)
         },
 
-        {
-            path: 'ejecucion',
-            loadChildren: () => import('./presentation/modules/ejecucion-programas/ejecucion-programas.module').then(m => m.EjecucionProgramasModule)
-        },
-
     {
         path: 'dashboard',
         component: DashboardComponent, children: [
     ]
-    }, 
+    },
 
     {
          path: 'registro_programa',
@@ -72,7 +68,12 @@ export const routes: Routes = [
          path: 'crear-formulario',
          component: FormRegistroUsuariosComponent
     },
-    
+
+    {
+        path: 'gestionar-colaboradores',
+        component: GestionarColaboradoresComponent
+    },
+
     {
         path: 'evaluacion-activacion-programa',
         loadChildren: () => import('./presentation/evaluacion-activacion-programas/evaluacion-activacion-programas.module').then(m => m.EvaluacionActivacionProgramasModule)

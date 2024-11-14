@@ -23,8 +23,20 @@ const rol = {
   styleUrl: './roles.component.css'
 })
 export class RolesComponent implements OnInit, OnDestroy{
-   
-  showAlert: any;
+
+
+  // Implementación de showAlert
+  showAlert(message: string, isSuccess: boolean) {
+    Swal.fire({
+      icon: isSuccess ? 'success' : 'error',
+      title: isSuccess ? '¡Éxito!' : 'Error',
+      text: message,
+      confirmButtonText: 'Aceptar'
+    });
+  }
+   //variable para el estado de la carga
+  isLoading: boolean = false;
+
   showSnackBar: any;
   constructor(
     private fb: FormBuilder,
@@ -37,9 +49,9 @@ export class RolesComponent implements OnInit, OnDestroy{
 
     descripcion: ['', [Validators.minLength(10), Validators.required,Validators.pattern('^[a-zA-Z\\s]+$')]]
   })
-  public rolSuscripcion: Subscription| null = null; 
+  public rolSuscripcion: Subscription| null = null;
   public roles: RolDto[]| null = null;
-  public rol: rolRequest= 
+  public rol: rolRequest=
   {nombreRol: "", descripcion: ""};
 
   ngOnDestroy(): void {
@@ -64,19 +76,39 @@ export class RolesComponent implements OnInit, OnDestroy{
     this.crearRol();
     console.log(this.rol)
   }
+
+
   crearRol() {
+
+    this.isLoading = true;// se activa el spinner al iniciar la creación del rol
     this.rolSuscripcion = this.rolRepository.create(this.rol).subscribe({
       next: (res: rolResponse) => {
-        this.showSnackBar("rol creado exitosamente");
+        this.isLoading = false; //desactivar el spinner al terminar la creación o fallo de la creación
+        this.showAlert("rol creado exitosamente", true);
         console.log(res);
       },
       error: ({error}) => {
-        this.showAlert(error.errors[0].msg, false);
+        this.isLoading = false; //desactivar el spinner en caso de error
+        console.log(error);  // Verifica qué está recibiendo aquí
+
+       // Si el error tiene la propiedad 'error' y contiene el mensaje específico
+       if (error?.error && error.error === "El nombre prueba ya existe como rol") {
+        this.showAlert("Ya existe un rol con ese nombre, elige otro.", false);
       }
-      })
+      // Si hay otro tipo de error, mostrar el mensaje general devuelto por el servidor
+      else if (error?.msg) {
+        this.showAlert(error.msg, false);
+      }
+      // Mensaje genérico si no se recibe la estructura de error esperada
+      else {
+        this.showAlert('Ha ocurrido un error', false);
+      }
     }
+  });
+    }
+
     isValidField( field: string): boolean| null{
-      return this.rolForm.controls[field].errors && 
+      return this.rolForm.controls[field].errors &&
       this.rolForm.controls[field].touched;
     }
 
@@ -88,7 +120,7 @@ export class RolesComponent implements OnInit, OnDestroy{
         const errors = this.rolForm.controls
         [field].errors || {};
         for (const key of Object.keys(errors)){
-         
+
           switch (key) {
             case 'required':
               return '*este campo es requerido';
@@ -96,7 +128,7 @@ export class RolesComponent implements OnInit, OnDestroy{
               case 'pattern':
                 if (field === 'numeroIdentificacion'){
                   return '*este campo debe tener solo números';
-                } else if(field === 
+                } else if(field ===
                   'nombreColaborador'){
                     return '*este campo debe tener solo letras'
                   }
@@ -104,7 +136,7 @@ export class RolesComponent implements OnInit, OnDestroy{
 
                   case 'minlenght':
                     return `*EL campo debe tener minimo ${ errors['minlength'].requiredLength} caracteres`;
-                
+
           }
 
         }

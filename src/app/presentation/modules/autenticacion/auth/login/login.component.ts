@@ -32,20 +32,20 @@ export class LoginComponent implements OnInit, OnDestroy{
     nombreUsuario: ['', Validators.required],
     contrasena: ['', Validators.required]
   })
-  
- 
+
+
   errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private loginRepository: LoginRepository, private router: Router){}
-  
-  
+
+
   ngOnDestroy(): void {
    this.loginSuscripcion?.unsubscribe();
   }
 
-  
+
   ngOnInit(): void {
-    
+
   }
 
   get CurrentFormLogin(): loginRequest {
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy{
 
     this.loginSuscripcion = this.loginRepository.login(this.CurrentFormLogin).subscribe({
       next: ({body}: HttpResponse<loginResponse>) => {
-        mostrar(`bienvenido ${body?.usuario.nombreColaborador} ${body?.usuario.nombreUsuario}`, 'correcto');
+        mostrar(`bienvenido ${body?.usuario.nombreColaborador}, 'usted esta logueado como: ' ${body?.usuario.nombreUsuario}`, 'correcto');
         this.router.navigateByUrl('dashboard')
       }, error: ({error}: HttpErrorResponse) => {
 

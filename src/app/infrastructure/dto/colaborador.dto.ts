@@ -8,5 +8,15 @@ export interface ColaboradorDto {
     fechaCreacion: string,
     fechaModificacion: string,
     estado: string
+    rol: string;
+
+    users: {
+        idUsuario: string;
+        nombreUsuario: string;
+        rol: string;
+        estado: string;
+        colaborador: string;
+        contrasena: string;
+    }
 
 }

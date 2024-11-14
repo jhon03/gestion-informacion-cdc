@@ -7,9 +7,9 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-pagina-inicio',
   standalone: true,
-  imports: [ 
+  imports: [
     MaterialModule,
-    InfoCdcComponent, 
+    InfoCdcComponent,
     EscenarioProblemaComponent,
     RouterModule
   ],
@@ -21,7 +21,11 @@ export class PaginaInicioComponent {
 
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  constructor(private router: Router){}
+  constructor(){}
+
+  toggleSidenav(){
+    this.sidenav.toggle();
+  }
 
 }
 

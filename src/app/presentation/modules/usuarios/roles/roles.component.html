@@ -24,10 +24,15 @@
           </mat-form-field>
         </div>
 
+
+        <!-- Spinner visible mientras isLoading es true -->
+        <div *ngIf="isLoading" class="spinner-container">
+          <mat-spinner></mat-spinner>
+        </div>
       </mat-card-content>
 
       <mat-card-actions>
-        <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit()">
+        <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit()" [disabled]="isLoading">
           <mat-icon>save</mat-icon> Guardar
         </button>
       </mat-card-actions>

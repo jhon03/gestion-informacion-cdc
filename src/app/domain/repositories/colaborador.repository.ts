@@ -12,8 +12,9 @@ export abstract class ColaboradorRepository {
     abstract getColaboradors(page: number, pageSize:number):Observable<HttpResponse<colaboradoresResponse>>;
     abstract getColaboradorById(idColaborador: string): Observable<HttpResponse<colaboradorResponse>>;
     abstract createColaborador(datos: colaboradorRequest): Observable<colaboradorResponse>;
-    abstract updateColaborador(idColaborador: string, nombreColaborador: string): Observable<colaboradorResponse>;
+    abstract updateColaborador(idColaborador: string, datos: colaboradorResponse): Observable<colaboradorResponse>;
     abstract desactivateColaborador(idColaborador: string): Observable<colaboradorResponse>;
     abstract activateColaborador(idColaborador: string): Observable<colaboradorResponse>;
 
+    //abstract actualizarColaborador(idColaborador: string, nombreColaborador: string, nombreUsuario: string): Observable<colaboradorResponse>;
 }
