@@ -3,10 +3,8 @@ export interface InformacionDTO{
     campo: string;
     valor: string;
 }
-
 export interface ProgramaDto {
-
-
+    
     id: string,
     idColaborador: string,
     colaborador: string,
@@ -14,7 +12,11 @@ export interface ProgramaDto {
     nombrePrograma: string,
     fechaCreacion: string,
     idColaboradorResponsable: string,
-    nombreColaboradorResponsable: string,
+    ColaboradorResponsable: string,
+    informacion: InformacionDTO[];
     formato: Record<string, any>
-
+    nombreColaboradorResponsable: string;
+    idPrograma: string;
+    colaboradorCreador: string;
+    
 }

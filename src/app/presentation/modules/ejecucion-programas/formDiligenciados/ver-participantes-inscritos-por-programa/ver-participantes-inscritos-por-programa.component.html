@@ -1,0 +1,30 @@
+<div *ngIf="formulario">
+    <h1>Formulario: {{ formulario.nombrePrograma }}</h1>
+    <p>Estado: {{ formulario.estado }}</p>
+    <h3>Campos:</h3>
+    <ul>
+      <li *ngFor="let campo of formulario.campos">
+        {{ campo.nombre }} ({{ campo.tipo }})
+      </li>
+    </ul>
+    <h3>Valores diligenciados:</h3>
+    <ul>
+      <li *ngFor="let diligencia of formulario.valoresDiligenciados">
+        Fecha: {{ diligencia.fechaDiligencia }}
+        <ul>
+          <li *ngFor="let valor of diligencia.valores">
+            {{ valor.nombreCampo }}: {{ valor.valor }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Mostrar un mensaje de error si ocurre -->
+  <div *ngIf="errorMessage">
+    <p class="error-message">{{ errorMessage }}</p>
+  </div>
+  
+  <div *ngIf="!formulario && !errorMessage">
+    <p>Cargando formulario...</p>
+  </div>
