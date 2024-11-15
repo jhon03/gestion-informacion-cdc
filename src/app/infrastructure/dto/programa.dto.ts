@@ -1,5 +1,11 @@
 
+export interface InformacionDTO{
+    campo: string;
+    valor: string;
+}
+
 export interface ProgramaDto {
+
 
     id: string,
     idColaborador: string,
@@ -10,5 +16,5 @@ export interface ProgramaDto {
     idColaboradorResponsable: string,
     nombreColaboradorResponsable: string,
     formato: Record<string, any>
-    
+
 }

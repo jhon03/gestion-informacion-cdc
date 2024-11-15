@@ -16,7 +16,9 @@
 
 
   </mat-toolbar>
-<app-crear-nuevo-programa></app-crear-nuevo-programa>
-<app-form-registro-usuarios></app-form-registro-usuarios>
-<app-gestionar-colaboradores></app-gestionar-colaboradores>
+  <!-- Mostrar solo a "profesional de proyectos" -->
+  <p>Rol del usuario: {{ userRole }}</p>
+<app-crear-nuevo-programa *ngIf="userRole === ' PROFESIONAL DE PROYECTOS'"></app-crear-nuevo-programa>
+<app-gestionar-colaboradores *ngIf="userRole == 'SUPERUSER'"></app-gestionar-colaboradores>
+<app-visualizar-pogramas-en-espera></app-visualizar-pogramas-en-espera>
 
