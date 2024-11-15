@@ -74,11 +74,6 @@ export const routes: Routes = [
         component: GestionarColaboradoresComponent
     },
 
-    {
-        path: 'evaluacion-activacion-programa',
-        loadChildren: () => import('./presentation/evaluacion-activacion-programas/evaluacion-activacion-programas.module').then(m => m.EvaluacionActivacionProgramasModule)
-
-    },
 
     {
         path: '**',

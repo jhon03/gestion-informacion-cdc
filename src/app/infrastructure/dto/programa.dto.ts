@@ -1,3 +1,4 @@
+
 export interface InformacionDTO{
     campo: string;
     valor: string;
@@ -18,5 +19,4 @@ export interface ProgramaDto {
     idPrograma: string;
     colaboradorCreador: string;
     
-
 }

@@ -43,7 +43,7 @@ export class AuthenticacionService implements OnDestroy {
       throw new Error('ID del colaborador no encontrado en el sessionStorage');
     }
   }
-  
+
   getUserIsLogin(): Observable<boolean> {
     return this.isUserLoggin.asObservable();
   }
@@ -52,6 +52,7 @@ export class AuthenticacionService implements OnDestroy {
     const token = sessionStorage.getItem('token');
     if (token) {
       const decodedToken: any = jwtDecode(token);
+      //this.userRol.next(decodedToken.rol); // Actualiza el BehaviorSubject
       return decodedToken.rol;
     }
     return '';
@@ -64,7 +65,7 @@ export class AuthenticacionService implements OnDestroy {
     }).pipe(tap(({ body, status }: HttpResponse<loginResponse>) => {
       if (status === 200 && body) {
         this.tokenRepository.setTokenInBrowser(body.tokenAcesso);
-  
+
         // Almacenar el idColaborador en el sessionStorage desde la respuesta del backend
         if (body.usuario && body.usuario.idColaborador) {
           sessionStorage.setItem('idColaborador', body.usuario.idColaborador);
@@ -72,10 +73,10 @@ export class AuthenticacionService implements OnDestroy {
         } else {
           console.error('No se pudo encontrar el idColaborador en la respuesta.');
         }
-  
+
         // Almacenar el token en sessionStorage
         sessionStorage.setItem('token', body.tokenAcesso);
-  
+
         this.iniciarValidacionSession(62);
         this.userRol.next(body.usuario.rol);
         this.isUserLoggin.next(true);
@@ -91,7 +92,7 @@ export class AuthenticacionService implements OnDestroy {
     this.router.navigateByUrl('/login');
     this.validacionSuscripcion?.unsubscribe();
   }
-  
+
   private iniciarValidacionSession(intervaloMinutos: number){
     const intervaloMilisegundos = intervaloMinutos * 60 * 1000;
     const source = timer(0, intervaloMilisegundos);
