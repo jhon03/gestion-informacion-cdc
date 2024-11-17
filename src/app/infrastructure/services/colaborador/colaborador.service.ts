@@ -23,38 +23,31 @@ export class ColaboradorService {
     private tokenRepository: TokenRepository,
     private http: HttpClient) { }
 
-//método que se esta utilizando para visualizar los programas activos/en espera de confirmación
-    obtenerColaboradores(page: number, pageSize: number): Observable<HttpResponse<colaboradoresResponse>> {
+ obtenerColaboradoresConRol(
+      page: number,
+      pageSize: number
+    ): Observable<colaboradoresPageResponse> {
       const params = new HttpParams()
         .set('page', page.toString())
         .set('pageSize', pageSize.toString());
 
-      return this.http.get<colaboradoresResponse>(`${this.apiUrl}/listColaboradores`, { params, observe: 'response' }).pipe(
-        tap(({ body }: HttpResponse<colaboradoresResponse>) => {
-          if (body?.tokenAcessoRenovado) {
-            // Manejo del token si es necesario
-          }
-        })
-      );
+      return this.http
+        .get<colaboradoresPageResponse>(`${this.apiUrl}/listcolaboradoresconroles`, { params })
+        .pipe(
+          tap((response) => {
+            console.log('Respuesta del servidor:', response);
+
+            if (!response || response.colaboradores.length === 0) {
+              console.warn('No se encontraron colaboradores con roles.');
+            }
+          }),
+          catchError((error: HttpErrorResponse) => {
+            console.error('Error al obtener colaboradores:', error.message);
+            return throwError(() => new Error('Error al obtener colaboradores con roles'));
+          })
+        );
     }
-//obtener colaboradores con rol
-obtenerColaboradoresConRol(page: number, pageSize: number): Observable<colaboradoresPageResponse>{
-  const params = new HttpParams()
-  .set('page', page.toString())
-  .set('pageSize', pageSize.toString());
-return this.http.get<colaboradoresPageResponse>(`${this.apiUrl}/listcolaboradoresconroles`, {params}).pipe(
-  tap(response => {
-    console.log('Respuesta del servidor:', response); // Para ver qué llega
-    if(!response || response.colaboradores.length === 0){
-      console.log('no se encontraron colaboradores con roles')
-    }
-  }),
-  catchError((error: HttpErrorResponse) => {
-    console.log('error en la obtención de colaboradores', error);
-    return throwError(() => new Error('Error al obtener colaboradores con roles'));
-  })
-);
-}
+
 
   obtenerColaboradorById(idColaborador: string): Observable <HttpResponse<colaboradorResponse>>{
     return this.http.get<colaboradorResponse>(`${this.apiUrl}/findById/${idColaborador}`,{

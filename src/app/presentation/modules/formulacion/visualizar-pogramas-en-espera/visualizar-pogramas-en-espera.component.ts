@@ -28,7 +28,7 @@ export class VisualizarPogramasEnEsperaComponent implements OnInit  {
   cargando: boolean = true; // muestra el spinner mientras se cargan los programas
   displayedColumns: string[] = ['nombrePrograma', 'estado', 'informacion', 'fechaCreacion'];
   dataSource = new MatTableDataSource<ProgramaDto>([]); // Usamos MatTableDataSource aquí
-
+  totalPages = 0;
   public programasSubscription: Subscription|null = null;
 
 
@@ -41,7 +41,8 @@ export class VisualizarPogramasEnEsperaComponent implements OnInit  {
 
   ngOnInit(): void {
    this.obtenerProgramasEnEspera();
-   this.obtenerColaboradores(this.page, this.pageSize);
+   this.obtenerColaboradoresConRol(this.page, this.pageSize);
+
   }
 
 
@@ -58,22 +59,23 @@ export class VisualizarPogramasEnEsperaComponent implements OnInit  {
     });
   }
 
-  obtenerColaboradores(page: number, pageSize: number): void {
-    this.colaboradorService.obtenerColaboradores(page, pageSize).subscribe({
+  obtenerColaboradoresConRol(page: number, pageSize: number): void {
+    this.colaboradorService.obtenerColaboradoresConRol(page, pageSize).subscribe({
       next: (res) => {
-        this.colaboradores = res.body?.colaboradores || [];
+        this.colaboradores = res.colaboradores || [];
        this.page = page;
 
-       const msg = res.body?.msg || '';
-        const totalColaboradores = parseInt(msg.split(' ')[2], 10);
-        const totalPages = Math.ceil(totalColaboradores / pageSize);
+        this.totalPages = Math.ceil(res.total / pageSize);
 
-        if (page > totalPages){
+        if (page > this.totalPages){
           Swal.fire('Aviso', 'NO HAY MÁS PÁGINAS DISPONIBLES', 'info');
-          this.page = totalPages;
+          this.page = this.totalPages;
         }
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+        console.error('Error al obtener colaboradores con roles:', err);
+        Swal.fire('Error', 'No se pudo obtener la lista de colaboradores.', 'error');
+      },
     });
   }
 
@@ -92,7 +94,9 @@ export class VisualizarPogramasEnEsperaComponent implements OnInit  {
     }
 
     const cargarColaboradores = (page: number) => {
-      this.obtenerColaboradores(page, this.pageSize); // Obtenemos los colaboradores en función de la página actual
+      this.obtenerColaboradoresConRol(page, this.pageSize); // Obtenemos los colaboradores en función de la página actual
+
+
     };
     let page = 1;
     cargarColaboradores(page);
@@ -100,14 +104,15 @@ export class VisualizarPogramasEnEsperaComponent implements OnInit  {
     //funtion para mostrar el modal
     const mostrarSwal = () => {
 
-    
+ // Mostrar el cuadro de diálogo solo si hay colaboradores disponibles
       Swal.fire({
         title: '¿Deseas confirmar el programa?',
         html: `
           <label for="colaboradorResponsable">Asigne un Colaborador Responsable:</label>
           <select id="colaboradorResponsable" class="swal2-input">
             ${this.colaboradores.map(colaborador => `
-              <option value="${colaborador.id}">${colaborador.nombre}</option>
+              <option value="${colaborador.idColaborador}">
+            ${colaborador.nombreColaborador} - ${colaborador.rol}</option>
             `).join('')}
           </select>
           <br>
@@ -127,34 +132,35 @@ export class VisualizarPogramasEnEsperaComponent implements OnInit  {
         didRender: () => {
           const prevBtn = document.getElementById('prevPage') as HTMLButtonElement;
           const nextBtn = document.getElementById('nextPage') as HTMLButtonElement;
-  
+
           prevBtn.addEventListener('click', () => {
             if (page > 1) {
               page--;
               cargarColaboradores(page);
-              mostrarSwal(); // Volvemos a mostrar el modal con la lista actualizada
+
             }
           });
-  
+
           nextBtn.addEventListener('click', () => {
-            page++;
-            cargarColaboradores(page);
-            mostrarSwal(); // Volvemos a mostrar el modal con la lista actualizada
+
+              page++;
+              cargarColaboradores(page);
+
           });
-        }
+        },
       }).then((result) => {
         if (result.isConfirmed) {
           const idColAsignado = result.value;
-  
+
           //DEFINIR FORMATO PARA ENVIAR EL BODY
           const formato = {
-            Nombre: 'string',
-            numero_documento: 'number'
+           Nombre: 'string',
+           numero_documento: 'number'
           };
           this.programaService.confirmarPrograma(programa.id, idColAsignado, formato).subscribe({
             next: (res) => {
               programa.estado = 'CONFIRMADO'; // Cambiar el estado del botón visualmente
-              programa.nombreColaboradorResponsable = this.colaboradores.find(col => col.id === idColAsignado)?.nombre || '';
+              programa.nombreColaboradorResponsable = this.colaboradores.find(col => col.idColaborador === idColAsignado)?.nombreColaborador || '';
               Swal.fire('Confirmación', 'El programa ha sido confirmado', 'success');
             },
             error: (err) => Swal.fire('Error', 'No se pudo confirmar el programa', 'error'),
@@ -162,7 +168,7 @@ export class VisualizarPogramasEnEsperaComponent implements OnInit  {
         }
       });
     };
-  
+
     mostrarSwal();
   }
 }

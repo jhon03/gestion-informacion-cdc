@@ -9,7 +9,7 @@ import { HttpResponse } from "@angular/common/http";
 
 export abstract class ColaboradorRepository {
 
-    abstract getColaboradors(page: number, pageSize:number):Observable<HttpResponse<colaboradoresResponse>>;
+  
     abstract getColaboradorById(idColaborador: string): Observable<HttpResponse<colaboradorResponse>>;
     abstract createColaborador(datos: colaboradorRequest): Observable<colaboradorResponse>;
     abstract updateColaborador(idColaborador: string, datos: colaboradorResponse): Observable<colaboradorResponse>;

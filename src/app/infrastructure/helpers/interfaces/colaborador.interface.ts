@@ -25,7 +25,7 @@ export interface colaboradoresResponse {
 export interface colaboradoresPageResponse {
     total: number;
     totalPaginas: number;
-    colaboradores: colaboradorResponse[];
+    colaboradores:  Colaborador[];
 }
 
 //utilizado para obtener los colaboradores con el rol, desde el servicio

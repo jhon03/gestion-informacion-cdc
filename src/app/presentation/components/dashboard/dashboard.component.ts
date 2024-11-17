@@ -11,6 +11,7 @@ import { CrearNuevoProgramaComponent } from '../crear-nuevo-programa/crear-nuevo
 import { FormRegistroUsuariosComponent } from '../form-registro-usuarios/form-registro-usuarios.component';
 import { GestionarColaboradoresComponent } from '../usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
 import { VisualizarPogramasEnEsperaComponent } from '../../modules/formulacion/visualizar-pogramas-en-espera/visualizar-pogramas-en-espera.component';
+import { ProgramasActivosComponent } from '../../modules/formulacion/programas-activos/programas-activos.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -20,7 +21,8 @@ import { VisualizarPogramasEnEsperaComponent } from '../../modules/formulacion/v
     RouterModule,
     FormRegistroUsuariosComponent,
     GestionarColaboradoresComponent,
-    VisualizarPogramasEnEsperaComponent
+    VisualizarPogramasEnEsperaComponent,
+    ProgramasActivosComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

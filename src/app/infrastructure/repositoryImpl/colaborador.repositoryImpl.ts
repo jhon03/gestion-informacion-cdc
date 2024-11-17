@@ -17,9 +17,7 @@ export class ColaboradorRepositoryImpl implements ColaboradorRepository {
         return this.colaboradorService.actualizarColaborador(idColaborador, datos);
     }
 
-    getColaboradors(page: number, pageSize: number): Observable<HttpResponse<colaboradoresResponse>> {
-        return this.colaboradorService.obtenerColaboradores(page, pageSize);
-    }
+    
     getColaboradorById(idColaborador: string): Observable<HttpResponse<colaboradorResponse>> {
         return this.colaboradorService.obtenerColaboradorById(idColaborador);
     }

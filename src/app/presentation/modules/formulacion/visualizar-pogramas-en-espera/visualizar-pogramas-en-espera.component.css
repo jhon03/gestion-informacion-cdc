@@ -2,4 +2,84 @@
     background-color: green;
     color: white;
   }
- 
+ /* Estilo del cuadro de diálogo SweetAlert */
+.swal2-popup {
+  max-width: 90%; /* Se asegura que no se desborde en pantallas pequeñas */
+  width: auto;
+  padding: 20px;
+  font-size: 16px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del select dentro de SweetAlert */
+.swal2-popup select.swal2-input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #193A6F; /* Color corporativo */
+  border-radius: 4px;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+.swal2-popup select.swal2-input:focus {
+  border-color: #F98125; /* Color corporativo */
+  outline: none;
+}
+
+/* Botones de paginación */
+#prevPage, #nextPage {
+  margin: 10px 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+  background-color: #193A6F; /* Color corporativo */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#prevPage:hover, #nextPage:hover {
+  background-color: #F98125; /* Color corporativo */
+}
+
+/* Botón de confirmación */
+.swal2-confirm {
+  background-color: #11224D; /* Color corporativo */
+  color: white;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+.swal2-cancel {
+  background-color: #FB9B50; /* Color corporativo */
+  color: white;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+/* Diseño responsive */
+@media (max-width: 768px) {
+  .swal2-popup {
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  #prevPage, #nextPage {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .swal2-popup {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  #prevPage, #nextPage {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+}
