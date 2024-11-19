@@ -10,7 +10,8 @@ export class Colaborador{
         public estado: string= "",
         public fechaCreacion: string="",
         public fechaModificacion: string="",
-        public users: User
+        public users: User,
+        public email: string = ""
     ){}
 
 }

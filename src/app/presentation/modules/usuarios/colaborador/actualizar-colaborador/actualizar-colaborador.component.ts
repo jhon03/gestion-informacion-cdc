@@ -38,7 +38,11 @@ export class ActualizarColaboradorComponent implements OnInit {
       nombreColaborador: ['', [Validators.minLength(3) ,Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')]],
       nombreUsuario: ['', [Validators.required, Validators.minLength(5)]],
       contrasena: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&+-/#]).{8,}$'), Validators.minLength(8) ]],
-      rol: ['', [Validators.required]]
+      rol: ['', [Validators.required]],
+      email: [
+        '',
+        [Validators.required, Validators.email] // Validación del campo email
+    ]
 
     })
 
@@ -86,7 +90,7 @@ export class ActualizarColaboradorComponent implements OnInit {
  public rolSuscripcion: Subscription| null = null;
  public tipoIdentificaciones: TipoIdentificacionDto[]|null = null;
  public roles: RolDto[]| null = null;
- public colaborador: colaboradorRequest= {tipoIdentificacion: "", numeroIdentificacion:0, nombreUsuario:"",nombreColaborador:"",contrasena:"", rol: ""};
+ public colaborador: colaboradorRequest= {tipoIdentificacion: "", numeroIdentificacion:0, nombreUsuario:"",nombreColaborador:"",contrasena:"", rol: "", email:""};
 
 
  actualizarColaborador(): void {

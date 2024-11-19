@@ -44,7 +44,7 @@
             <mat-hint *ngIf="isValidField('nombreUsuario')" class="text-danger form-text uppercase text-start">
               {{getFieldError('nombreUsuario')}}
             </mat-hint>
-          
+
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width password-field">
@@ -61,6 +61,14 @@
               <mat-option *ngFor="let r of roles" [value]="r.idRol">{{r.nombreRol}}</mat-option>
             </mat-select>
           </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" />
+            <mat-hint *ngIf="isValidField('email')" class="text-danger form-text uppercase text-start">
+                {{ getFieldError('email') }}
+            </mat-hint>
+        </mat-form-field>
 
         </mat-card-content>
       </mat-card>

@@ -8,6 +8,7 @@ export interface colaboradorRequest {
     nombreUsuario: string,
     contrasena: string,
     rol: string;
+    email: string;
 
 }
 

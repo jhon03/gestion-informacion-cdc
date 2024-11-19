@@ -9,6 +9,7 @@ export interface ColaboradorDto {
     fechaModificacion: string,
     estado: string
     rol: string;
+    email: string;
 
     users: {
         idUsuario: string;
