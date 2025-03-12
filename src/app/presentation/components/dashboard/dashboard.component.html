@@ -22,3 +22,4 @@
 <app-gestionar-colaboradores *ngIf="userRole == 'SUPERUSER'"></app-gestionar-colaboradores>
 <app-visualizar-pogramas-en-espera *ngIf="userRole === 'DIRECTORA '"></app-visualizar-pogramas-en-espera>
 <app-programas-activos *ngIf="userRole === ' LIDER DE PROYETOS '"></app-programas-activos>
+<app-form-registro-usuarios *ngIf="userRole === 'DIRECTORA '"></app-form-registro-usuarios>

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { EjecucionProgramasRoutingModule } from './ejecucion-programas-routing.module';
 import { MaterialModule } from '../material/material/material.module';
 import { FormsModule } from '@angular/forms';
+import { MatCardContent, MatCardModule } from '@angular/material/card';
 
 @NgModule({
 
@@ -13,8 +14,10 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     EjecucionProgramasRoutingModule,
     MaterialModule,
-     FormsModule
+     FormsModule,
+     MatCardModule,
+     
   ],
- 
+
 })
 export class EjecucionProgramasModule { }

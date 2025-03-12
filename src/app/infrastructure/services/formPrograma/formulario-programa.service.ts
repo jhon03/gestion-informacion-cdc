@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../enviroments/enviroment';
-import { formProgramaRequest, responseFormPrograma, DiligenciarFormularioRequest, ResponseDiligenciarFormulario} from '../../helpers/interfaces/formPrograma.interface';
+import { formProgramaRequest, ResponseFormPrograma, DiligenciarFormularioRequest, responseFormPrograma} from '../../helpers/interfaces/formPrograma.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -53,17 +53,29 @@ obtenerFormularioPorId(idFormulario: string): Observable<any> {
     })
   )
 }
-  //Método para diligenciar un formulario
 
-  diligenciarFormulario(colaboradorId: string, idFormulario: string, data: DiligenciarFormularioRequest):
-  Observable<ResponseDiligenciarFormulario>{
 
-    console.log(`Formulario ID: ${idFormulario}, Colaborador ID: ${colaboradorId}`);
-  return this.http.post<ResponseDiligenciarFormulario>(`${this.Url}/formularios/${colaboradorId}/${idFormulario}/diligenciar`, data).pipe(
-      catchError(error => {
-        console.error('Error al diligenciar el formulario', error);
-        return throwError(error);
-      })
-    )
+
+    //Servicio para buscar un formulario por nombre del programa
+    obtenerFormPrograma(nombrePrograma: string): Observable<ResponseFormPrograma> {
+      const params = new HttpParams().set('nombrePrograma', nombrePrograma);
+      return this.http.get<ResponseFormPrograma>(`${this.Url}/buscar`, { params }).
+      pipe(
+        catchError(error => {
+          console.error('Error al obtener el formulario:', error);
+          return throwError(error);
+        })
+      );
+    }
+
+    diligenciarFormulario(request: DiligenciarFormularioRequest): Observable<any>{
+  return this.http.post(`${this.Url}/diligenciar`, request).pipe(
+    catchError(error => {
+      console.error('Error inesperado:', error);
+      return throwError(error);
+    })
+  );
+    }
+
   }
-}
+

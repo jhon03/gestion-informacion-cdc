@@ -53,6 +53,10 @@ export const routes: Routes = [
             path: 'formulacion',
             loadChildren: () => import('./presentation/modules/formulacion/formulacion.module').then(m => m.FormulacionModule)
         },
+        {
+            path: 'ejecuccion',
+            loadChildren: () => import('./presentation/modules/ejecucion-programas/ejecucion-programas.module').then(m => m.EjecucionProgramasModule)
+        },
 
     {
         path: 'dashboard',

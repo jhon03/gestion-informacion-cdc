@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-@Component({ 
+@Component({
   selector: 'app-form-registro-usuarios',
   standalone: true,
   imports: [],
@@ -13,12 +13,20 @@ export class FormRegistroUsuariosComponent {
 
   irCrearFormulario(): void {
     try {
-      this.router.navigate(['/ejecucion/formulario-registro']);
+      this.router.navigate(['/ejecuccion/formulario-registro']);
       console.log('Navegación exitosa');
       }catch (error){
         console.error('Error en irRegistro de programa',error);
-        
+
       }
   }
+  verProgramasActivos(): void {
+    try {
+      this.router.navigate(['/formulacion/ver-programas-activos']);
+      console.log('Navegación exitosa');
+      }catch (error){
+        console.error('Error en irRegistro de programa',error);
 
+      }
+  }
 }

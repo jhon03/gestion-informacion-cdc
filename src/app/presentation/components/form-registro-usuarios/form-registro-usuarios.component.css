@@ -1,9 +1,11 @@
-:host {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
+/* Contenedor de los botones */
+.botones-container {
+  display: flex;
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 20px; /* Espaciado entre los botones */
+  margin-top: 20px; /* Espaciado superior para separar de otros elementos */
+}
+
   .registro-button {
     background-color: #F98125;
     color: #ffffff;
@@ -15,12 +17,15 @@
     cursor: pointer;
     transition: background-color 0.3s;
   }
-  
-  .registro-button:hover {
-    background-color: #FB9B50;
-  }
-  
-  .registro-button:active {
-    background-color: #193A6F;
-  }
-  
+
+  /* Hover sobre el botón */
+.registro-button:hover {
+  background-color:   #193A6F
+  ; /* Color de fondo al pasar el mouse */
+}
+
+/* Botón activo (opcional) */
+.registro-button:active {
+  background-color:   #193A6F
+  ; /* Color al hacer clic */
+}

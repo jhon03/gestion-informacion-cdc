@@ -10,6 +10,7 @@ export interface formProgramaRequest {
 export interface responseFormPrograma {
     formulario: {
         idFormulario: string;
+        programaId: string;
         nombrePrograma: string;
         estado: string;
         campos: Array<{
@@ -32,14 +33,38 @@ export interface CampoFormulario {
   }
 
   export interface DiligenciarFormularioRequest {
-    idFormulario: string;
-    colaboradorId: string;
+   nombrePrograma: string;
+
     valores: {
       nombreCampo: string;
       valor: any; // Puede ser string, number, etc.
     }[];
   }
-  export interface ResponseDiligenciarFormulario {
-    message: string;
-    formulario: any;
+
+
+  export interface Campo {
+    nombre: string;
+    tipo: string;
+    idFormulario: string;
+    
+  }
+  export interface ResponseFormPrograma {
+
+    formulario: {
+      _id: string;
+      idFormulario: string;
+      programaId: string;
+      nombrePrograma: string;
+      colaboradorId: string;
+      estado: string;
+      campos: Campo[];
+      valoresDiligenciados: Array<{
+        fechaDiligencia: string;
+        valores: Array<{
+          nombreCampo: string;
+          valor: any;
+        }>;
+      }>;
+      fechaCreacion: string;
+    };
   }

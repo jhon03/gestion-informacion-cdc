@@ -38,6 +38,7 @@ import { CrearNuevoProgramaComponent } from './presentation/components/crear-nue
 import { FormulacionModule } from './presentation/modules/formulacion/formulacion.module';
 //import { HttpClientModule } from '@angular/common/http'; deprecado
 import { GestionarColaboradoresComponent } from './presentation/components/usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
+import { EjecucionProgramasModule } from './presentation/modules/ejecucion-programas/ejecucion-programas.module';
 
 @NgModule({
   declarations: [
@@ -55,15 +56,16 @@ import { GestionarColaboradoresComponent } from './presentation/components/usuar
     ProgramaListComponent,
 
     // Otros módulos que necesites importar
-
-    UsuariosModule,
     CommonModule,
     MaterialModule,
    // HttpClientModule,
-   AutenticacionModule,
    FormsModule,
    ReactiveFormsModule,
-   FormulacionModule
+   //Módulos de la aplicación
+   AutenticacionModule,
+   UsuariosModule,
+   FormulacionModule,
+   EjecucionProgramasModule
   ],
 
 

@@ -1,7 +1,23 @@
 <div class="form-container">
+  <h2>Buscar Formulario por Programa</h2>
+  <form [formGroup]="formularioBusqueda" (ngSubmit)="buscarFormulario()">
+    <div class="form-group">
+      <label for="nombrePrograma">Nombre del Programa:</label>
+      <input
+        id="nombrePrograma"
+        type="text"
+        formControlName="nombrePrograma"
+        class="form-control"
+        placeholder="Ingrese el nombre del programa"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </form>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div *ngIf="camposFormulario.length > 0">
     <h2>Diligenciar Formulario</h2>
-
-
     <form [formGroup]="formularioForm" (ngSubmit)="diligenciarFormulario()">
       <div *ngFor="let campo of camposFormulario" class="form-group">
         <label [for]="campo.nombre">{{ campo.nombre }}</label>
@@ -14,7 +30,6 @@
           placeholder="Ingrese {{ campo.nombre }}"
           required
         />
-
         <input
           *ngIf="campo.tipo === 'number'"
           [id]="campo.nombre"
@@ -24,18 +39,13 @@
           placeholder="Ingrese {{ campo.nombre }}"
           required
         />
-
-        <div *ngIf="formularioForm.get(campo.nombre)?.invalid && formularioForm.get(campo.nombre)?.touched" class="error-message">
-          <span *ngIf="formularioForm.get(campo.nombre)?.errors?.['required']">{{ campo.nombre }} es requerido.</span>
+        <div *ngIf="formularioForm.get(campo.nombre)?.invalid && formularioForm.get(campo.nombre)?.touched">
+          <span *ngIf="formularioForm.get(campo.nombre)?.errors?.['required']">
+            {{ campo.nombre }} es requerido.
+          </span>
         </div>
       </div>
-
-      <!-- Botón de envío que llama al método diligenciarFormulario -->
-      <button type="submit" class="btn btn-primary" [disabled]="formularioForm.invalid">
-        Diligenciar Formulario
-      </button>
-      <div *ngIf="formularioForm.invalid">
-        <p class="error">Por favor complete todos los campos obligatorios.</p>
-      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="formularioForm.invalid">Enviar</button>
     </form>
   </div>
+</div>
