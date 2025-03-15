@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormRegistroParticipantesComponent } from './form-registro-participantes/form-registro-participantes.component';
 import { RegistroParticipantesComponent } from './RegistroParticipantes/registro-participantes/registro-participantes.component';
 import { VerParticipantesInscritosPorProgramaComponent } from './formDiligenciados/ver-participantes-inscritos-por-programa/ver-participantes-inscritos-por-programa.component';
+import { SubirFormatosComponent } from './subir-formatos/subir-formatos.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'programa/:idPrograma/formulario/:idFormulario',
     component: VerParticipantesInscritosPorProgramaComponent
+  },
+  {
+    path: 'subir-archivos',
+    component: SubirFormatosComponent
   }
 ];
 

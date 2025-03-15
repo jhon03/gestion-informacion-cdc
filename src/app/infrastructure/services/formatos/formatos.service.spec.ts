@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FormatoService } from './formato.service';
+import { FormatosService } from './formatos.service';
 
-describe('FormatoService', () => {
-  let service: FormatoService;
+describe('FormatosService', () => {
+  let service: FormatosService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FormatoService);
+    service = TestBed.inject(FormatosService);
   });
 
   it('should be created', () => {

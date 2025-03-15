@@ -1,0 +1,74 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+  }
+
+  mat-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+  }/* Estilos generales */
+input[type="file"] {
+    margin-bottom: 10px;
+  }
+
+  /* Botón antes de subir el archivo */
+  button {
+    background-color: #193A6F; /* Azul corporativo */
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 15px;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  /* Botón al pasar el mouse */
+  button:hover {
+    background-color: #F98125; /* Naranja corporativo */
+  }
+
+  /* Botón cuando el archivo ha sido subido */
+  button.subido {
+    background-color: #F98125 !important; /* Naranja corporativo */
+    color: white;
+    cursor: default;
+  }
+
+  /* Deshabilitar botón cuando el archivo se ha subido */
+  button:disabled {
+    background-color: #11996c !important;
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+  .btn-normal {
+    background-color: #193A6F !important;
+    color: white !important;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .btn-subido {
+    background-color: #F98125 !important;
+    color: white !important;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+  /* Media Query para pantallas pequeñas (menos de 600px) */
+@media (max-width: 600px) {
+    mat-card {
+      max-width: 90%;
+      padding: 15px;
+    }
+
+    .btn-normal, .btn-subido {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }

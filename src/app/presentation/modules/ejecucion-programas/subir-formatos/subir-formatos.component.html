@@ -1,0 +1,16 @@
+<input type="file" (change)="onFileSelected($event)" [disabled]="archivoSubido" />
+
+<div class="container">
+  <mat-card>
+    <!--<mat-card-title>Subir Formato</mat-card-title>
+    <input type="file" (change)="onFileSelected($event)" />-->
+
+
+    <button mat-raised-button
+      [ngClass]="{'btn-subido': archivoSubido, 'btn-normal': !archivoSubido}"
+      (click)="uploadFile()"
+      [disabled]="archivoSubido">
+      {{ archivoSubido ? 'Archivo subido correctamente' : 'Subir Archivo' }}
+    </button>
+  </mat-card>
+</div>

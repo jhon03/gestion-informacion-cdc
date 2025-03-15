@@ -44,7 +44,7 @@ export class ProgramaService {
     console.log('Llamando al servicio para crear programa con datos:', datos);
     return this.http.post<responseProgram>(`${this.Url}/${idColaborador}/crearPrograma`, datos);
   }
-  
+
   desactivarPrograma(idPrograma: string): Observable<responseProgram>{
     return this.http.get<responseProgram>(`${this.Url}/desactivar/${idPrograma}`);
   }
@@ -54,5 +54,12 @@ export class ProgramaService {
   }
   obtenerFormatoPrograma(idPrograma: string){
     return this.http.get<{ formato: any}>(`/api/programas/${idPrograma}/formato`);
+}
+
+//subir archivos a one drive
+subirArchivo(archivo: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('archivo', archivo);
+  return this.http.post<any>(`${this.Url}/api/onedrive/upload`, formData);
 }
 }
