@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 
-import { environment } from '../../../../enviroments/enviroment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { BehaviorSubject, Observable, Subscription, switchMap, tap, timer } from 'rxjs';
