@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 
 import { responseProgram, responsePrograms } from '../../helpers/interfaces/programa.interface';
 import { programaRequest } from '../../helpers/interfaces/programa.interface';
-import { environment } from '../../../../environment/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
