@@ -1,17 +1,4 @@
-.example-spacer {
-    flex: 1 1 auto;
-    background-color: #07386b;
-  }
-  .logo img {
 
-    width: 100px; /* Ajusta según tu necesidad */
-    height: auto; /* Mantén la proporción de la imagen */
-    margin: 20px;
-}
-
-.toolbar-logo {
-  height: 40px; /* Ajusta el tamaño del logo en la toolbar */
-}
 .background-container {
   height: 400px; /* Puedes ajustar la altura según lo que necesites */
   display: flex;
@@ -20,15 +7,55 @@
   /*background: url('assets/background-image.jpg') no-repeat center center; /* Aquí puedes poner una imagen de fondo */
   background-size: cover;
 }
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px; /* Espacio entre imagen y botón */
+}
 .center-logo {
   width: 200px; /* Ajusta el tamaño del logo centrado */
 }
-  .footer {
-    background-color: #07386b;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+
+.login-button {
+  background-color: #07386b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.6s ease;
 }
+
+.login-button:hover {
+  background-color:  #335477;
+}
+.login-button:active {
+  transform: scale(0.95); /* Efecto de presión */
+}
+.footer {
+
+  background: linear-gradient(to right, #b4b0b0, #003972);
+  color:  #003972;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap; /* Para que no se rompa en pantallas pequeñas */
+  text-align: center;
+}
+
+.footer-logo {
+  height: 70px;
+  width: auto;
+}
+

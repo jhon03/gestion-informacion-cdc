@@ -1,37 +1,18 @@
 
 
-<mat-toolbar>
-    <button mat-icon-button class="example-icon" (click)="toggleSidenav()"aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-
-
-    </button>
-
-
-    <div class="logo">
-        <img src="assets/CDC_LOGO_FULLCOLOR.png" alt="logo" class="toolbar-logo">
-
-     </div>
-
-    <span class="example-spacer"></span>
-
-
-
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" routerLink="/autenticacion/login">
-      <mat-icon>person</mat-icon>
-    </button>
-
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
-    </button>
-  </mat-toolbar>
-
 <!-- Fondo con logo centrado -->
 <div class="background-container">
+  <div class="content-wrapper">
   <img src="assets/1.png" alt="Logo centrado" class="center-logo">
+
+    <button class="login-button" routerLink="/autenticacion/login">
+      Iniciar sesión
+    </button>
+</div>
 </div>
 
-  <mat-sidenav-container>
+
+  <!--<mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" opened="false">
       <mat-nav-list>
         <a mat-list-item routerLink="/info-cdc" (click)="sidenav.close()">Que es el cdc</a>
@@ -42,16 +23,15 @@
 
 
     </mat-sidenav>
-  <!--<div *ngIf="sidenav.toggle()==true"> </div>-->
-    <mat-sidenav-content >
+    </mat-sidenav-content>-->
+
+
 
       <router-outlet></router-outlet>
 
-
-    </mat-sidenav-content>
-
-  </mat-sidenav-container>
-
-<div class="footer">
-    <p>&copy; 2024 Centro de Desarrollo Comunitario San Francisco de Asís. Todos los derechos reservados.</p>
-</div>
+      <div class="footer">
+        <div class="footer-content">
+          <img src="assets/USBG_CDC.png" alt="Logo USBG" class="footer-logo">
+          <p>&copy; 2025 Centro de Desarrollo Comunitario San Francisco de Asís. Todos los derechos reservados.</p>
+        </div>
+      </div>

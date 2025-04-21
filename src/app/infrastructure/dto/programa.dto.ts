@@ -4,7 +4,7 @@ export interface InformacionDTO{
     valor: string;
 }
 export interface ProgramaDto {
-    
+
     id: string,
     idColaborador: string,
     colaborador: string,
@@ -18,5 +18,14 @@ export interface ProgramaDto {
     nombreColaboradorResponsable: string;
     idPrograma: string;
     colaboradorCreador: string;
-    
+    formatosActividades: {
+        fechaCreacion: String,
+        archivos: [
+            {
+            name: String,
+            webUrl: String,
+            downloadUrl: String
+            }
+        ]
+    },
 }

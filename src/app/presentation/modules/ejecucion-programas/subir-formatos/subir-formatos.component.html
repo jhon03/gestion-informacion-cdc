@@ -1,10 +1,22 @@
-<input type="file" (change)="onFileSelected($event)" [disabled]="archivoSubido" />
+
 
 <div class="container">
   <mat-card>
-    <!--<mat-card-title>Subir Formato</mat-card-title>
-    <input type="file" (change)="onFileSelected($event)" />-->
+    <mat-card-title>Subir Formato</mat-card-title>
 
+<!-- Seleccionar Programa -->
+<mat-form-field appearance="fill">
+  <mat-label>Seleccione un programa</mat-label>
+  <mat-select [(ngModel)]="selectedPrograma">
+    <mat-option *ngFor="let programa of programas" [value]="programa.nombrePrograma">
+      {{ programa.nombrePrograma }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+    <!-- Seleccionar Archivo -->
+    <input type="file" (change)="onFileSelected($event)" [disabled]="archivoSubido" />
 
     <button mat-raised-button
       [ngClass]="{'btn-subido': archivoSubido, 'btn-normal': !archivoSubido}"

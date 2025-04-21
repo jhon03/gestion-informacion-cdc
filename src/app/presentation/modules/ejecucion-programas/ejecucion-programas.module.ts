@@ -5,6 +5,7 @@ import { EjecucionProgramasRoutingModule } from './ejecucion-programas-routing.m
 import { MaterialModule } from '../material/material/material.module';
 import { FormsModule } from '@angular/forms';
 import { MatCardContent, MatCardModule } from '@angular/material/card';
+import { MatSelect } from '@angular/material/select';
 
 @NgModule({
 
@@ -16,7 +17,9 @@ import { MatCardContent, MatCardModule } from '@angular/material/card';
     MaterialModule,
      FormsModule,
      MatCardModule,
-     
+     FormsModule,
+     MatSelect
+
   ],
 
 })
