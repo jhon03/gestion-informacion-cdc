@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Colaborador } from '../../../domain/models/colaborador.models';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../environment/environment';
 import { colaboradorResponse, colaboradoresPageResponse, colaboradoresResponse} from '../../helpers/interfaces/colaborador.interface';
 import { colaboradorRequest } from '../../helpers/interfaces/colaborador.interface';
 import { HttpErrorResponse } from '@angular/common/http';
