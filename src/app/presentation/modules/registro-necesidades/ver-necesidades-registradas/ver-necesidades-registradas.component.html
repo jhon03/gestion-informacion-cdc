@@ -1,0 +1,48 @@
+<div *ngIf="cargando">Cargando registros...</div>
+
+<div *ngIf="!cargando && registros.length === 0">No hay registros de necesidades.</div>
+
+<div *ngIf="!cargando && registros.length > 0">
+  <div *ngFor="let registro of registros" class="card">
+
+
+    <p><strong>Fecha de registro:</strong> {{ registro.fechaRegistro  }}</p>
+
+
+    <div *ngFor="let necesidad of registro.necesidades; let i = index" class="necesidad">
+  <h4>Necesidad #{{ necesidad.item }}</h4>
+
+  <ng-container *ngIf="modoEdicion[registro._id]; else soloLectura">
+    <label>Identificada: <input [(ngModel)]="necesidad.necesidadIdentificada"></label><br>
+    <label>Causas: <input [(ngModel)]="necesidad.causas"></label><br>
+    <label>Impacto: <input [(ngModel)]="necesidad.impacto"></label><br>
+    <label>Población afectada: <input [(ngModel)]="necesidad.poblacionAfectada"></label><br>
+    <label>Prioridad: <input [(ngModel)]="necesidad.prioridad"></label><br>
+    <label>Recursos necesarios: <input [(ngModel)]="necesidad.recursosNecesarios"></label><br>
+    <label>Estrategias intervención: <input [(ngModel)]="necesidad.estrategiasIntervencion"></label><br>
+    <label>Indicadores éxito: <input [(ngModel)]="necesidad.indicadoresExito"></label><br>
+  </ng-container>
+
+  <ng-template #soloLectura>
+    <p><strong>Identificada:</strong> {{ necesidad.necesidadIdentificada }}</p>
+    <p><strong>Causas:</strong> {{ necesidad.causas }}</p>
+    <p><strong>Impacto:</strong> {{ necesidad.impacto }}</p>
+    <p><strong>Población afectada:</strong> {{ necesidad.poblacionAfectada }}</p>
+    <p><strong>Prioridad:</strong> {{ necesidad.prioridad }}</p>
+    <p><strong>Recursos necesarios:</strong> {{ necesidad.recursosNecesarios }}</p>
+    <p><strong>Estrategias intervención:</strong> {{ necesidad.estrategiasIntervencion }}</p>
+    <p><strong>Indicadores éxito:</strong> {{ necesidad.indicadoresExito }}</p>
+  </ng-template>
+</div>
+    <hr/>
+
+    <button (click)="eliminarRegistro(registro._id)" class="btn btn-danger">Eliminar</button>
+    <ng-container *ngIf="!modoEdicion[registro._id]">
+        <button (click)="activarEdicion(registro._id)" class="btn btn-warning">Editar</button>
+      </ng-container>
+
+      <ng-container *ngIf="modoEdicion[registro._id]">
+        <button (click)="actualizarRegistro(registro._id)" class="btn btn-success">Guardar cambios</button>
+      </ng-container>
+      </div>
+</div>

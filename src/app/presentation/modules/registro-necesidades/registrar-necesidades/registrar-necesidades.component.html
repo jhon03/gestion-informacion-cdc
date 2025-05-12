@@ -1,0 +1,89 @@
+<div class="form-container">
+    <h2 class="form-title">Registrar Necesidades</h2>
+
+    <div *ngIf="mensajeExito" class="success-toast">✅ {{ mensajeExito }}</div>
+
+    <form [formGroup]="necesidadForm" (ngSubmit)="onSubmit()">
+      <div formArrayName="necesidades">
+        <div *ngFor="let necesidad of necesidades.controls; let i = index" [formGroupName]="i" class="necesidad-box">
+          <h3 class="necesidad-subtitle">Necesidad #{{ i + 1 }}</h3>
+
+          <div class="input-grid">
+            <div class="form-group">
+              <label>Necesidad Identificada</label>
+              <input formControlName="necesidadIdentificada" type="text" />
+              <span *ngIf="necesidad.get('necesidadIdentificada')?.touched && necesidad.get('necesidadIdentificada')?.invalid" class="error-msg">Campo requerido</span>
+            </div>
+
+            <div class="form-group">
+              <label>Causas</label>
+              <input formControlName="causas" type="text" />
+              <span *ngIf="necesidad.get('causas')?.touched && necesidad.get('causas')?.invalid" class="error-msg">Campo requerido</span>
+            </div>
+
+            <div class="form-group">
+              <label>Impacto</label>
+              <input formControlName="impacto" type="text" />
+              <span *ngIf="necesidad.get('impacto')?.touched && necesidad.get('impacto')?.invalid" class="error-msg">Campo requerido</span>
+            </div>
+
+            <div class="form-group">
+              <label>Población Afectada</label>
+              <input formControlName="poblacionAfectada" type="text" />
+              <span *ngIf="necesidad.get('poblacionAfectada')?.touched && necesidad.get('poblacionAfectada')?.invalid" class="error-msg">Campo requerido</span>
+            </div>
+
+            <div class="form-group">
+              <label>Prioridad</label>
+              <select formControlName="prioridad">
+                <option value="">Seleccione</option>
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+              </select>
+              <span *ngIf="necesidad.get('prioridad')?.touched && necesidad.get('prioridad')?.invalid" class="error-msg">Campo requerido</span>
+            </div>
+
+            <div class="form-group">
+              <label>Recursos Necesarios</label>
+              <input formControlName="recursosNecesarios" type="text" />
+              <span *ngIf="necesidad.get('recursosNecesarios')?.touched && necesidad.get('recursosNecesarios')?.invalid" class="error-msg">Campo requerido</span>
+            </div>
+
+            <div class="form-group">
+              <label>Estrategias de Intervención</label>
+              <input formControlName="estrategiasIntervencion" type="text" />
+              <span *ngIf="necesidad.get('estrategiasIntervencion')?.touched && necesidad.get('estrategiasIntervencion')?.invalid" class="error-msg">Campo requerido</span>
+            </div>
+
+            <div class="form-group">
+              <label>Indicadores de Éxito</label>
+              <input formControlName="indicadoresExito" type="text" />
+              <span *ngIf="necesidad.get('indicadoresExito')?.touched && necesidad.get('indicadoresExito')?.invalid" class="error-msg">Campo requerido</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn-delete" (click)="eliminarNecesidad(i)" *ngIf="necesidades.length > 1">🗑️ Eliminar</button>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button type="button" (click)="agregarNecesidad()" class="btn-add">➕ Agregar Necesidad</button>
+        <button type="submit" [disabled]="loading" class="btn-submit">
+          <span *ngIf="loading">⏳ Guardando...</span>
+          <span *ngIf="!loading">📋 Previsualizar</span>
+        </button>
+      </div>
+
+      <div *ngIf="mostrarResumen" class="resumen-box">
+        <h4>Resumen:</h4>
+        <ul>
+          <li *ngFor="let n of resumen; let j = index">
+            <strong>Necesidad {{ j + 1 }}:</strong> {{ n.necesidadIdentificada }} - Prioridad: {{ n.prioridad }}
+          </li>
+        </ul>
+        <button type="button" (click)="confirmarEnvio()" class="btn-confirm">✅ Confirmar Envío</button>
+        <button type="button" (click)="cancelarEnvio()" class="btn-cancel">❌ Cancelar</button>
+      </div>
+    </form>
+  </div>

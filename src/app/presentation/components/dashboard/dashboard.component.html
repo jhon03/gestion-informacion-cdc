@@ -1,25 +1,82 @@
-<mat-toolbar>
+
 <!--<div>mostrar mensaje al usuario "estas logueadocomo"+nombre de usuario
    <span>titulo módulo. Ej:configur y admin usuario </span>
 
     </div>-->
-    <span class="example-spacer"></span>
-
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="cerrarSesion()">
-      <mat-icon>exit_to_app</mat-icon>
-    </button>
-  </mat-toolbar>
-
-  <p>Rol del usuario: {{ userRole }}</p>
-
-
+    <mat-toolbar color="primary">
+      <span class="toolbar-title">Panel de Administración</span>
+      <span class="example-spacer"></span>
+      <span>Rol: {{ userRole }}</span>
+      <button mat-icon-button aria-label="Cerrar sesión" (click)="cerrarSesion()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </mat-toolbar>
 
 
+      <!-- Columna izquierda -->
+     <!-- se quito la matriz de registrar necesidades para  dejarlo como botón-->
+
+      <!-- Columna derecha -->
+      <mat-card class="dashboard-card" *ngIf="userRole === 'DIRECTORA '">
+        <mat-card-header>
+          <mat-card-title>¿Que deseas hacer hoy? </mat-card-title>
+          <mat-card-title> Ingresa a la opción  conveniente</mat-card-title>
+        </mat-card-header>
+
+        <div class="dashboard-buttons">
+          <button mat-raised-button color="primary" [routerLink]="['/iniciacion/registrar-necesidades']">
+            <mat-icon>post_add</mat-icon>
+            <span>Registrar necesidades</span>
+          </button>
 
 
-<!--Permisos según rol del usuario-->
-<app-crear-nuevo-programa *ngIf="userRole === ' PROFESIONAL DE PROYECTOS'"></app-crear-nuevo-programa>
-<app-gestionar-colaboradores *ngIf="userRole == 'SUPERUSER'"></app-gestionar-colaboradores>
-<app-visualizar-pogramas-en-espera *ngIf="userRole === 'DIRECTORA '"></app-visualizar-pogramas-en-espera>
-<app-programas-activos *ngIf="userRole === ' LIDER DE PROYETOS '"></app-programas-activos>
-<app-form-registro-usuarios *ngIf="userRole === 'DIRECTORA '"></app-form-registro-usuarios>
+          <button mat-raised-button color="primary" [routerLink]="['/ejecuccion/formulario-registro']">
+            <mat-icon>post_add</mat-icon>
+            <span>Crear un formulario para registrar inscripción de participantes a un programa</span>
+          </button>
+
+          <button mat-raised-button color="accent" [routerLink]="['/iniciacion/ver-necesidades']">
+            <mat-icon>visibility</mat-icon>
+            <span>Ver necesidades registradas</span>
+          </button>
+
+          <button mat-raised-button color="warn" [routerLink]="['/formulacion/ver-programas-activos']">
+            <mat-icon>fact_check</mat-icon>
+            <span>Ver programas activos</span>
+          </button>
+        </div>
+      </mat-card>
+
+      <mat-card class="dashboard-card" *ngIf="userRole === ' LIDER DE PROYETOS '">
+        <mat-card-header>
+          <mat-card-title>Programas Activos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <app-programas-activos></app-programas-activos>
+        </mat-card-content>
+
+
+      </mat-card>
+
+
+
+      <mat-card class="dashboard-card" *ngIf="userRole === 'SUPERUSER'">
+        <mat-card-header>
+          <mat-card-title>Gestión de Colaboradores</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <app-gestionar-colaboradores></app-gestionar-colaboradores>
+        </mat-card-content>
+      </mat-card>
+
+
+
+    <mat-card class="dashboard-card" *ngIf="userRole === 'DIRECTORA '">
+      <mat-card-header>
+        <mat-card-title>Programas en Espera</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-visualizar-pogramas-en-espera></app-visualizar-pogramas-en-espera>
+      </mat-card-content>
+    </mat-card>
+

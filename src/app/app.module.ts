@@ -39,6 +39,7 @@ import { FormulacionModule } from './presentation/modules/formulacion/formulacio
 //import { HttpClientModule } from '@angular/common/http'; deprecado
 import { GestionarColaboradoresComponent } from './presentation/components/usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
 import { EjecucionProgramasModule } from './presentation/modules/ejecucion-programas/ejecucion-programas.module';
+import { RegistroNecesidadesModule } from './presentation/modules/registro-necesidades/registro-necesidades.module';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { EjecucionProgramasModule } from './presentation/modules/ejecucion-progr
    AutenticacionModule,
    UsuariosModule,
    FormulacionModule,
-   EjecucionProgramasModule
+   EjecucionProgramasModule,
+   RegistroNecesidadesModule
   ],
 
 

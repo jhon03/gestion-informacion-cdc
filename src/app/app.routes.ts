@@ -57,6 +57,10 @@ export const routes: Routes = [
             path: 'ejecuccion',
             loadChildren: () => import('./presentation/modules/ejecucion-programas/ejecucion-programas.module').then(m => m.EjecucionProgramasModule)
         },
+        {
+            path: 'iniciacion',
+            loadChildren: () => import('./presentation/modules/registro-necesidades/registro-necesidades.module').then(m => m.RegistroNecesidadesModule)
+        },
 
     {
         path: 'dashboard',

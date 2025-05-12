@@ -1,0 +1,147 @@
+.form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .success-toast {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #c3e6cb;
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+
+  .warning-toast {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ffeeba;
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+
+  .necesidad-box {
+    margin-bottom: 2rem;
+    border: 1px solid #e0e0e0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: #f9f9f9;
+  }
+
+  .necesidad-subtitle {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #555;
+  }
+
+  .input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.4rem;
+  }
+
+  .error-msg {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+  }
+
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+  }
+
+  .btn-add,
+  .btn-submit,
+  .btn-delete,
+  .btn-confirm,
+  .btn-cancel {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .btn-add {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .btn-submit {
+    background-color: #28a745;
+    color: #fff;
+  }
+
+  .btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+    margin-top: 1rem;
+  }
+
+  .btn-confirm {
+    background-color: #20c997;
+    color: #fff;
+    margin-top: 1rem;
+    margin-right: 1rem;
+  }
+
+  .btn-cancel {
+    background-color: #6c757d;
+    color: #fff;
+    margin-top: 1rem;
+  }
+
+  .resumen-box {
+    background: #f1f1f1;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .resumen-box h4 {
+    margin-bottom: 0.8rem;
+  }
+
+  .resumen-box ul {
+    padding-left: 1rem;
+  }
+
+  .resumen-box li {
+    margin-bottom: 0.5rem;
+  }

@@ -1,0 +1,101 @@
+/* Contenedor general de cada tarjeta */
+.card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+  }
+
+  /* Fecha */
+  .card > p {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  /* Contenedor de necesidad individual */
+  .necesidad {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-left: 4px solid #1976d2;
+    background-color: #f9fbff;
+    border-radius: 6px;
+  }
+
+  /* Campos de texto en modo edición */
+  .necesidad label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: #444;
+  }
+
+  .necesidad input {
+    margin-top: 0.25rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+
+  /* Botones */
+  button {
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn-danger {
+    background-color: #e53935;
+    color: #fff;
+  }
+
+  .btn-danger:hover {
+    background-color: #c62828;
+  }
+
+  .btn-warning {
+    background-color: #fbc02d;
+    color: #000;
+  }
+
+  .btn-warning:hover {
+    background-color: #f9a825;
+  }
+
+  .btn-success {
+    background-color: #43a047;
+    color: #fff;
+  }
+
+  .btn-success:hover {
+    background-color: #388e3c;
+  }
+
+  /* Mensaje de carga y vacío */
+  div[ng-reflect-ng-if="cargando"],
+  div[ng-reflect-ng-if="!cargando && registros.length === 0"] {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 2rem;
+    color: #777;
+  }
+
+  /* Responsivo */
+  @media (max-width: 600px) {
+    .necesidad label {
+      font-size: 0.9rem;
+    }
+    button {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }

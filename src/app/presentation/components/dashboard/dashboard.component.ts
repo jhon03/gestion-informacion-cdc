@@ -12,6 +12,8 @@ import { FormRegistroUsuariosComponent } from '../form-registro-usuarios/form-re
 import { GestionarColaboradoresComponent } from '../usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
 import { VisualizarPogramasEnEsperaComponent } from '../../modules/formulacion/visualizar-pogramas-en-espera/visualizar-pogramas-en-espera.component';
 import { ProgramasActivosComponent } from '../../modules/formulacion/programas-activos/programas-activos.component';
+import { RegistrarNecesidadesComponent } from '../../modules/registro-necesidades/registrar-necesidades/registrar-necesidades.component';
+import { VerNecesidadesRegistradasComponent } from '../../modules/registro-necesidades/ver-necesidades-registradas/ver-necesidades-registradas.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -22,7 +24,9 @@ import { ProgramasActivosComponent } from '../../modules/formulacion/programas-a
     FormRegistroUsuariosComponent,
     GestionarColaboradoresComponent,
     VisualizarPogramasEnEsperaComponent,
-    ProgramasActivosComponent
+    ProgramasActivosComponent,
+    RegistrarNecesidadesComponent,
+    VerNecesidadesRegistradasComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
