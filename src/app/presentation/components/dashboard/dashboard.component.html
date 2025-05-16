@@ -54,10 +54,23 @@
         <mat-card-content>
           <app-programas-activos></app-programas-activos>
         </mat-card-content>
-
-
       </mat-card>
+<!--permisos de directora y profesional de proyectos para visibilizar necesidades-->
+<mat-card class="dashboard-card" *ngIf="userRole === 'DIRECTORA ' || userRole === ' PROFESIONAL DE PROYECTOS'">
+  <div class="dashboard-buttons">
+    <button mat-raised-button color="accent" [routerLink]="['/iniciacion/ver-necesidades']">
+      <mat-icon>visibility</mat-icon>
+      <span>
+        {{ userRole === ' PROFESIONAL DE PROYECTOS'
+            ? 'Ver necesidades registradas para crear un programa'
+            : 'Ver necesidades registradas' }}
+      </span>
+    </button>
 
+
+  </div>
+
+</mat-card>
 
 
       <mat-card class="dashboard-card" *ngIf="userRole === 'SUPERUSER'">

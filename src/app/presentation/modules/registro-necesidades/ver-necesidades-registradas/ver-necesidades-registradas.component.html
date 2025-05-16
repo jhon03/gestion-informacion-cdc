@@ -10,7 +10,9 @@
 
 
     <div *ngFor="let necesidad of registro.necesidades; let i = index" class="necesidad">
-  <h4>Necesidad #{{ necesidad.item }}</h4>
+  <h4>Necesidad #{{ necesidad.item }}
+  </h4>
+
 
   <ng-container *ngIf="modoEdicion[registro._id]; else soloLectura">
     <label>Identificada: <input [(ngModel)]="necesidad.necesidadIdentificada"></label><br>
@@ -33,16 +35,33 @@
     <p><strong>Estrategias intervención:</strong> {{ necesidad.estrategiasIntervencion }}</p>
     <p><strong>Indicadores éxito:</strong> {{ necesidad.indicadoresExito }}</p>
   </ng-template>
+
 </div>
     <hr/>
 
-    <button (click)="eliminarRegistro(registro._id)" class="btn btn-danger">Eliminar</button>
-    <ng-container *ngIf="!modoEdicion[registro._id]">
+    <!--ocultar boton para rol profesional de proyectos-->
+    <ng-container *ngIf="userRole !== ' PROFESIONAL DE PROYECTOS'">
+    <button (click)="eliminarRegistro(registro._id) " class="btn btn-danger">Eliminar</button>
+  </ng-container>
+
+
+    <!--ocultar boton para rol profesional de proyectos-->
+    <ng-container *ngIf="!modoEdicion[registro._id] && userRole !== ' PROFESIONAL DE PROYECTOS'">
         <button (click)="activarEdicion(registro._id)" class="btn btn-warning">Editar</button>
       </ng-container>
 
       <ng-container *ngIf="modoEdicion[registro._id]">
         <button (click)="actualizarRegistro(registro._id)" class="btn btn-success">Guardar cambios</button>
       </ng-container>
+
+
+    <div *ngIf="userRole === ' PROFESIONAL DE PROYECTOS'" class="crear-programa-container">
+      <button class="btn btn-primary" routerLink="/formulacion/registro-programa" >
+        Crear nuevo programa
+      </button>
+    </div>
+
+
+
       </div>
 </div>

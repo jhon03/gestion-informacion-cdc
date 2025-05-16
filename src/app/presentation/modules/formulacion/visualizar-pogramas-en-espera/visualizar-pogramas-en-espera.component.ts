@@ -3,12 +3,11 @@ import { MaterialModule } from '../../material/material/material.module';
 import { Subscription } from 'rxjs';
 import { ProgramaRepository } from '../../../../domain/repositories/programa.repository';
 import { responsePrograms } from '../../../../infrastructure/helpers/interfaces/programa.interface';
-import { ProgramaDto } from '../../../../infrastructure/dto/programa.dto';
+import { InformacionDTO, ProgramaDto } from '../../../../infrastructure/dto/programa.dto';
 import { ProgramaService } from '../../../../infrastructure/services/programa/programa.service';
 import Swal from 'sweetalert2';
 import { MatTableDataSource } from '@angular/material/table';
-import { ColaboradorService } from '../../../../infrastructure/services/colaborador/colaborador.service';
-
+import { ColaboradorService } from'../../../../infrastructure/services/colaborador/colaborador.service';
 
 @Component({
   selector: 'app-visualizar-pogramas-en-espera',
@@ -58,6 +57,9 @@ export class VisualizarPogramasEnEsperaComponent implements OnInit  {
       error: (err) => console.error(err),
     });
   }
+public isObject(value: any): value is InformacionDTO {
+  return value && typeof value === 'object' && value.hasOwnProperty('campo') && value.hasOwnProperty('valor');
+}
 
   obtenerColaboradoresConRol(page: number, pageSize: number): void {
     this.colaboradorService.obtenerColaboradoresConRol(page, pageSize).subscribe({

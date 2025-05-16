@@ -8,10 +8,13 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './confirm-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
+import * as jwt_decode from 'jwt-decode';
+import { AuthenticacionService } from '../../../../infrastructure/services/authenticacion/authenticacion.service';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-ver-necesidades-registradas',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatSnackBarModule, MatDialogModule, MatButtonModule],
+  imports: [CommonModule, FormsModule, MatSnackBarModule, MatDialogModule, MatButtonModule, RouterModule],
   templateUrl: './ver-necesidades-registradas.component.html',
   styleUrl: './ver-necesidades-registradas.component.css'
 })
@@ -20,11 +23,13 @@ export class VerNecesidadesRegistradasComponent implements OnInit{
   registros: responseNecesidad['registro'][] = [];
   cargando: boolean = true;
   modoEdicion: { [id: string]: boolean } = {};
+  userRole: string = ' ';
 
-
+  crearProgramaActivo: { [registroId: string]: { [necesidadIndex: number]: boolean}}= {};
   constructor(private necesidadService: NecesidadService, private snackBar: MatSnackBar,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog, private authService: AuthenticacionService, private router: Router) {}
   ngOnInit(): void {
+    this.getUserRole();
     this.obtenerRegistros();
   }
 // función para cambiar al modo edición-actualizar
@@ -86,4 +91,11 @@ export class VerNecesidadesRegistradasComponent implements OnInit{
       });
     }
 }
+getUserRole(): void {
+  this.userRole = this.authService.getUserRole();
+  console.log('user Role: ', this.userRole);
+
+}
+
+
 }
