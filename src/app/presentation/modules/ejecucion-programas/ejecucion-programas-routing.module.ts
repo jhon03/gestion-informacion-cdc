@@ -16,7 +16,7 @@ const routes: Routes = [
     component: RegistroParticipantesComponent
   },
   {
-    path: 'programa/:idPrograma/formulario/:idFormulario',
+    path: 'ver-participantes',
     component: VerParticipantesInscritosPorProgramaComponent
   },
   {

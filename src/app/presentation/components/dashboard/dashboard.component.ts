@@ -14,6 +14,10 @@ import { VisualizarPogramasEnEsperaComponent } from '../../modules/formulacion/v
 import { ProgramasActivosComponent } from '../../modules/formulacion/programas-activos/programas-activos.component';
 import { RegistrarNecesidadesComponent } from '../../modules/registro-necesidades/registrar-necesidades/registrar-necesidades.component';
 import { VerNecesidadesRegistradasComponent } from '../../modules/registro-necesidades/ver-necesidades-registradas/ver-necesidades-registradas.component';
+import { ProgramaDto } from '../../../infrastructure/dto/programa.dto';
+import { ProgramaService } from '../../../infrastructure/services/programa/programa.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -26,19 +30,26 @@ import { VerNecesidadesRegistradasComponent } from '../../modules/registro-neces
     VisualizarPogramasEnEsperaComponent,
     ProgramasActivosComponent,
     RegistrarNecesidadesComponent,
-    VerNecesidadesRegistradasComponent
+    VerNecesidadesRegistradasComponent,
+    FormsModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit{
 userRole: string = '';
-
-
+programas: ProgramaDto[] = [];
+programasFiltrados: ProgramaDto[] = [];
+filtroPrograma: string= '';
+page = 1;
+  pageSize = 10;
+  totalPages: number = 0;
+  totalItems =0;
+  dataSource: MatTableDataSource<ProgramaDto> = new MatTableDataSource();
 @ViewChild('sidenav') sidenav!: MatSidenav;
 
 constructor(private loginRespository: LoginRepository,
-  private authService: AuthenticacionService, private router: Router,
+  private authService: AuthenticacionService, private router: Router, private programaService: ProgramaService
 
 ){}
 
@@ -46,6 +57,8 @@ constructor(private loginRespository: LoginRepository,
 ngOnInit(): void {
     this.userRole;
     this.getUserRole();
+
+    this.obtenerProgramasActivos(this.page);
 }
 
 getUserRole(): void {
@@ -77,5 +90,54 @@ cerrarSesion(){
       this.router.navigate(['/login']);
     }
   });
+}
+
+obtenerProgramasActivos(page: number): void {
+
+    this.programaService.obtenerProgramas(page, this.pageSize).subscribe({
+      next: (res) => {
+        this.programas = res.programas || [];
+        this.programasFiltrados = [...this.programas]; // Inicializa los filtrados
+        this.dataSource.data = this.programas;  // Se asigna la data a la MatTableDataSource
+        const paginaInfo = res.pagina || '';
+        const totalPages = parseInt(paginaInfo.split('de')[1].trim(), 10);
+        this.totalPages = totalPages;
+
+        if( res.tokenAccessRenovado){
+          sessionStorage.setItem('tokenAcesso', res.tokenAccessRenovado);
+        }
+        const msg = res.msg || '';
+        Swal.fire('Informacion', msg, 'info');
+      },
+
+      error: (err) => {
+        Swal.fire('Error', 'No se pudieron obtener los programas', 'error');
+        console.error(err);
+      },
+    });
+  }
+  // Navegación de la paginación
+  cambiarPagina(nuevaPagina: number): void {
+   if (nuevaPagina > 0 && nuevaPagina <= this.totalPages) {
+      this.page = nuevaPagina;
+      this.obtenerProgramasActivos(this.page);
+    } else {
+      Swal.fire('Aviso', 'No hay más páginas disponibles', 'info');
+    }
+}
+   onPaginateChange(event: any): void {
+  const nuevaPagina = event.pageIndex + 1; // Porque pageIndex empieza en 0
+  this.cambiarPagina(nuevaPagina);
+}
+filtrarProgramas(): void {
+  const filtro = this.filtroPrograma.trim().toLowerCase();
+  this.programasFiltrados = this.programas.filter(p =>
+    p.nombrePrograma.toLowerCase().includes(filtro)
+  );
+}
+
+limpiarFiltro(): void {
+  this.filtroPrograma = '';
+  this.programasFiltrados = [...this.programas];
 }
 }

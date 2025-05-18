@@ -1,44 +1,58 @@
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla-programas">
 
-    <!-- Nombre del Programa Column -->
-    <ng-container matColumnDef="nombrePrograma">
-      <mat-header-cell *matHeaderCellDef> Nombre del Programa </mat-header-cell>
-      <mat-cell *matCellDef="let programa"> {{programa.nombrePrograma}} </mat-cell>
-    </ng-container>
-  
-    <!-- Estado Column (color verde para activos) -->
-    <ng-container matColumnDef="estado">
-      <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
-      <mat-cell *matCellDef="let programa">
-        <span [ngClass]="{'estado-activo': programa.estado === 'ACTIVO'}">{{ programa.estado }}</span>
-      </mat-cell>
-    </ng-container>
-  
-    <!-- Información Column (renderiza el objeto 'informacion') -->
-    <ng-container matColumnDef="informacion">
-      <mat-header-cell *matHeaderCellDef> Información </mat-header-cell>
-      <mat-cell *matCellDef="let programa">
+  <!-- Nombre del Programa -->
+  <ng-container matColumnDef="nombrePrograma">
+    <mat-header-cell *matHeaderCellDef> Nombre del Programa </mat-header-cell>
+    <mat-cell *matCellDef="let programa"> {{ programa.nombrePrograma }} </mat-cell>
+  </ng-container>
+
+  <!-- Estado -->
+  <ng-container matColumnDef="estado">
+    <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+    <mat-cell *matCellDef="let programa">
+      <span [ngClass]="{'estado-activo': programa.estado === 'ACTIVO'}">
+        {{ programa.estado }}
+      </span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Información -->
+  <ng-container matColumnDef="informacion">
+    <mat-header-cell *matHeaderCellDef> Información </mat-header-cell>
+    <mat-cell *matCellDef="let programa">
+      <div class="informacion-celda">
         <ng-container *ngFor="let key of objectoKeys(programa.informacion)">
-          <div>{{ programa.informacion[key]?.campo || key }}: {{ programa.informacion[key]?.valor || programa.informacion[key] }}</div>
+          <div class="linea-info">
+            <strong>{{ programa.informacion[key]?.campo || key }}:</strong>
+            <span>{{ programa.informacion[key]?.valor || programa.informacion[key] }}</span>
+          </div>
         </ng-container>
-      </mat-cell>
-    </ng-container>
-  
-    <!-- Fecha de Creación Column -->
-    <ng-container matColumnDef="fechaCreacion">
-      <mat-header-cell *matHeaderCellDef> Fecha de Creación </mat-header-cell>
-      <mat-cell *matCellDef="let programa"> {{programa.fechaCreacion}} </mat-cell>
-    </ng-container>
-  
-    <!-- Nombre del Colaborador Responsable Column -->
-    <ng-container matColumnDef="nombreColaboradorResponsable">
-      <mat-header-cell *matHeaderCellDef> Responsable </mat-header-cell>
-      <mat-cell *matCellDef="let programa"> {{programa.nombreColaboradorResponsable}} </mat-cell>
-    </ng-container>
-  
-    <!-- Header and Row Definitions -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  
-  </mat-table>
-  
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Fecha de Creación -->
+  <ng-container matColumnDef="fechaCreacion">
+    <mat-header-cell *matHeaderCellDef> Fecha de Creación </mat-header-cell>
+    <mat-cell *matCellDef="let programa"> {{ programa.fechaCreacion }} </mat-cell>
+  </ng-container>
+
+  <!-- Responsable -->
+  <ng-container matColumnDef="nombreColaboradorResponsable">
+    <mat-header-cell *matHeaderCellDef> Responsable </mat-header-cell>
+    <mat-cell *matCellDef="let programa"> {{ programa.nombreColaboradorResponsable }} </mat-cell>
+  </ng-container>
+
+  <!-- Filas -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</mat-table>
+
+<mat-paginator
+   [length]="totalPages * pageSize"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[10]"
+  [pageIndex]="page - 1"
+  (page)="onPaginateChange($event)">
+</mat-paginator>

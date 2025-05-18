@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import { ProgramaService } from '../../../../infrastructure/services/programa/programa.service';
 import Swal from 'sweetalert2';
 import { ProgramaDto } from '../../../../infrastructure/dto/programa.dto';
@@ -23,8 +23,9 @@ export class ProgramasActivosComponent implements OnInit{
   page = 1;
   pageSize = 10;
   totalPages: number = 0;
-
-constructor( private programaService: ProgramaService, 
+  totalItems =0;
+ 
+constructor( private programaService: ProgramaService,
   ){}
 
 
@@ -32,6 +33,7 @@ constructor( private programaService: ProgramaService,
     this.obtenerProgramasActivos(this.page);
   }
   obtenerProgramasActivos(page: number): void {
+
     this.programaService.obtenerProgramas(page, this.pageSize).subscribe({
       next: (res) => {
         this.programas = res.programas || [];
@@ -55,13 +57,15 @@ constructor( private programaService: ProgramaService,
   }
   // Navegación de la paginación
   cambiarPagina(nuevaPagina: number): void {
-    if (nuevaPagina > 0 && nuevaPagina <= this.totalPages) {
+   if (nuevaPagina > 0 && nuevaPagina <= this.totalPages) {
       this.page = nuevaPagina;
       this.obtenerProgramasActivos(this.page);
     } else {
       Swal.fire('Aviso', 'No hay más páginas disponibles', 'info');
     }
-
-  }
-
+}
+   onPaginateChange(event: any): void {
+  const nuevaPagina = event.pageIndex + 1; // Porque pageIndex empieza en 0
+  this.cambiarPagina(nuevaPagina);
+}
 }

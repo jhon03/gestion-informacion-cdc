@@ -35,10 +35,6 @@
             <span>Crear un formulario para registrar inscripción de participantes a un programa</span>
           </button>
 
-          <button mat-raised-button color="accent" [routerLink]="['/iniciacion/ver-necesidades']">
-            <mat-icon>visibility</mat-icon>
-            <span>Ver necesidades registradas</span>
-          </button>
 
           <button mat-raised-button color="warn" [routerLink]="['/formulacion/ver-programas-activos']">
             <mat-icon>fact_check</mat-icon>
@@ -48,12 +44,72 @@
       </mat-card>
 
       <mat-card class="dashboard-card" *ngIf="userRole === ' LIDER DE PROYETOS '">
+
         <mat-card-header>
-          <mat-card-title>Programas Activos</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <app-programas-activos></app-programas-activos>
-        </mat-card-content>
+    <mat-card-title class="dashboard-title">Dashboard - Líder de Proyectos</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+      <h3>📋 Programas Activos</h3>
+ <!-- 🔍 Filtro por nombre de programa -->
+    <div class="filter-container">
+      <mat-form-field appearance="outline">
+
+        <mat-label>Buscar programa</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Escribe el nombre" [(ngModel)]="filtroPrograma" (ngModelChange)="filtrarProgramas()">
+        <button *ngIf="filtroPrograma" matSuffix mat-icon-button aria-label="Limpiar" (click)="limpiarFiltro()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+
+    <div class="programs-grid" *ngIf="programasFiltrados?.length; else sinProgramas">
+  <mat-card class="program-card" *ngFor="let programa of programasFiltrados">
+    <mat-card-header>
+      <mat-card-title>{{ programa.nombrePrograma }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ programa.fechaCreacion | date: 'longDate' }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p><strong>Responsable:</strong> {{ programa.nombreColaboradorResponsable || 'Sin asignar' }}</p>
+      <p><strong>Estado:</strong> {{ programa.estado }}</p>
+    </mat-card-content>
+
+    <!-- Botones bien distribuidos -->
+    <mat-card-actions class="card-actions">
+      <!--<button mat-stroked-button color="primary" [routerLink]="['/programas', programa.id, 'participantes']">
+        <mat-icon>group</mat-icon>
+        Ver Participantes
+      </button>-->
+
+      <button mat-raised-button color="accent" [routerLink]="['/ejecuccion/registro-participantes']" [queryParams]="{ programaId: programa.id }">
+        <mat-icon>person_add</mat-icon>
+        Registrar participante
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<!-- Paginador centrado -->
+<div class="paginator-container">
+<mat-paginator
+  [length]="totalPages * pageSize"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[pageSize]"
+  [pageIndex]="page - 1"
+  (page)="onPaginateChange($event)">
+</mat-paginator>
+</div>
+
+    <ng-template #sinProgramas>
+      <p>No hay programas activos en este momento.</p>
+    </ng-template>
+  </mat-card-content>
+
       </mat-card>
 <!--permisos de directora y profesional de proyectos para visibilizar necesidades-->
 <mat-card class="dashboard-card" *ngIf="userRole === 'DIRECTORA ' || userRole === ' PROFESIONAL DE PROYECTOS'">

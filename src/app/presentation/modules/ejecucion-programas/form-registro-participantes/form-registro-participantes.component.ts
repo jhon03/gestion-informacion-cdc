@@ -48,29 +48,39 @@ export class FormRegistroParticipantesComponent implements OnInit {
       campos: this.fb.array([])
     });
   }
-  
+
 
   ngOnInit(): void {
-   
-// this.ObtenerProgramasActivos() //cargar programas activos
-  
+
+this.ObtenerProgramasActivos() //cargar programas activos
+
   }
 
-  // ObtenerProgramasActivos(): void {
-  //   this.programaService.obtenerProgramas(this.page, this.limit).subscribe({
-  //     next: (response)=> {
-  //       //filtrar programas activos
-  //       this.programas = response.programas.filter((programa)=> programa.estado === 'ACTIVO');
-  //       console.log(this.programas); 
-  //     },
-  //   error: (error)=> {
-  //     console.error('Error al obtener los programas', error);
-  //   }
-  //   });
-  // }
-  
-  
- 
+   ObtenerProgramasActivos(page: number = 1, acumulador: Programa[] = []): void {
+  this.programaService.obtenerProgramas(page, this.limit).subscribe({
+     next: (response)=> {
+       const programasActivos = response.programas.filter(p => p.estado === 'ACTIVO');
+        const nuevosAcumulados = [...acumulador, ...programasActivos];
+
+        if (response.programas.length === this.limit) {
+          this.ObtenerProgramasActivos(page + 1, nuevosAcumulados);
+        } else {
+          this.programas = nuevosAcumulados;
+          console.log('Programas activos cargados:', this.programas);
+        }
+      },
+      error: (error) => {
+        console.error('Error al obtener los programas:', error);
+        this.snackBar.open('Error al cargar los programas', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      }
+    });
+  }
+
+
+
  get campos():FormArray{
   return this.formularioProgramaForm.get('campos') as FormArray;
  }
@@ -84,10 +94,10 @@ export class FormRegistroParticipantesComponent implements OnInit {
     });
     this.campos.push(campoForm);
     console.log(this.campos); // Verifica si los campos se están agregando
-    
+
   //verifica el estado del Array, para revisar errores que puedan ocurrir con los controles del formulario
     console.log(this.formularioProgramaForm.get('campos'));
-  
+
   } catch (error) {
     console.error('Error al agregar un campo:', error);
   }
@@ -98,9 +108,9 @@ export class FormRegistroParticipantesComponent implements OnInit {
   this.campos.removeAt(index);
  }
 onSubmit(): void{
-  console.log(this.formularioProgramaForm.value); 
+  console.log(this.formularioProgramaForm.value);
     const colaboradorId = this.authService.getColaboradorId();
-  
+
     if (!colaboradorId) {
 
       //muestra mensaje visual para el usuario en caso se no encontrar el id del colaborador.
@@ -139,7 +149,7 @@ Swal.fire({
       duration: 3000,
       panelClass: ['error-snackbar']
     })
-    
+
   }
 
 );

@@ -61,25 +61,30 @@ public isObject(value: any): value is InformacionDTO {
   return value && typeof value === 'object' && value.hasOwnProperty('campo') && value.hasOwnProperty('valor');
 }
 
-  obtenerColaboradoresConRol(page: number, pageSize: number): void {
-    this.colaboradorService.obtenerColaboradoresConRol(page, pageSize).subscribe({
-      next: (res) => {
-        this.colaboradores = res.colaboradores || [];
-       this.page = page;
+  obtenerColaboradoresConRol(page: number, pageSize: number, callback?: () => void): void {
+  this.colaboradorService.obtenerColaboradoresConRol(page, pageSize).subscribe({
+    next: (res) => {
+      // Filtrar solo los que tengan el rol "Líder de Proyectos"
+      this.colaboradores = (res.colaboradores || []).filter(
+        col => col.rol === 'LIDER DE PROYETOS'
+      );
 
-        this.totalPages = Math.ceil(res.total / pageSize);
+      this.page = page;
+      this.totalPages = Math.ceil(res.total / pageSize);
 
-        if (page > this.totalPages){
-          Swal.fire('Aviso', 'NO HAY MÁS PÁGINAS DISPONIBLES', 'info');
-          this.page = this.totalPages;
-        }
-      },
-      error: (err) => {
-        console.error('Error al obtener colaboradores con roles:', err);
-        Swal.fire('Error', 'No se pudo obtener la lista de colaboradores.', 'error');
-      },
-    });
-  }
+      if (page > this.totalPages){
+        Swal.fire('Aviso', 'NO HAY MÁS PÁGINAS DISPONIBLES', 'info');
+        this.page = this.totalPages;
+      }
+
+      if (callback) callback(); // Vuelve a mostrar el modal con datos nuevos
+    },
+    error: (err) => {
+      console.error('Error al obtener colaboradores con roles:', err);
+      Swal.fire('Error', 'No se pudo obtener la lista de colaboradores.', 'error');
+    },
+  });
+}
 
   activarPrograma(programa: ProgramaDto): void {
     this.programaService.activarPrograma(programa.id).subscribe({
@@ -91,39 +96,29 @@ public isObject(value: any): value is InformacionDTO {
     });
   }
   confirmarActivacion(programa: ProgramaDto): void {
-    if (programa.estado === 'ACTIVADO') {
-      return; // Ya está activado, no hacer nada
-    }
+  if (programa.estado === 'ACTIVADO') return;
 
-    const cargarColaboradores = (page: number) => {
-      this.obtenerColaboradoresConRol(page, this.pageSize); // Obtenemos los colaboradores en función de la página actual
+  let page = 1;
 
+  const cargarYMostrarModal = () => {
+    this.obtenerColaboradoresConRol(page, this.pageSize, () => {
+      const opciones = this.colaboradores.map(colaborador => `
+        <option value="${colaborador.idColaborador}">
+          ${colaborador.nombreColaborador} - ${colaborador.rol}
+        </option>
+      `).join('');
 
-    };
-    let page = 1;
-    cargarColaboradores(page);
-
-    //funtion para mostrar el modal
-    const mostrarSwal = () => {
-
- // Mostrar el cuadro de diálogo solo si hay colaboradores disponibles
       Swal.fire({
         title: '¿Deseas confirmar el programa?',
         html: `
           <label for="colaboradorResponsable">Asigne un Colaborador Responsable:</label>
-          <select id="colaboradorResponsable" class="swal2-input">
-            ${this.colaboradores.map(colaborador => `
-              <option value="${colaborador.idColaborador}">
-            ${colaborador.nombreColaborador} - ${colaborador.rol}</option>
-            `).join('')}
-          </select>
-          <br>
+          <select id="colaboradorResponsable" class="swal2-input">${opciones}</select><br>
           <button id="prevPage" class="swal2-styled">Anterior</button>
           <button id="nextPage" class="swal2-styled">Siguiente</button>
         `,
         focusConfirm: false,
         showCancelButton: true,
-        confirmButtonText: 'Confirmar',
+        confirmButtonText: 'Confirmar y asignar líder',
         preConfirm: () => {
           const colaboradorId = (document.getElementById('colaboradorResponsable') as HTMLSelectElement).value;
           if (!colaboradorId) {
@@ -138,39 +133,40 @@ public isObject(value: any): value is InformacionDTO {
           prevBtn.addEventListener('click', () => {
             if (page > 1) {
               page--;
-              cargarColaboradores(page);
-
+              cargarYMostrarModal();
             }
+            return false;//evita cierre de modal
           });
 
           nextBtn.addEventListener('click', () => {
-
-              page++;
-              cargarColaboradores(page);
-
+            page++;
+            cargarYMostrarModal();
           });
+          return false; // evita cierre del modal
         },
       }).then((result) => {
         if (result.isConfirmed) {
           const idColAsignado = result.value;
 
-          //DEFINIR FORMATO PARA ENVIAR EL BODY
           const formato = {
-           Nombre: 'string',
-           numero_documento: 'number'
+            Nombre: 'string',
+            numero_documento: 'number'
           };
+
           this.programaService.confirmarPrograma(programa.id, idColAsignado, formato).subscribe({
-            next: (res) => {
-              programa.estado = 'CONFIRMADO'; // Cambiar el estado del botón visualmente
-              programa.nombreColaboradorResponsable = this.colaboradores.find(col => col.idColaborador === idColAsignado)?.nombreColaborador || '';
+            next: () => {
+              programa.estado = 'CONFIRMADO';
+              programa.nombreColaboradorResponsable =
+                this.colaboradores.find(col => col.idColaborador === idColAsignado)?.nombreColaborador || '';
               Swal.fire('Confirmación', 'El programa ha sido confirmado', 'success');
             },
-            error: (err) => Swal.fire('Error', 'No se pudo confirmar el programa', 'error'),
+            error: () => Swal.fire('Error', 'No se pudo confirmar el programa', 'error'),
           });
         }
       });
-    };
+    });
+  };
 
-    mostrarSwal();
-  }
+  cargarYMostrarModal(); // inicio
+}
 }

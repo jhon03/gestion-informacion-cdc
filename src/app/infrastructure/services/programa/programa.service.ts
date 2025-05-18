@@ -16,7 +16,7 @@ export class ProgramaService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerProgramas(page: number, limit: number = 10): Observable<responsePrograms>{
+  obtenerProgramas(page: number, limit: number=10): Observable<responsePrograms>{
     const headers = new HttpHeaders({
       Authorization: `Bearer ${sessionStorage.getItem('tokenAcesso')}`, // Enviar el token almacenado
     });

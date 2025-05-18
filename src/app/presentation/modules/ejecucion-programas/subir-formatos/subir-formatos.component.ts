@@ -34,7 +34,7 @@ export class SubirFormatosComponent implements OnInit {
   }
 
   obtenerProgramas() {
-    this.programaService.obtenerProgramas(1).subscribe(
+    this.programaService.obtenerProgramas(1, 10).subscribe(
       response => {
         this.programas = response.programas; // Ajustar según la estructura del backend
       },
