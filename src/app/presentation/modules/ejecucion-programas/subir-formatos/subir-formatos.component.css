@@ -1,74 +1,98 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding: 20px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  height: 100%;
+}
 
-  mat-card {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    text-align: center;
-  }/* Estilos generales */
+mat-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.titulo-card {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #193A6F;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
 input[type="file"] {
-    margin-bottom: 10px;
-  }
+  display: block;
+  margin-top: 8px;
+  width: 100%;
+}
 
-  /* Botón antes de subir el archivo */
-  button {
-    background-color: #193A6F; /* Azul corporativo */
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 10px 15px;
-    border: none;
-    transition: background-color 0.3s ease-in-out;
-  }
+.file-label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 6px;
+  color: #555;
+}
 
-  /* Botón al pasar el mouse */
-  button:hover {
-    background-color: #F98125; /* Naranja corporativo */
-  }
+/* Botones */
+button {
+  border-radius: 5px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease-in-out;
+  color: white;
+}
 
-  /* Botón cuando el archivo ha sido subido */
-  button.subido {
-    background-color: #F98125 !important; /* Naranja corporativo */
-    color: white;
-    cursor: default;
-  }
+button:hover {
+  background-color: #F98125;
+}
 
-  /* Deshabilitar botón cuando el archivo se ha subido */
-  button:disabled {
-    background-color: #11996c !important;
-    opacity: 0.8;
-    cursor: not-allowed;
-  }
-  .btn-normal {
-    background-color: #193A6F !important;
-    color: white !important;
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-  }
+/* Botón por defecto */
+.btn-normal {
+  background-color: #193A6F !important;
+  color: white !important;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
 
-  .btn-subido {
-    background-color: #F98125 !important;
-    color: white !important;
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-  }
-  /* Media Query para pantallas pequeñas (menos de 600px) */
+/* Botón cuando el archivo ya fue subido */
+.btn-subido {
+  background-color: #F98125 !important;
+  cursor: default;
+}
+
+/* Botón deshabilitado */
+button:disabled {
+  background-color: #11996c !important;
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
-    mat-card {
-      max-width: 90%;
-      padding: 15px;
-    }
-
-    .btn-normal, .btn-subido {
-      font-size: 14px;
-      padding: 10px;
-    }
+  mat-card {
+    padding: 20px;
+    max-width: 95%;
   }
+
+  .btn-normal,
+  .btn-subido {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .titulo-card {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,20 @@
+<div class="container">
+  <h2>Registrar Asistencia</h2>
+
+  <form [formGroup]="asistenciaForm" (ngSubmit)="registrar()">
+    <div>
+      <label for="numeroDocumento">Número de Documento:</label>
+      <input id="numeroDocumento" formControlName="numeroDocumento" type="text" />
+    </div>
+
+    <div>
+      <label for="nombreActividad">Nombre de la Actividad:</label>
+      <input id="nombreActividad" formControlName="nombreActividad" type="text" />
+    </div>
+
+    <button type="submit" [disabled]="asistenciaForm.invalid">Registrar</button>
+  </form>
+
+  <p *ngIf="mensaje" style="color: green">{{ mensaje }}</p>
+  <p *ngIf="error" style="color: red">{{ error }}</p>
+</div>

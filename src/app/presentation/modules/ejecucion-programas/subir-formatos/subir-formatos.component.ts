@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ProgramaService } from '../../../../infrastructure/services/programa/programa.service';
+import { Programa } from '../../../../domain/models/programa.models';
 
 @Component({
   selector: 'app-subir-formatos',
@@ -21,28 +22,46 @@ export class SubirFormatosComponent implements OnInit {
 
   archivoSubido: boolean = false;
   selectedPrograma: string = '';
-
-  programas: any[] = []; // Aquí se almacenarán los programas activos
+ page: number = 1;
+  limit: number = 10;
+  isSubmitting = false;
+  
+  programas: Programa[] = []; // Aquí se almacenarán los programas activos
   constructor(private formatosService: FormatosService, private snackBar: MatSnackBar, private programaService: ProgramaService) {}
 
   ngOnInit() {
-    this.obtenerProgramas();
+    this.ObtenerProgramasActivos();
   }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
 
-  obtenerProgramas() {
-    this.programaService.obtenerProgramas(1, 10).subscribe(
-      response => {
-        this.programas = response.programas; // Ajustar según la estructura del backend
-      },
-      error => {
-        console.error('Error al obtener programas:', error);
-      }
-    );
-  }
+
+    ObtenerProgramasActivos(page: number = 1, acumulador: Programa[] = []): void {
+   this.programaService.obtenerProgramas(page, this.limit).subscribe({
+      next: (response)=> {
+        const programasActivos = response.programas.filter(p => p.estado === 'ACTIVO');
+         const nuevosAcumulados = [...acumulador, ...programasActivos];
+
+         if (response.programas.length === this.limit) {
+           this.ObtenerProgramasActivos(page + 1, nuevosAcumulados);
+         } else {
+           this.programas = nuevosAcumulados;
+           console.log('Programas activos cargados:', this.programas);
+         }
+       },
+       error: (error) => {
+         console.error('Error al obtener los programas:', error);
+         this.snackBar.open('Error al cargar los programas', 'Cerrar', {
+           duration: 3000,
+           panelClass: ['error-snackbar']
+         });
+       }
+     });
+   }
+
+
 
   uploadFile() {
     if (!this.selectedFile ||  !this.selectedPrograma) {
