@@ -40,9 +40,19 @@
             <mat-icon>fact_check</mat-icon>
             <span>Ver programas activos</span>
           </button>
+
+          <mat-card class="dashboard-card">
+<button mat-raised-button color="accent"
+  [routerLink]="['/ejecuccion/ver-planeacion']">
+  <mat-icon>visibility</mat-icon>
+  Ver Actividades de los programas
+</button>
+
+</mat-card>
         </div>
       </mat-card>
 
+      <!--DASHBOARD PARA LIDER DE PROYECTOS-->
       <mat-card class="dashboard-card" *ngIf="userRole === ' LIDER DE PROYETOS '">
 
         <mat-card-header>
@@ -87,12 +97,34 @@
         Ver Participantes
       </button>-->
 
-      <button mat-raised-button color="accent" [routerLink]="['/ejecuccion/registro-participantes']" [queryParams]="{ programaId: programa.id }">
-        <mat-icon>person_add</mat-icon>
-        Registrar participante
-      </button>
+     <button mat-raised-button color="primary" [routerLink]="['/ejecuccion/registro-participantes']"
+            [queryParams]="{ programaId: programa.id }" matTooltip="Registrar participantes">
+            <mat-icon>person_add</mat-icon>
+            Registrar participante
+          </button>
+
+        <button mat-raised-button color="warn" [routerLink]="['/ejecuccion/subir-archivos']"
+            [queryParams]="{ programaId: programa.id }" [disabled]="!programa.nombreColaboradorResponsable" matTooltip="Subir archivo de planeación">
+            <mat-icon>upload_file</mat-icon>
+            Subir planeación
+          </button>
+
+<button mat-raised-button color="accent"
+  [routerLink]="['/ejecuccion/ver-planeacion']">
+  <mat-icon>visibility</mat-icon>
+  Ver planeación
+</button>
+
+
     </mat-card-actions>
   </mat-card>
+</div>
+ <div class="dashboard-buttons" *ngIf="[' LIDER DE PROYETOS ']">
+<button mat-raised-button color="accent"
+  [routerLink]="['/ejecuccion/registrar-asistencia']">
+  <mat-icon>assignment_turned_in</mat-icon>
+      Registrar asistencias
+</button>
 </div>
 <!-- Paginador centrado -->
 <div class="paginator-container">
@@ -104,6 +136,8 @@
   (page)="onPaginateChange($event)">
 </mat-paginator>
 </div>
+
+
 
     <ng-template #sinProgramas>
       <p>No hay programas activos en este momento.</p>

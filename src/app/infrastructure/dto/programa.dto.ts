@@ -19,12 +19,12 @@ export interface ProgramaDto {
     idPrograma: string;
     colaboradorCreador: string;
     formatosActividades: {
-        fechaCreacion: String,
+        fechaCreacion: string,
         archivos: [
             {
-            name: String,
-            webUrl: String,
-            downloadUrl: String
+            name: string,
+            webUrl: string,
+            downloadUrl: string
             }
         ]
     },

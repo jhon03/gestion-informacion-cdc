@@ -7,6 +7,7 @@ export interface programaRequest {
 
 
 export interface responsePrograms {
+    nombrePrograma: string;
     totalItems: number;
     msg: string,
     programas: ProgramaDto[]

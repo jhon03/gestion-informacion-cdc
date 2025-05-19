@@ -66,7 +66,6 @@ import { RegistroNecesidadesModule } from './presentation/modules/registro-neces
    AutenticacionModule,
    UsuariosModule,
    FormulacionModule,
-   EjecucionProgramasModule,
    RegistroNecesidadesModule
   ],
 

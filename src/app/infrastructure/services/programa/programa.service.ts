@@ -5,6 +5,7 @@ import { Observable, map } from 'rxjs';
 import { responseProgram, responsePrograms } from '../../helpers/interfaces/programa.interface';
 import { programaRequest } from '../../helpers/interfaces/programa.interface';
 import { environment } from '../../../../environments/environment';
+import { ProgramaDto } from '../../dto/programa.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -62,4 +63,28 @@ subirArchivo(archivo: File): Observable<any> {
   formData.append('archivo', archivo);
   return this.http.post<any>(`${this.Url}/api/onedrive/upload`, formData);
 }
+getArchivosPlaneacion(idPrograma: string): Observable<{
+    nombrePrograma: string;
+  archivos: {
+    name: string;
+    webUrl: string;
+    downloadUrl: string;
+  }[];
+}> {
+    const url = `${this.Url}/planeacion/${idPrograma}`;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${sessionStorage.getItem('tokenAcesso')}`
+    });
+
+    return this.http.get<{
+     nombrePrograma: string;
+    archivos: {
+      name: string;
+      webUrl: string;
+      downloadUrl: string;
+    }[];
+    }>(url, { headers });
+  }
+
+
 }
