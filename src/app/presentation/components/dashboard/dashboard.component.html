@@ -17,40 +17,60 @@
      <!-- se quito la matriz de registrar necesidades para  dejarlo como botón-->
 
       <!-- Columna derecha -->
-      <mat-card class="dashboard-card" *ngIf="userRole === 'DIRECTORA '">
-        <mat-card-header>
-          <mat-card-title>¿Que deseas hacer hoy? </mat-card-title>
-          <mat-card-title> Ingresa a la opción  conveniente</mat-card-title>
-        </mat-card-header>
+    <mat-card class="dashboard-card" *ngIf="userRole === 'DIRECTORA '">
+  <mat-card-header>
+    <mat-card-title>¿Qué deseas hacer hoy?</mat-card-title>
+    <mat-card-subtitle>Selecciona la opción que necesitas</mat-card-subtitle>
+  </mat-card-header>
 
-        <div class="dashboard-buttons">
-          <button mat-raised-button color="primary" [routerLink]="['/iniciacion/registrar-necesidades']">
-            <mat-icon>post_add</mat-icon>
-            <span>Registrar necesidades</span>
-          </button>
-
-
-          <button mat-raised-button color="primary" [routerLink]="['/ejecuccion/formulario-registro']">
-            <mat-icon>post_add</mat-icon>
-            <span>Crear un formulario para registrar inscripción de participantes a un programa</span>
-          </button>
-
-
-          <button mat-raised-button color="warn" [routerLink]="['/formulacion/ver-programas-activos']">
-            <mat-icon>fact_check</mat-icon>
-            <span>Ver programas activos</span>
-          </button>
-
-          <mat-card class="dashboard-card">
-<button mat-raised-button color="accent"
-  [routerLink]="['/ejecuccion/ver-planeacion']">
-  <mat-icon>visibility</mat-icon>
-  Ver Actividades de los programas
-</button>
-
-</mat-card>
-        </div>
+  <!-- Reportes -->
+  <mat-card class="dashboard-card">
+    <h3>📊 Reportes</h3>
+    <div class="reportes-grid">
+      <mat-card class="report-card" (click)="irA('/consultar-asistencias')">
+        <mat-card-title>Administrar Asistencias</mat-card-title>
+        <mat-card-content>Gestiona las asistencias por actividad.</mat-card-content>
       </mat-card>
+
+      <mat-card class="report-card" (click)="irA('/total-asistentes-por-actividad')">
+        <mat-card-title>Total de Asistentes</mat-card-title>
+        <mat-card-content>Visualiza el total de participantes por actividad.</mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card>
+
+  <!-- Formulación -->
+  <mat-card class="dashboard-card">
+    <h3>📌 Formulación</h3>
+    <div class="dashboard-buttons">
+      <button mat-raised-button color="primary" [routerLink]="['/iniciacion/registrar-necesidades']">
+        <mat-icon>post_add</mat-icon>
+        Registrar necesidades
+      </button>
+
+      <button mat-raised-button color="warn" [routerLink]="['/formulacion/ver-programas-activos']">
+        <mat-icon>fact_check</mat-icon>
+        Ver programas activos
+      </button>
+    </div>
+  </mat-card>
+
+  <!-- Ejecución -->
+  <mat-card class="dashboard-card">
+    <h3>✅ Ejecución</h3>
+    <div class="dashboard-buttons">
+      <button mat-raised-button color="primary" [routerLink]="['/ejecuccion/formulario-registro']">
+        <mat-icon>group_add</mat-icon>
+        Formulario inscripción
+      </button>
+
+      <button mat-raised-button color="accent" [routerLink]="['/ejecuccion/ver-planeacion']">
+        <mat-icon>visibility</mat-icon>
+        Ver actividades
+      </button>
+    </div>
+  </mat-card>
+</mat-card>
 
       <!--DASHBOARD PARA LIDER DE PROYECTOS-->
       <mat-card class="dashboard-card" *ngIf="userRole === ' LIDER DE PROYETOS '">

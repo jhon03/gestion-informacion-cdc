@@ -140,4 +140,8 @@ limpiarFiltro(): void {
   this.filtroPrograma = '';
   this.programasFiltrados = [...this.programas];
 }
+
+ irA(ruta: string): void {
+    this.router.navigate([ruta]);
+  }
 }
