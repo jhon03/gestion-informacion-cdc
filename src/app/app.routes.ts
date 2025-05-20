@@ -14,6 +14,8 @@ import { CrearColaboradorComponent } from './presentation/modules/usuarios/colab
 import { CrearNuevoProgramaComponent } from './presentation/components/crear-nuevo-programa/crear-nuevo-programa.component';
 import { FormRegistroUsuariosComponent } from './presentation/components/form-registro-usuarios/form-registro-usuarios.component';
 import { GestionarColaboradoresComponent } from './presentation/components/usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
+import { AdministrarAsistenciasComponent } from './presentation/components/administrar-asistencias/administrar-asistencias.component';
+import { TotalAsistentesPorActividadesComponent } from './presentation/components/total-asistentes-por-actividades/total-asistentes-por-actividades.component';
 
 
 export const routes: Routes = [
@@ -81,8 +83,15 @@ export const routes: Routes = [
         path: 'gestionar-colaboradores',
         component: GestionarColaboradoresComponent
     },
+    {
+        path: 'consultar-asistencias',
+        component: AdministrarAsistenciasComponent
+    },
 
-
+    {
+        path: 'total-asistentes-por-actividad',
+        component: TotalAsistentesPorActividadesComponent
+    },
     {
         path: '**',
         redirectTo: ''

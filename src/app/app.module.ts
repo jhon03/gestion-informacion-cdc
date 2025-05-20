@@ -40,7 +40,7 @@ import { FormulacionModule } from './presentation/modules/formulacion/formulacio
 import { GestionarColaboradoresComponent } from './presentation/components/usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
 import { EjecucionProgramasModule } from './presentation/modules/ejecucion-programas/ejecucion-programas.module';
 import { RegistroNecesidadesModule } from './presentation/modules/registro-necesidades/registro-necesidades.module';
-
+import { NgApexchartsModule } from 'ng-apexcharts';
 @NgModule({
   declarations: [
     AppComponent
@@ -66,7 +66,8 @@ import { RegistroNecesidadesModule } from './presentation/modules/registro-neces
    AutenticacionModule,
    UsuariosModule,
    FormulacionModule,
-   RegistroNecesidadesModule
+   RegistroNecesidadesModule,
+   NgApexchartsModule
   ],
 
 

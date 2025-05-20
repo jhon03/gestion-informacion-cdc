@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-title>Total de Asistencias por Actividad</mat-card-title>
+  <mat-card-content>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre de la Actividad</mat-label>
+      <input matInput [(ngModel)]="nombreActividad" placeholder="Ej. sesión2">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="buscarAsistencias()">Buscar</button>
+
+    <div *ngIf="resultado"  class="resultado">
+      <p><strong>Actividad:</strong> {{ resultado.actividad }}</p>
+      <p><strong>Total de Asistentes:</strong> {{ resultado.totalAsistentes }}</p>
+    </div>
+
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+  </mat-card-content>
+</mat-card>

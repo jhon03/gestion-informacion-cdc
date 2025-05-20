@@ -7,3 +7,8 @@ export interface AsistenciaRequest {
 export interface AsistenciaResponse {
   message: string;
 }
+
+export interface AsistenciaActividad {
+  actividad: string;
+  totalAsistentes: number;
+}
