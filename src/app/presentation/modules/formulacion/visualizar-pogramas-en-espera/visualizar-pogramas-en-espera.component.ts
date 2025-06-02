@@ -19,7 +19,7 @@ import { ColaboradorService } from'../../../../infrastructure/services/colaborad
   styleUrl: './visualizar-pogramas-en-espera.component.css'
 })
 export class VisualizarPogramasEnEsperaComponent implements OnInit  {
-
+public sinProgramas: boolean = false; // NUEVA propiedad
   public programas: ProgramaDto[] = []; //lista de programas en espera
   public colaboradores: any[] = []; // Lista de colaboradores
   page = 1;
@@ -47,20 +47,44 @@ export class VisualizarPogramasEnEsperaComponent implements OnInit  {
 
 
   obtenerProgramasEnEspera(): void{
-    this.programaService.obtenerProgramasEnEspera().subscribe({
+    this.programaService.obtenerProgramasEnEspera(this.page, this.pageSize).subscribe({
       next: (res: any) => {
-        this.programas = res.programas;
+
+        this.programas = res.programas.map((programa: any)=>({
+          ...programa,
+          expanded: false
+        }));
+        this.sinProgramas = this.programas.length ===0;//marca si está vacío
         console.log(this.programas); // Verifica el formato de la información
         this.dataSource.data = this.programas; // Asignamos los datos a la tabla
         this.cargando = false;
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+
+        console.error(err);
+        this.cargando = false;
+      },
+
     });
   }
 public isObject(value: any): value is InformacionDTO {
   return value && typeof value === 'object' && value.hasOwnProperty('campo') && value.hasOwnProperty('valor');
 }
 
+//métodos para controlar la navegación entre páginas
+siguientePagina(): void {
+  if (this.page < this.totalPages) {
+    this.page++;
+    this.obtenerProgramasEnEspera();
+  }
+}
+
+paginaAnterior(): void {
+  if (this.page > 1) {
+    this.page--;
+    this.obtenerProgramasEnEspera();
+  }
+}
   obtenerColaboradoresConRol(page: number, pageSize: number, callback?: () => void): void {
   this.colaboradorService.obtenerColaboradoresConRol(page, pageSize).subscribe({
     next: (res) => {

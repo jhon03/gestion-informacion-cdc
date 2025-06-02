@@ -2,7 +2,14 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<div *ngIf="!cargando">
+<!-- Mensaje si no hay programas -->
+<div *ngIf="!cargando && sinProgramas" class="mensaje-vacio">
+  <mat-icon color="accent" class="icono-info">info</mat-icon>
+  No hay programas en espera de ser confirmados.
+</div>
+
+<!-- si hay programas se muestra-->
+<div *ngIf="!cargando && !sinProgramas">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Nombre del programa -->
@@ -27,19 +34,35 @@
     <ng-container matColumnDef="informacion">
       <th mat-header-cell *matHeaderCellDef> Información </th>
       <td mat-cell *matCellDef="let programa">
-        <ul>
-          <li *ngFor="let info of programa.informacion | keyvalue">
+        <div class="info-programa">
+        <ul class="lista-informacion">
+          <li *ngFor="let info of programa.expanded ? (programa.informacion | keyvalue) : (programa.informacion | keyvalue).slice(0, 2)">
+
             <ng-container *ngIf="isObject(info.value); else simpleValue">
-              <strong>{{ info.value.campo }}:</strong> {{ info.value.valor }}
+            <span class="etiqueta">{{ info.value.campo }}:</span>
+            <span class="valor">{{ info.value.valor }}</span>
             </ng-container>
+
             <ng-template #simpleValue>
               <strong>{{ info.key }}:</strong> {{ info.value }}
+              <span class="valor">{{ info.value }}</span>
             </ng-template>
+
           </li>
         </ul>
-      </td>
-    </ng-container>
 
+ <!-- Botón Ver más / Ver menos -->
+     <button *ngIf="(programa.informacion | keyvalue).length > 2"
+              mat-raised-button
+              color="accent"
+              class="btn-ver-mas texto-resaltado"
+              (click)="programa.expanded = !programa.expanded">
+        {{ programa.expanded ? 'Ver menos' : 'Ver más información' }}
+      </button>
+</div>
+      </td>
+
+</ng-container>
     <!-- Fecha de creación del programa -->
     <ng-container matColumnDef="fechaCreacion">
       <th mat-header-cell *matHeaderCellDef> Fecha Creación </th>
@@ -51,4 +74,10 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
+
+</div>
+<div class="paginacion-container" *ngIf="totalPages > 1">
+  <button mat-button (click)="paginaAnterior()" [disabled]="page === 1">Anterior</button>
+  <span>Página {{ page }} de {{ totalPages }}</span>
+  <button mat-button (click)="siguientePagina()" [disabled]="page === totalPages">Siguiente</button>
 </div>

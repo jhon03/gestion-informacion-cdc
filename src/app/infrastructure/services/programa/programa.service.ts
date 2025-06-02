@@ -29,8 +29,8 @@ export class ProgramaService {
   obtenerProgramaById(idPrograma: string): Observable<responseProgram>{
     return this.http.get<responseProgram>(`${this.Url}/${idPrograma}`)
   }
-  obtenerProgramasEnEspera(): Observable<responsePrograms>{
-    return this.http.get<responsePrograms>(`${this.Url}/obtenerProgramasConfirmacion`);
+  obtenerProgramasEnEspera(page: number, limit:number): Observable<responsePrograms>{
+    return this.http.get<responsePrograms>(`${this.Url}/obtenerProgramasConfirmacion?page=${page}&limit=${limit}`);
   }
 
   activarPrograma(idPrograma: string): Observable<responseProgram>{

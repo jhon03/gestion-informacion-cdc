@@ -16,7 +16,7 @@ export class programaRepositoryImpl implements ProgramaRepository {
     constructor(private programaService: ProgramaService){}
 
     getProgramsInConfirmation(): Observable<responsePrograms> {
-        return this.programaService.obtenerProgramasEnEspera();
+        return this.programaService.obtenerProgramasEnEspera(1,10);
     }
     activateProgram(idPrograma: string): Observable<responseProgram> {
         return this.programaService.activarPrograma(idPrograma);
@@ -42,5 +42,5 @@ export class programaRepositoryImpl implements ProgramaRepository {
         return this.programaService.obtenerProgramaById(idPrograma);
     }
 
-    
+
 }
