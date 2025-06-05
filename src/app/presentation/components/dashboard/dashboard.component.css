@@ -121,6 +121,7 @@ transition: box-shadow 0.3s, transform 0.3s;
   gap: 16px;
   margin-top: 8px;
 }
+
 @media (max-width: 768px) {
   .column-layout {
     flex-direction: column;

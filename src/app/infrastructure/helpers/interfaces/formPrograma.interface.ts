@@ -8,6 +8,7 @@ export interface formProgramaRequest {
 }
 //se esta utilizando para crear formulario y obtener formulario por ID
 export interface responseFormPrograma {
+    
     formulario: {
         idFormulario: string;
         programaId: string;
@@ -46,7 +47,7 @@ export interface CampoFormulario {
     nombre: string;
     tipo: string;
     idFormulario: string;
-    
+
   }
   export interface ResponseFormPrograma {
 

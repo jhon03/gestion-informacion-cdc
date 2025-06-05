@@ -18,6 +18,7 @@ import { ProgramaDto } from '../../../infrastructure/dto/programa.dto';
 import { ProgramaService } from '../../../infrastructure/services/programa/programa.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
+import { FormularioProgramaService } from '../../../infrastructure/services/formPrograma/formulario-programa.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -37,6 +38,18 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit{
+  nombrePrograma: string = '';
+  nombreEdad: Array<{ nombre: string; edad: string }> = [];
+nombreEnfermedadParticipantes: Array<{ nombre: string; enfermedad: string }> = [];
+
+nivelEducativoPorEdad: {
+  edad: string;
+  nivelEducativoPadre: string;
+  nivelEducativoMadre: string;
+}[] = [];
+
+
+
 userRole: string = '';
 programas: ProgramaDto[] = [];
 programasFiltrados: ProgramaDto[] = [];
@@ -49,7 +62,7 @@ page = 1;
 @ViewChild('sidenav') sidenav!: MatSidenav;
 
 constructor(private loginRespository: LoginRepository,
-  private authService: AuthenticacionService, private router: Router, private programaService: ProgramaService
+  private authService: AuthenticacionService, private router: Router, private programaService: ProgramaService, private formularioService: FormularioProgramaService
 
 ){}
 
@@ -59,7 +72,50 @@ ngOnInit(): void {
     this.getUserRole();
 
     this.obtenerProgramasActivos(this.page);
+
 }
+buscarFormularioPrograma(){
+ if (!this.nombrePrograma.trim()) return;
+
+  this.formularioService.obtenerFormPrograma(this.nombrePrograma.trim())
+    .subscribe(response => {
+          const formulario = response.formulario;
+
+      if (formulario?.valoresDiligenciados) {
+        this.nivelEducativoPorEdad = response.formulario.valoresDiligenciados.map(entry => {
+          const valores = entry.valores;
+
+          const edadPadre = valores.find(v => v.nombreCampo === 'Edad del padre')?.valor || '';
+          const edadMadre = valores.find(v => v.nombreCampo === 'Edad de la madre')?.valor || '';
+          const nivelPadre = valores.find(v => v.nombreCampo === 'Nivel educativo del padre')?.valor || '';
+          const nivelMadre = valores.find(v => v.nombreCampo === 'Nivel educativo de la madre')?.valor || '';
+
+          return {
+            edad: `Padre: ${edadPadre} / Madre: ${edadMadre}`,
+            nivelEducativoPadre: nivelPadre,
+            nivelEducativoMadre: nivelMadre
+          };
+        });
+// Nueva tabla: Nombre del niño y edad
+        this.nombreEdad = formulario.valoresDiligenciados.map(entry => {
+          const valores = entry.valores;
+          const nombre = valores.find(v => v.nombreCampo === 'Nombre completo del niño(a)')?.valor || '';
+          const edad = valores.find(v => v.nombreCampo === 'Fecha de nacimiento (o edad)')?.valor || '';
+
+          return { nombre, edad };
+        });
+
+// Tabla 3: Nombre y enfermedad del participante
+        this.nombreEnfermedadParticipantes = formulario.valoresDiligenciados.map(entry => {
+          const valores = entry.valores;
+          const nombre = valores.find(v => v.nombreCampo === 'Nombre del participante')?.valor || '';
+          const enfermedad = valores.find(v => v.nombreCampo === '¿Tiene alguna enfermedad?')?.valor || '';
+          return { nombre, enfermedad };
+        });
+      }
+    });
+
+  }
 
 getUserRole(): void {
 

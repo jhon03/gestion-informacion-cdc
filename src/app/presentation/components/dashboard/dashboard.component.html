@@ -25,7 +25,7 @@
 
   <!-- Reportes -->
   <mat-card class="dashboard-card">
-    <h3>📊 Reportes</h3>
+    <h3> Reportes</h3>
     <div class="reportes-grid">
       <mat-card class="report-card" (click)="irA('/consultar-asistencias')">
         <mat-card-title>Administrar Asistencias</mat-card-title>
@@ -39,9 +39,85 @@
     </div>
   </mat-card>
 
+  <!--visualizar datos caracterización por programa-->
+<div class="mt-4">
+
+  <div class="mb-4 flex items-center gap-2">
+    <input
+      [(ngModel)]="nombrePrograma"
+      placeholder="Nombre del programa"
+      class="border border-gray-300 px-3 py-1 rounded w-80"
+      type="text"
+    />
+
+   <button
+      (click)="buscarFormularioPrograma()"
+      class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition"
+    >
+      Buscar
+    </button>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-2">Nivel educativo por rango de edad</h3>
+
+  <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 text-left">Edad (Padre / Madre)</th>
+        <th class="px-4 py-2 text-left">Nivel educativo del padre</th>
+        <th class="px-4 py-2 text-left">Nivel educativo de la madre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of nivelEducativoPorEdad" class="border-t">
+        <td class="px-4 py-2">{{ item.edad }}</td>
+        <td class="px-4 py-2">{{ item.nivelEducativoPadre }}</td>
+        <td class="px-4 py-2">{{ item.nivelEducativoMadre }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Tabla: Nombre completo del niño y edad -->
+<div class="mt-6">
+  <h3 class="text-lg font-semibold mb-2">Niños registrados (Nombre y edad)</h3>
+  <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 text-left">Nombre completo del niño(a)</th>
+        <th class="px-4 py-2 text-left">Edad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of nombreEdad" class="border-t">
+        <td class="px-4 py-2">{{ item.nombre }}</td>
+        <td class="px-4 py-2">{{ item.edad }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Tabla: Nombre y enfermedad del participante -->
+<div class="mt-6">
+  <h3 class="text-lg font-semibold mb-2">Participantes con enfermedades registradas</h3>
+  <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 text-left">Nombre del participante</th>
+        <th class="px-4 py-2 text-left">Enfermedad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of nombreEnfermedadParticipantes" class="border-t">
+        <td class="px-4 py-2">{{ item.nombre }}</td>
+        <td class="px-4 py-2">{{ item.enfermedad }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
   <!-- Formulación -->
   <mat-card class="dashboard-card">
-    <h3>📌 Formulación</h3>
+    <h3>Formulación</h3>
     <div class="dashboard-buttons">
       <button mat-raised-button color="primary" [routerLink]="['/iniciacion/registrar-necesidades']">
         <mat-icon>post_add</mat-icon>
@@ -57,7 +133,7 @@
 
   <!-- Ejecución -->
   <mat-card class="dashboard-card">
-    <h3>✅ Ejecución</h3>
+    <h3>Ejecución</h3>
     <div class="dashboard-buttons">
       <button mat-raised-button color="primary" [routerLink]="['/ejecuccion/formulario-registro']">
         <mat-icon>group_add</mat-icon>
