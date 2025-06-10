@@ -16,9 +16,66 @@ import { FormRegistroUsuariosComponent } from './presentation/components/form-re
 import { GestionarColaboradoresComponent } from './presentation/components/usuarios/gestionar-colaboradores/gestionar-colaboradores.component';
 import { AdministrarAsistenciasComponent } from './presentation/components/administrar-asistencias/administrar-asistencias.component';
 import { TotalAsistentesPorActividadesComponent } from './presentation/components/total-asistentes-por-actividades/total-asistentes-por-actividades.component';
+import { ReportesCaracterizacionPoblacionalComponent } from './presentation/components/reportes-caracterizacion-poblacional/reportes-caracterizacion-poblacional.component';
 
 
 export const routes: Routes = [
+{
+        path: 'dashboard',
+        component: DashboardComponent,
+
+        children: [
+    {
+        path: 'consultar-asistencias',
+        component: AdministrarAsistenciasComponent
+    },
+
+    {
+        path: 'total-asistentes-por-actividad',
+        component: TotalAsistentesPorActividadesComponent
+    },
+     {
+         path: 'crear-formulario',
+         component: FormRegistroUsuariosComponent
+    },
+    {
+         path: 'registro_programa',
+         component: CrearNuevoProgramaComponent
+    },
+
+    {
+        path: 'gestionar-colaboradores',
+        component: GestionarColaboradoresComponent
+    },
+    {
+        path: 'reportes/caracterizacion',
+        component: ReportesCaracterizacionPoblacionalComponent
+    },
+      {
+            path: 'iniciacion',
+            loadChildren: () => import('./presentation/modules/registro-necesidades/registro-necesidades.module').then(m => m.RegistroNecesidadesModule)
+        },
+
+        {
+            path: 'formulacion',
+            loadChildren: () => import('./presentation/modules/formulacion/formulacion.module').then(m => m.FormulacionModule)
+        },
+        {
+            path: 'ejecuccion',
+            loadChildren: () => import('./presentation/modules/ejecucion-programas/ejecucion-programas.module').then(m => m.EjecucionProgramasModule)
+        },
+         {
+            path: 'usuarios',
+            loadChildren: () => import('./presentation/modules/usuarios/usuarios.module').then(m => m.UsuariosModule)
+        },
+
+    {
+        path: '**',
+        redirectTo: ''
+    },
+    ]
+},
+
 
     {
        path: '',
@@ -45,53 +102,8 @@ export const routes: Routes = [
         path: 'autenticacion',
         loadChildren: () => import('./presentation/modules/autenticacion/autenticacion.module').then(m => m.AutenticacionModule)
 
-        },
-        {
-            path: 'usuarios',
-            loadChildren: () => import('./presentation/modules/usuarios/usuarios.module').then(m => m.UsuariosModule)
-        },
-
-        {
-            path: 'formulacion',
-            loadChildren: () => import('./presentation/modules/formulacion/formulacion.module').then(m => m.FormulacionModule)
-        },
-        {
-            path: 'ejecuccion',
-            loadChildren: () => import('./presentation/modules/ejecucion-programas/ejecucion-programas.module').then(m => m.EjecucionProgramasModule)
-        },
-        {
-            path: 'iniciacion',
-            loadChildren: () => import('./presentation/modules/registro-necesidades/registro-necesidades.module').then(m => m.RegistroNecesidadesModule)
-        },
-
-    {
-        path: 'dashboard',
-        component: DashboardComponent, children: [
-    ]
     },
 
-    {
-         path: 'registro_programa',
-         component: CrearNuevoProgramaComponent
-    },
-    {
-         path: 'crear-formulario',
-         component: FormRegistroUsuariosComponent
-    },
-
-    {
-        path: 'gestionar-colaboradores',
-        component: GestionarColaboradoresComponent
-    },
-    {
-        path: 'consultar-asistencias',
-        component: AdministrarAsistenciasComponent
-    },
-
-    {
-        path: 'total-asistentes-por-actividad',
-        component: TotalAsistentesPorActividadesComponent
-    },
     {
         path: '**',
         redirectTo: ''

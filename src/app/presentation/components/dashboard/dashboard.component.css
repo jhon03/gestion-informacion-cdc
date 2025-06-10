@@ -122,6 +122,38 @@ transition: box-shadow 0.3s, transform 0.3s;
   margin-top: 8px;
 }
 
+.main-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 220px;
+  overflow: visible !important; /* evita scroll interno */
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.toolbar-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dashboard-card {
+  margin-bottom: 1rem;
+}
+.mat-nav-list {
+  flex-grow: 1;
+  overflow: visible !important;
+}
 @media (max-width: 768px) {
   .column-layout {
     flex-direction: column;

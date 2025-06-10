@@ -19,6 +19,14 @@ import { ProgramaService } from '../../../infrastructure/services/programa/progr
 import { MatTableDataSource } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { FormularioProgramaService } from '../../../infrastructure/services/formPrograma/formulario-programa.service';
+
+//Interface de listar item en menú(ngFor)
+interface MenuItem {
+  label: string;
+  route?: string;
+  icon?: string;
+  roles: string[];
+}
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -38,28 +46,33 @@ import { FormularioProgramaService } from '../../../infrastructure/services/form
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit{
-  nombrePrograma: string = '';
-  nombreEdad: Array<{ nombre: string; edad: string }> = [];
-nombreEnfermedadParticipantes: Array<{ nombre: string; enfermedad: string }> = [];
-
-nivelEducativoPorEdad: {
-  edad: string;
-  nivelEducativoPadre: string;
-  nivelEducativoMadre: string;
-}[] = [];
 
 
-
+menuAbierto = true;
 userRole: string = '';
+menuItems: MenuItem[] = [];
+
 programas: ProgramaDto[] = [];
-programasFiltrados: ProgramaDto[] = [];
-filtroPrograma: string= '';
-page = 1;
-  pageSize = 10;
-  totalPages: number = 0;
-  totalItems =0;
-  dataSource: MatTableDataSource<ProgramaDto> = new MatTableDataSource();
-@ViewChild('sidenav') sidenav!: MatSidenav;
+
+private allMenuItems: MenuItem[] = [
+    { label: 'Necesidades', route: '/dashboard/iniciacion/ver-necesidades', roles: ['DIRECTORA '] },
+    { label: 'Asistencias', route: '/dashboard/consultar-asistencias', roles: ['DIRECTORA '] },
+    { label: 'Total Asistentes', route: '/dashboard/total-asistentes-por-actividad', roles: ['DIRECTORA '] },
+
+    { label: 'Reportes', route: '/dashboard/reportes/caracterizacion', roles: ['DIRECTORA '] },
+    { label: 'Registrar Necesidades', route: '/dashboard/iniciacion/registrar-necesidades', icon: 'post_add', roles: ['DIRECTORA '] },
+    { label: 'Programas Activos', route: '/dashboard/formulacion/ver-programas-activos', icon: 'fact_check', roles: ['DIRECTORA ', ' LIDER DE PROYETOS '] },
+    { label: 'Crear Formulario para Inscripción', route: '/dashboard/ejecuccion/formulario-registro', roles: ['DIRECTORA '] },
+    { label: 'Actividades', route: '/dashboard/ejecuccion/ver-planeacion', icon: 'visibility', roles: ['DIRECTORA '] },
+     { label: 'Programas sin confirmar', route: '/dashboard/formulacion/ver-programas-en-espera', roles: ['DIRECTORA '] },
+    { label: 'Colaboradores', route: '/dashboard/gestionar-colaboradores', roles: ['SUPERUSER'] },
+    { label: 'Crear Programas', route: '/dashboard/iniciacion/ver-necesidades', icon: 'post_add', roles: [' PROFESIONAL DE PROYECTOS'] },
+    { label: 'Registrar Participante', route: '/dashboard/ejecuccion/registro-participantes', roles: [' LIDER DE PROYETOS '] },
+    { label: 'Subir planeación', route: '/dashboard/ejecuccion/subir-archivos', icon: 'post_add', roles: [' LIDER DE PROYETOS '] },
+    { label: 'Ver Actividades', route: '/dashboard/ejecuccion/ver-planeacion', roles: [' LIDER DE PROYETOS '] },
+    { label: 'Registrar Asistencia', route: '/dashboard/ejecuccion/registrar-asistencia', icon: 'assignment_turned_in', roles: [' LIDER DE PROYETOS '] }
+  ];
+
 
 constructor(private loginRespository: LoginRepository,
   private authService: AuthenticacionService, private router: Router, private programaService: ProgramaService, private formularioService: FormularioProgramaService
@@ -68,60 +81,18 @@ constructor(private loginRespository: LoginRepository,
 
 
 ngOnInit(): void {
-    this.userRole;
+
     this.getUserRole();
 
-    this.obtenerProgramasActivos(this.page);
 
 }
-buscarFormularioPrograma(){
- if (!this.nombrePrograma.trim()) return;
 
-  this.formularioService.obtenerFormPrograma(this.nombrePrograma.trim())
-    .subscribe(response => {
-          const formulario = response.formulario;
-
-      if (formulario?.valoresDiligenciados) {
-        this.nivelEducativoPorEdad = response.formulario.valoresDiligenciados.map(entry => {
-          const valores = entry.valores;
-
-          const edadPadre = valores.find(v => v.nombreCampo === 'Edad del padre')?.valor || '';
-          const edadMadre = valores.find(v => v.nombreCampo === 'Edad de la madre')?.valor || '';
-          const nivelPadre = valores.find(v => v.nombreCampo === 'Nivel educativo del padre')?.valor || '';
-          const nivelMadre = valores.find(v => v.nombreCampo === 'Nivel educativo de la madre')?.valor || '';
-
-          return {
-            edad: `Padre: ${edadPadre} / Madre: ${edadMadre}`,
-            nivelEducativoPadre: nivelPadre,
-            nivelEducativoMadre: nivelMadre
-          };
-        });
-// Nueva tabla: Nombre del niño y edad
-        this.nombreEdad = formulario.valoresDiligenciados.map(entry => {
-          const valores = entry.valores;
-          const nombre = valores.find(v => v.nombreCampo === 'Nombre completo del niño(a)')?.valor || '';
-          const edad = valores.find(v => v.nombreCampo === 'Fecha de nacimiento (o edad)')?.valor || '';
-
-          return { nombre, edad };
-        });
-
-// Tabla 3: Nombre y enfermedad del participante
-        this.nombreEnfermedadParticipantes = formulario.valoresDiligenciados.map(entry => {
-          const valores = entry.valores;
-          const nombre = valores.find(v => v.nombreCampo === 'Nombre del participante')?.valor || '';
-          const enfermedad = valores.find(v => v.nombreCampo === '¿Tiene alguna enfermedad?')?.valor || '';
-          return { nombre, enfermedad };
-        });
-      }
-    });
-
-  }
 
 getUserRole(): void {
 
   this.userRole = this.authService.getUserRole();
   console.log('user Role: ', this.userRole);
-
+ this.menuItems = this.allMenuItems.filter(item => item.roles.includes(this.userRole));
 
 }
 
@@ -148,56 +119,5 @@ cerrarSesion(){
   });
 }
 
-obtenerProgramasActivos(page: number): void {
 
-    this.programaService.obtenerProgramas(page, this.pageSize).subscribe({
-      next: (res) => {
-        this.programas = res.programas || [];
-        this.programasFiltrados = [...this.programas]; // Inicializa los filtrados
-        this.dataSource.data = this.programas;  // Se asigna la data a la MatTableDataSource
-        const paginaInfo = res.pagina || '';
-        const totalPages = parseInt(paginaInfo.split('de')[1].trim(), 10);
-        this.totalPages = totalPages;
-
-        if( res.tokenAccessRenovado){
-          sessionStorage.setItem('tokenAcesso', res.tokenAccessRenovado);
-        }
-        const msg = res.msg || '';
-        Swal.fire('Informacion', msg, 'info');
-      },
-
-      error: (err) => {
-        Swal.fire('Error', 'No se pudieron obtener los programas', 'error');
-        console.error(err);
-      },
-    });
-  }
-  // Navegación de la paginación
-  cambiarPagina(nuevaPagina: number): void {
-   if (nuevaPagina > 0 && nuevaPagina <= this.totalPages) {
-      this.page = nuevaPagina;
-      this.obtenerProgramasActivos(this.page);
-    } else {
-      Swal.fire('Aviso', 'No hay más páginas disponibles', 'info');
-    }
-}
-   onPaginateChange(event: any): void {
-  const nuevaPagina = event.pageIndex + 1; // Porque pageIndex empieza en 0
-  this.cambiarPagina(nuevaPagina);
-}
-filtrarProgramas(): void {
-  const filtro = this.filtroPrograma.trim().toLowerCase();
-  this.programasFiltrados = this.programas.filter(p =>
-    p.nombrePrograma.toLowerCase().includes(filtro)
-  );
-}
-
-limpiarFiltro(): void {
-  this.filtroPrograma = '';
-  this.programasFiltrados = [...this.programas];
-}
-
- irA(ruta: string): void {
-    this.router.navigate([ruta]);
-  }
 }

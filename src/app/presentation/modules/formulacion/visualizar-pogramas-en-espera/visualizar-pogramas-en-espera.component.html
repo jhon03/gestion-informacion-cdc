@@ -1,3 +1,5 @@
+
+
 <div *ngIf="cargando" class="spinner-container">
   <mat-spinner></mat-spinner>
 </div>
@@ -7,7 +9,9 @@
   <mat-icon color="accent" class="icono-info">info</mat-icon>
   No hay programas en espera de ser confirmados.
 </div>
-
+<mat-card-header>
+        <mat-card-title>Programas en Espera</mat-card-title>
+      </mat-card-header>
 <!-- si hay programas se muestra-->
 <div *ngIf="!cargando && !sinProgramas">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

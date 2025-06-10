@@ -1,281 +1,51 @@
+<mat-sidenav-container class="main-container">
+  <!-- Menú lateral -->
+  <mat-sidenav #sidenav mode="side" [(opened)]="menuAbierto" class="sidenav">
+ <mat-card-header>
+    <mat-card-title>¿Qué deseas hacer hoy?</mat-card-title>
+    <mat-card-subtitle>Selecciona la opción que necesitas</mat-card-subtitle>
+  </mat-card-header>
 
-<!--<div>mostrar mensaje al usuario "estas logueadocomo"+nombre de usuario
-   <span>titulo módulo. Ej:configur y admin usuario </span>
+ <mat-nav-list>
+  <a *ngFor="let item of menuItems"
+     mat-list-item
+     [routerLink]="item.route">
+   <mat-icon *ngIf="item.icon" class="me-1">{{ item.icon }}</mat-icon>
+{{ item.label }}
+  </a>
+</mat-nav-list>
+  </mat-sidenav>
 
-    </div>-->
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+
+    <!-- Barra superior -->
     <mat-toolbar color="primary">
-      <span class="toolbar-title">Panel de Administración</span>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="toolbar-title ms-2">Panel de Administración</span>
       <span class="example-spacer"></span>
-      <span>Rol: {{ userRole }}</span>
+      <span>Estás logueado como:</span>
+      <span class="mx-3">{{ userRole }}</span>
       <button mat-icon-button aria-label="Cerrar sesión" (click)="cerrarSesion()">
         <mat-icon>exit_to_app</mat-icon>
       </button>
     </mat-toolbar>
 
+    <!-- Zona de contenido dinámico -->
+    <div class="content-wrapper p-4">
+<ng-container *ngIf="userRole === 'DIRECTORA '">
+        <!-- lo que quiera mostrar al usuario por fuera del menú-->
+</ng-container>
 
-      <!-- Columna izquierda -->
-     <!-- se quito la matriz de registrar necesidades para  dejarlo como botón-->
+<ng-container *ngIf="userRole === 'LIDER DE PROYETOS'">
+       <!-- lo que quiera mostrar al usuario por fuera del menú-->
+</ng-container>
 
-      <!-- Columna derecha -->
-    <mat-card class="dashboard-card" *ngIf="userRole === 'DIRECTORA '">
-  <mat-card-header>
-    <mat-card-title>¿Qué deseas hacer hoy?</mat-card-title>
-    <mat-card-subtitle>Selecciona la opción que necesitas</mat-card-subtitle>
-  </mat-card-header>
-
-  <!-- Reportes -->
-  <mat-card class="dashboard-card">
-    <h3> Reportes</h3>
-    <div class="reportes-grid">
-      <mat-card class="report-card" (click)="irA('/consultar-asistencias')">
-        <mat-card-title>Administrar Asistencias</mat-card-title>
-        <mat-card-content>Gestiona las asistencias por actividad.</mat-card-content>
-      </mat-card>
-
-      <mat-card class="report-card" (click)="irA('/total-asistentes-por-actividad')">
-        <mat-card-title>Total de Asistentes</mat-card-title>
-        <mat-card-content>Visualiza el total de participantes por actividad.</mat-card-content>
-      </mat-card>
-    </div>
-  </mat-card>
-
-  <!--visualizar datos caracterización por programa-->
-<div class="mt-4">
-
-  <div class="mb-4 flex items-center gap-2">
-    <input
-      [(ngModel)]="nombrePrograma"
-      placeholder="Nombre del programa"
-      class="border border-gray-300 px-3 py-1 rounded w-80"
-      type="text"
-    />
-
-   <button
-      (click)="buscarFormularioPrograma()"
-      class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition"
-    >
-      Buscar
-    </button>
-  </div>
-
-  <h3 class="text-lg font-semibold mb-2">Nivel educativo por rango de edad</h3>
-
-  <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow">
-    <thead class="bg-gray-100">
-      <tr>
-        <th class="px-4 py-2 text-left">Edad (Padre / Madre)</th>
-        <th class="px-4 py-2 text-left">Nivel educativo del padre</th>
-        <th class="px-4 py-2 text-left">Nivel educativo de la madre</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of nivelEducativoPorEdad" class="border-t">
-        <td class="px-4 py-2">{{ item.edad }}</td>
-        <td class="px-4 py-2">{{ item.nivelEducativoPadre }}</td>
-        <td class="px-4 py-2">{{ item.nivelEducativoMadre }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- Tabla: Nombre completo del niño y edad -->
-<div class="mt-6">
-  <h3 class="text-lg font-semibold mb-2">Niños registrados (Nombre y edad)</h3>
-  <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow">
-    <thead class="bg-gray-100">
-      <tr>
-        <th class="px-4 py-2 text-left">Nombre completo del niño(a)</th>
-        <th class="px-4 py-2 text-left">Edad</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of nombreEdad" class="border-t">
-        <td class="px-4 py-2">{{ item.nombre }}</td>
-        <td class="px-4 py-2">{{ item.edad }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<!-- Tabla: Nombre y enfermedad del participante -->
-<div class="mt-6">
-  <h3 class="text-lg font-semibold mb-2">Participantes con enfermedades registradas</h3>
-  <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow">
-    <thead class="bg-gray-100">
-      <tr>
-        <th class="px-4 py-2 text-left">Nombre del participante</th>
-        <th class="px-4 py-2 text-left">Enfermedad</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of nombreEnfermedadParticipantes" class="border-t">
-        <td class="px-4 py-2">{{ item.nombre }}</td>
-        <td class="px-4 py-2">{{ item.enfermedad }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-  <!-- Formulación -->
-  <mat-card class="dashboard-card">
-    <h3>Formulación</h3>
-    <div class="dashboard-buttons">
-      <button mat-raised-button color="primary" [routerLink]="['/iniciacion/registrar-necesidades']">
-        <mat-icon>post_add</mat-icon>
-        Registrar necesidades
-      </button>
-
-      <button mat-raised-button color="warn" [routerLink]="['/formulacion/ver-programas-activos']">
-        <mat-icon>fact_check</mat-icon>
-        Ver programas activos
-      </button>
-    </div>
-  </mat-card>
-
-  <!-- Ejecución -->
-  <mat-card class="dashboard-card">
-    <h3>Ejecución</h3>
-    <div class="dashboard-buttons">
-      <button mat-raised-button color="primary" [routerLink]="['/ejecuccion/formulario-registro']">
-        <mat-icon>group_add</mat-icon>
-        Formulario inscripción
-      </button>
-
-      <button mat-raised-button color="accent" [routerLink]="['/ejecuccion/ver-planeacion']">
-        <mat-icon>visibility</mat-icon>
-        Ver actividades
-      </button>
-    </div>
-  </mat-card>
-</mat-card>
-
-      <!--DASHBOARD PARA LIDER DE PROYECTOS-->
-      <mat-card class="dashboard-card" *ngIf="userRole === ' LIDER DE PROYETOS '">
-
-        <mat-card-header>
-    <mat-card-title class="dashboard-title">Dashboard - Líder de Proyectos</mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-
-      <h3>📋 Programas Activos</h3>
- <!-- 🔍 Filtro por nombre de programa -->
-    <div class="filter-container">
-      <mat-form-field appearance="outline">
-
-        <mat-label>Buscar programa</mat-label>
-        <mat-icon matPrefix>search</mat-icon>
-        <input matInput placeholder="Escribe el nombre" [(ngModel)]="filtroPrograma" (ngModelChange)="filtrarProgramas()">
-        <button *ngIf="filtroPrograma" matSuffix mat-icon-button aria-label="Limpiar" (click)="limpiarFiltro()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+<!-- Contenido principal enrutado -->
+<router-outlet></router-outlet>
     </div>
 
-
-    <div class="programs-grid" *ngIf="programasFiltrados?.length; else sinProgramas">
-  <mat-card class="program-card" *ngFor="let programa of programasFiltrados">
-    <mat-card-header>
-      <mat-card-title>{{ programa.nombrePrograma }}</mat-card-title>
-      <mat-card-subtitle>
-        {{ programa.fechaCreacion | date: 'longDate' }}
-      </mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
-      <p><strong>Responsable:</strong> {{ programa.nombreColaboradorResponsable || 'Sin asignar' }}</p>
-      <p><strong>Estado:</strong> {{ programa.estado }}</p>
-    </mat-card-content>
-
-    <!-- Botones bien distribuidos -->
-    <mat-card-actions class="card-actions">
-      <!--<button mat-stroked-button color="primary" [routerLink]="['/programas', programa.id, 'participantes']">
-        <mat-icon>group</mat-icon>
-        Ver Participantes
-      </button>-->
-
-     <button mat-raised-button color="primary" [routerLink]="['/ejecuccion/registro-participantes']"
-            [queryParams]="{ programaId: programa.id }" matTooltip="Registrar participantes">
-            <mat-icon>person_add</mat-icon>
-            Registrar participante
-          </button>
-
-        <button mat-raised-button color="warn" [routerLink]="['/ejecuccion/subir-archivos']"
-            [queryParams]="{ programaId: programa.id }" [disabled]="!programa.nombreColaboradorResponsable" matTooltip="Subir archivo de planeación">
-            <mat-icon>upload_file</mat-icon>
-            Subir planeación
-          </button>
-
-<button mat-raised-button color="accent"
-  [routerLink]="['/ejecuccion/ver-planeacion']">
-  <mat-icon>visibility</mat-icon>
-  Ver planeación
-</button>
-
-
-    </mat-card-actions>
-  </mat-card>
-</div>
- <div class="dashboard-buttons" *ngIf="[' LIDER DE PROYETOS ']">
-<button mat-raised-button color="accent"
-  [routerLink]="['/ejecuccion/registrar-asistencia']">
-  <mat-icon>assignment_turned_in</mat-icon>
-      Registrar asistencias
-</button>
-</div>
-<!-- Paginador centrado -->
-<div class="paginator-container">
-<mat-paginator
-  [length]="totalPages * pageSize"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[pageSize]"
-  [pageIndex]="page - 1"
-  (page)="onPaginateChange($event)">
-</mat-paginator>
-</div>
-
-
-
-    <ng-template #sinProgramas>
-      <p>No hay programas activos en este momento.</p>
-    </ng-template>
-  </mat-card-content>
-
-      </mat-card>
-<!--permisos de directora y profesional de proyectos para visibilizar necesidades-->
-<mat-card class="dashboard-card" *ngIf="userRole === 'DIRECTORA ' || userRole === ' PROFESIONAL DE PROYECTOS'">
-  <div class="dashboard-buttons">
-    <button mat-raised-button color="accent" [routerLink]="['/iniciacion/ver-necesidades']">
-      <mat-icon>visibility</mat-icon>
-      <span>
-        {{ userRole === ' PROFESIONAL DE PROYECTOS'
-            ? 'Ver necesidades registradas para crear un programa'
-            : 'Ver necesidades registradas' }}
-      </span>
-    </button>
-
-
-  </div>
-
-</mat-card>
-
-
-      <mat-card class="dashboard-card" *ngIf="userRole === 'SUPERUSER'">
-        <mat-card-header>
-          <mat-card-title>Gestión de Colaboradores</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <app-gestionar-colaboradores></app-gestionar-colaboradores>
-        </mat-card-content>
-      </mat-card>
-
-
-
-    <mat-card class="dashboard-card" *ngIf="userRole === 'DIRECTORA '">
-      <mat-card-header>
-        <mat-card-title>Programas en Espera</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <app-visualizar-pogramas-en-espera></app-visualizar-pogramas-en-espera>
-      </mat-card-content>
-    </mat-card>
-
+</mat-sidenav-content>
+</mat-sidenav-container>

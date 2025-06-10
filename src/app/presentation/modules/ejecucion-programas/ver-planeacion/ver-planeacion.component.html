@@ -1,11 +1,11 @@
 <div class="container">
-  <h2>📋 Selecciona un programa</h2>
+  <h2>Selecciona un programa</h2>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Programa</mat-label>
     <mat-select name="programa" [(ngModel)]="idProgramaSeleccionado" (selectionChange)="onProgramaSeleccionado()">
       <mat-option *ngFor="let programa of programas" [value]="programa.idPrograma">
-        {{ programa.nombrePrograma }} 
+        {{ programa.nombrePrograma }}
       </mat-option>
     </mat-select>
   </mat-form-field>
