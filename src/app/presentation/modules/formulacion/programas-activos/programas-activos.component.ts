@@ -15,7 +15,7 @@ import { MaterialModule } from '../../material/material/material.module';
 })
 export class ProgramasActivosComponent implements OnInit{
 
-  displayedColumns: string[] = ['nombrePrograma', 'estado', 'informacion', 'fechaCreacion', 'nombreColaboradorResponsable'];
+  displayedColumns: string[] = ['nombrePrograma', 'informacion', 'fechaCreacion', 'nombreColaboradorResponsable'];
   dataSource: MatTableDataSource<ProgramaDto> = new MatTableDataSource();
   objectoKeys = Object.keys
 
@@ -24,7 +24,7 @@ export class ProgramasActivosComponent implements OnInit{
   pageSize = 10;
   totalPages: number = 0;
   totalItems =0;
- 
+
 constructor( private programaService: ProgramaService,
   ){}
 
