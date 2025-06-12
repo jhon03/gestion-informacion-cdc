@@ -85,11 +85,11 @@ formatearFecha(fecha: string): string {
   }
 }
   irACrearColaborador(): void {
-  this.router.navigate(['/usuarios/crear-colaborador'])
+  this.router.navigate(['dashboard/usuarios/crear-colaborador'])
   }
 
   irACrearRol(): void {
-    this.router.navigate(['/usuarios/roles'])
+    this.router.navigate(['dashboard/usuarios/roles'])
   }
 
   //Método para desactivar un colaborador
